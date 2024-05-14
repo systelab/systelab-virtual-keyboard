@@ -3,5 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "systelab-virtual-keyboard": {
+      "projectType": "library",
+      "root": "projects/systelab-virtual-keyboard",
+      "sourceRoot": "projects/systelab-virtual-keyboard/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/systelab-virtual-keyboard/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/systelab-virtual-keyboard/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/systelab-virtual-keyboard/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/systelab-virtual-keyboard/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
   }
 }
