@@ -7,6 +7,7 @@ import { VirtualKeyboardButton, VirtualKeyboardInputTypes, VirtualKeyboardLayout
   standalone: true,
   imports: [],
   templateUrl: './systelab-virtual-keyboard.component.html',
+  styleUrl: 'systelab-virtual-keyboard.component.scss',
 })
 export class SystelabVirtualKeyboardComponent implements AfterViewInit {
   @HostListener('window:keyup', ['$event'])

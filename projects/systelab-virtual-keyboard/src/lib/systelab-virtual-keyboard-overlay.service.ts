@@ -134,11 +134,14 @@ export class SystelabVirtualKeyboardOverlayService {
 
   private computePositionStrategyOrigin(inputOrigin: HTMLInputElement): PositionStrategyOrigin {
     const overlayOffsetX = this.computeOverlayOffsetX(inputOrigin);
+    const { width: overlayWidthString } = this.getOverlaySize();
+    const overlayWidth = Number((overlayWidthString as string).replace('px', ''));
+    const {x, y, width, height} = inputOrigin.getBoundingClientRect();
     return {
-      width: inputOrigin.getBoundingClientRect().width,
-      height: inputOrigin.getBoundingClientRect().height,
-      x: inputOrigin.getBoundingClientRect().x + overlayOffsetX,
-      y: inputOrigin.getBoundingClientRect().y,
+      width,
+      height,
+      x: width < overlayWidth ? x - overlayOffsetX : x + overlayOffsetX,
+      y,
     };
   }
 

@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'simple-keyboard/build/css/index';
+@import '@angular/cdk/overlay-prebuilt.css';
+
+.cdk-overlay-dark-backdrop {
+  backdrop-filter: saturate(30%);
+  transition: all .3s !important;
+}
+
+.cdk-overlay-pane {
+  background-color: var(--slab_background_primary);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+  border-radius: 7px;
+  overflow: hidden;
+  transition: all .5s;
+
+  &:not(.fullscreen) {
+    animation: scaleUp .2s;
+  }
+
+  // avoid animation in firefox because it produces an unpleasant flickering effect
+  @-moz-document url-prefix() {
+    &:not(.fullscreen) {
+      animation: none;
+    }
+  }
+
+  &.fullscreen {
+    border: 0;
+    border-radius: 0;
+  }
+
+  & > *:first-child {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+  }
+}
+
+/* Animations
+  ========================================================================== */
+@keyframes scaleUp {
+  0% {
+    transform: scale(.8) translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+  }
+}
+
+.hg-theme-default {
+  .hg-button {
+    height: 55px;
+  }
+}
+
+.virtual-keyboard-show-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  font-size: 20px;
+}
+
+.virtual-keyboard-delete-button {
+  > span {
+    font-size: 3px;
+    visibility: hidden;
+  }
+  position: relative;
+  &:before {
+    content: '\f55a';
+    position: absolute;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 20px;
+  }
+}
