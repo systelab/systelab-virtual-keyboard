@@ -27,7 +27,7 @@ import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.co
 import { SystelabVirtualKeyboardOverlayService } from './systelab-virtual-keyboard-overlay.service';
 
 @Directive({
-  selector: 'input[virtualKeyboard], textarea[virtualKeyboard]',
+  selector: 'input[vkEnabled], textarea[vkEnabled]',
 })
 export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('document:click', ['$event'])
@@ -55,7 +55,14 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     }
   }
 
-  @Input() enableVirtualKeyboard: boolean;
+  private enabled = false;
+  @Input()
+  set vkEnabled(enabled: boolean) {
+    this.enabled = true;
+  };
+  get vkEnabled(): boolean {
+    return this.enabled;
+  }
 
   private fixedBottom = false;
   @Input()
@@ -90,7 +97,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   }
 
   ngAfterViewInit() {
-    if (this.enableVirtualKeyboard) {
+    if (this.vkEnabled) {
       const keyboardIcon = this.elementRef.nativeElement.parentElement.querySelector('i');
       keyboardIcon.addEventListener('click', this.togglePanel.bind(this));
     }
@@ -155,7 +162,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   }
 
   private attachKeyboardIcon() {
-    if (this.enableVirtualKeyboard) {
+    if (this.vkEnabled) {
       const child = this.document.createElement('i');
       child.classList.add('fa');
       child.classList.add('fa-keyboard');
