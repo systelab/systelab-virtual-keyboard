@@ -1,24 +1,37 @@
 # SystelabVirtualKeyboard
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+Systelab Virtual Keyboard is a on-screen keyboard focused on touch devices.
 
-## Code scaffolding
+## Using the directive
 
-Run `ng generate component component-name --project systelab-virtual-keyboard` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project systelab-virtual-keyboard`.
-> Note: Don't forget to add `--project systelab-virtual-keyboard` or else it will be added to the default project in your `angular.json` file. 
+Before use the directive you have to import the module into your application.
 
-## Build
+```typescript
+NgModule({
+  imports: [
+    ...,
+    SystelabVirtualKeyboardModule,
+  ]
+})
+```
 
-Run `ng build systelab-virtual-keyboard` to build the project. The build artifacts will be stored in the `dist/` directory.
+Then the virtual keyboard can be enabled for inputs or textareas. To enable it the attribute *vkEnabled* can be used into the desire HTML element. It can be binding dynamically in the same way *[vkEnabled]="vkEnabledVariable"*
 
-## Publishing
+```html
+<input class="input" type="number" placeholder="Numeric input default layout" vkEnabled vkFixedBottom [vkConfig]="vkConfig">
+```
 
-After building your library with `ng build systelab-virtual-keyboard`, go to the dist folder `cd dist/systelab-virtual-keyboard` and run `npm publish`.
+## Directive options
 
-## Running unit tests
+The default behaviour can be overrided trought some attributes:
 
-Run `ng test systelab-virtual-keyboard` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* vkEnabled: enable the virtual keyboard for the element
+* vkFixedBottom: fix the virtual keyboard to the bottom of the page
+* vkConfig: configuration object
 
-## Further help
+### Configuration object
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The configuration params are describe into the interface *SystelabVirtualKeyboardConfig*
+
+* layout: usually the virtual keyboard select the layout between *default* or *numeric* depending on the input type. But with the config object you can override this behaviour and force the desired layout. The available layouts are described in the enum *SystelabVirtualKeyboardLayouts*
+

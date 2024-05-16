@@ -1,27 +1,37 @@
 # SystelabVirtualKeyboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
+Systelab Virtual Keyboard is a on-screen keyboard focused on touch devices.
 
-## Development server
+## Using the directive
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Before use the directive you have to import the module into your application.
 
-## Code scaffolding
+```typescript
+NgModule({
+  imports: [
+    ...,
+    SystelabVirtualKeyboardModule,
+  ]
+})
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Then the virtual keyboard can be enabled for inputs or textareas. To enable it the attribute *vkEnabled* can be used into the desire HTML element. It can be binding dynamically in the same way *[vkEnabled]="vkEnabledVariable"*
 
-## Build
+```html
+<input class="input" type="number" placeholder="Numeric input default layout" vkEnabled vkFixedBottom [vkConfig]="vkConfig">
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Directive options
 
-## Running unit tests
+The default behaviour can be overrided trought some attributes:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+* vkEnabled: enable the virtual keyboard for the element
+* vkFixedBottom: fix the virtual keyboard to the bottom of the page
+* vkConfig: configuration object
 
-## Running end-to-end tests
+### Configuration object
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The configuration params are describe into the interface *SystelabVirtualKeyboardConfig*
 
-## Further help
+* layout: usually the virtual keyboard select the layout between *default* or *numeric* depending on the input type. But with the config object you can override this behaviour and force the desired layout. The available layouts are described in the enum *SystelabVirtualKeyboardLayouts*
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
