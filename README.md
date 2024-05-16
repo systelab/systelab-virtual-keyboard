@@ -1,4 +1,4 @@
-# SystelabVirtualKeyboard
+# SystelabVirtualKeyboard (THIS IS AN ALPHA VERSION)
 
 Systelab Virtual Keyboard is a on-screen keyboard focused on touch devices.
 
