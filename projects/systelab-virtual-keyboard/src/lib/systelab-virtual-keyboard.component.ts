@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 import SimpleKeyboard from 'simple-keyboard';
-import { SystelabVirtualKeyboardButton, SystelabVirtualKeyboardInputTypes, SystelabVirtualKeyboardLayouts } from './constants';
+import {
+  SystelabVirtualKeyboardButton,
+  SystelabVirtualKeyboardInputTypes,
+  SystelabVirtualKeyboardLayouts
+} from './constants';
 
 @Component({
   selector: 'iw-virtual-keyboard.component',

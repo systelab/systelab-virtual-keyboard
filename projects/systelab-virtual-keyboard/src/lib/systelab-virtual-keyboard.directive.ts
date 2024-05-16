@@ -16,7 +16,8 @@ import {
   Inject,
   Input,
   OnDestroy,
-  OnInit, Optional,
+  OnInit,
+  Optional,
   Renderer2,
 } from '@angular/core';
 
@@ -25,7 +26,7 @@ import { DOCUMENT } from '@angular/common';
 import { SystelabVirtualKeyboardInputTypes, SystelabVirtualKeyboardLayouts } from './constants';
 import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.component';
 import { SystelabVirtualKeyboardOverlayService } from './systelab-virtual-keyboard-overlay.service';
-import { VIRTUAL_KEYBOARD_CONFIG, SystelabVirtualKeyboardConfig } from './systelab-virtual-keyboard.config';
+import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
 
 @Directive({
   selector: 'input[vkEnabled], textarea[vkEnabled]',

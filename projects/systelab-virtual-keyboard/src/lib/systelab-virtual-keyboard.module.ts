@@ -1,8 +1,8 @@
-import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SystelabVirtualKeyboardDirective } from './systelab-virtual-keyboard.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { VIRTUAL_KEYBOARD_CONFIG, SystelabVirtualKeyboardConfig } from './systelab-virtual-keyboard.config';
+import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
 import { SystelabVirtualKeyboardOverlayService } from './systelab-virtual-keyboard-overlay.service';
 
 export const factory = () => {
