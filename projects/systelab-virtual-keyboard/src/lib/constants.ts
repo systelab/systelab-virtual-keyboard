@@ -7,7 +7,7 @@
  * strictly forbidden unless prior written permission is Instrumentation Laboratory Company.
  */
 
-export enum VirtualKeyboardButton {
+export enum SystelabVirtualKeyboardButton {
   Done = '{done}',
   Enter = '{enter}',
   Shift = '{shift}',
@@ -18,13 +18,13 @@ export enum VirtualKeyboardButton {
   Tab = '{tab}',
 }
 
-export enum VirtualKeyboardLayouts {
+export enum SystelabVirtualKeyboardLayouts {
   default = 'default',
   shift = 'shift',
   numeric = 'numeric',
 }
 
-export enum VirtualKeyboardInputTypes {
+export enum SystelabVirtualKeyboardInputTypes {
   text = 'text',
   number = 'number',
   password = 'password',

@@ -10,7 +10,7 @@
 import { Overlay, OverlayRef, OverlaySizeConfig, PositionStrategy } from '@angular/cdk/overlay';
 import { ComponentRef, Injectable } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { VirtualKeyboardLayouts } from './constants';
+import { SystelabVirtualKeyboardLayouts } from './constants';
 import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.component';
 
 interface PositionStrategyOrigin {
@@ -26,7 +26,7 @@ interface PositionStrategyOrigin {
 export class SystelabVirtualKeyboardOverlayService {
   private overlayRef!: OverlayRef;
   private open: boolean;
-  private layout: VirtualKeyboardLayouts;
+  private layout: SystelabVirtualKeyboardLayouts;
 
   constructor(private readonly overlay: Overlay) {}
 
@@ -41,7 +41,7 @@ export class SystelabVirtualKeyboardOverlayService {
   public create(
     inputOrigin: HTMLInputElement,
     fixedBottom: boolean,
-    layout: VirtualKeyboardLayouts = VirtualKeyboardLayouts.default,
+    layout: SystelabVirtualKeyboardLayouts = SystelabVirtualKeyboardLayouts.default,
   ): ComponentRef<SystelabVirtualKeyboardComponent> {
     this.layout = layout;
     this.overlayRef = this.overlay.create({
@@ -123,7 +123,7 @@ export class SystelabVirtualKeyboardOverlayService {
   }
 
   private getOverlaySize(): OverlaySizeConfig {
-    const overlayWidth = this.layout === VirtualKeyboardLayouts.numeric ? '400px' : '1200px';
+    const overlayWidth = this.layout === SystelabVirtualKeyboardLayouts.numeric ? '400px' : '1200px';
 
     return {
       width: overlayWidth,

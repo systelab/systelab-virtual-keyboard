@@ -1,6 +1,6 @@
 <section class="main-container">
   <div class="input-container">
-    <input class="input" type="text" placeholder="Alphanumerical keyboard" vkEnabled>
+    <input class="input" type="text" placeholder="Alphanumerical keyboard" [vkEnabled]="true">
   </div>
 
   <div class="input-container">
@@ -8,6 +8,10 @@
   </div>
 
   <div class="input-container">
-    <input class="input" type="text" placeholder="Fixed bottom keyboard" vkEnabled [vkFixedBottom]="true">
+    <input class="input" type="number" placeholder="Numeric input default layout" vkEnabled [vkConfig]="vkConfig">
+  </div>
+
+  <div class="input-container">
+    <input class="input" type="text" placeholder="Fixed bottom keyboard" vkEnabled vkFixedBottom>
   </div>
 </section>

@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { SystelabVirtualKeyboardDirectiveModule } from 'systelab-charts';
+import {
+  SystelabVirtualKeyboardConfig
+} from '../../../systelab-virtual-keyboard/src/lib/systelab-virtual-keyboard.config';
+import { SystelabVirtualKeyboardLayouts } from '../../../systelab-virtual-keyboard/src/lib/constants';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, SystelabVirtualKeyboardDirectiveModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'showcase';
+  public vkConfig: SystelabVirtualKeyboardConfig = {
+    layout: SystelabVirtualKeyboardLayouts.numeric,
+  }
 }
+

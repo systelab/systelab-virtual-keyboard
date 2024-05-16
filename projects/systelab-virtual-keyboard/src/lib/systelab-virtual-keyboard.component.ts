@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 import SimpleKeyboard from 'simple-keyboard';
-import { VirtualKeyboardButton, VirtualKeyboardInputTypes, VirtualKeyboardLayouts } from './constants';
+import { SystelabVirtualKeyboardButton, SystelabVirtualKeyboardInputTypes, SystelabVirtualKeyboardLayouts } from './constants';
 
 @Component({
   selector: 'iw-virtual-keyboard.component',
@@ -41,7 +41,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
   }
 
   public debug = false;
-  private selectedLayout: VirtualKeyboardLayouts = VirtualKeyboardLayouts.default;
+  private selectedLayout: SystelabVirtualKeyboardLayouts = SystelabVirtualKeyboardLayouts.default;
   private keyboard: SimpleKeyboard;
   private caretPosition: number | null = null;
   private caretPositionEnd: number | null = null;
@@ -53,32 +53,32 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     const layout = {
-      [VirtualKeyboardLayouts.default]: [
+      [SystelabVirtualKeyboardLayouts.default]: [
         '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
         '{tab} q w e r t y u i o p [ ] \\',
         "{lock} a s d f g h j k l ; ' {enter}",
         '{shift} z x c v b n m , . / {shift}',
         '{space}',
       ],
-      [VirtualKeyboardLayouts.shift]: [
+      [SystelabVirtualKeyboardLayouts.shift]: [
         '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
         '{tab} Q W E R T Y U I O P { } |',
         '{lock} A S D F G H J K L : " {enter}',
         '{shift} Z X C V B N M &lt; &gt; ? {shift}',
         '{space}',
       ],
-      [VirtualKeyboardLayouts.numeric]: ['7 8 9', '4 5 6', '1 2 3', '0 {bksp}'],
+      [SystelabVirtualKeyboardLayouts.numeric]: ['7 8 9', '4 5 6', '1 2 3', '0 {bksp}'],
     };
     this.keyboard = new SimpleKeyboard('.simple-keyboard', {
       onKeyPress: (button) => this.handleKeyPress(button),
       mergeDisplay: true,
       display: {
-        [VirtualKeyboardButton.Backspace]: 'delete',
+        [SystelabVirtualKeyboardButton.Backspace]: 'delete',
       },
       buttonTheme: [
         {
           class: 'virtual-keyboard-delete-button',
-          buttons: `${VirtualKeyboardButton.Backspace}`,
+          buttons: `${SystelabVirtualKeyboardButton.Backspace}`,
         },
       ],
       layout,
@@ -91,14 +91,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
   public setActiveInput(input: HTMLInputElement | HTMLTextAreaElement): void {
     this.activeInputElement = input;
-
-    if (this.isInputAlphabetic(input)) {
-      this.setLayout(VirtualKeyboardLayouts.default);
-    } else if (this.isInputNumeric(input)) {
-      this.setLayout(VirtualKeyboardLayouts.numeric);
-    } else {
-      this.setLayout(VirtualKeyboardLayouts.default);
-    }
 
     if (this.debug) {
       const inputType = this.activeInputElement?.type;
@@ -123,14 +115,23 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     this.focusActiveInput();
   }
 
+  public setLayout(layout: SystelabVirtualKeyboardLayouts): void {
+    this.selectedLayout = layout;
+    if (this.keyboard) {
+      this.keyboard.setOptions({
+        layoutName: layout,
+      });
+    }
+  }
+
   private isInputAlphabetic(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
     const inputType = activeInputElement?.type;
-    return inputType && [VirtualKeyboardInputTypes.text, VirtualKeyboardInputTypes.password].some((i) => i === inputType);
+    return inputType && [SystelabVirtualKeyboardInputTypes.text, SystelabVirtualKeyboardInputTypes.password].some((i) => i === inputType);
   }
 
   private isInputNumeric(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
     const inputType = activeInputElement?.type;
-    return inputType && [VirtualKeyboardInputTypes.number].some((i) => i === inputType);
+    return inputType && [SystelabVirtualKeyboardInputTypes.number].some((i) => i === inputType);
   }
 
   private handleKeyPress(button: string, e?: Event): void {
@@ -138,9 +139,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
       console.log('Key press:', button);
     }
 
-    if (button === VirtualKeyboardButton.Shift || button === VirtualKeyboardButton.Lock) {
+    if (button === SystelabVirtualKeyboardButton.Shift || button === SystelabVirtualKeyboardButton.Lock) {
       this.toggleShift();
-    } else if (button === VirtualKeyboardButton.Done) {
+    } else if (button === SystelabVirtualKeyboardButton.Done) {
       this.closePanel.emit();
       return;
     }
@@ -166,13 +167,13 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     const commonParams: [number, number, boolean] = this.getCommonParams();
     let output = this.activeInputElement?.value || '';
     if (!this.isStandardButton(button)) {
-      if (button === VirtualKeyboardButton.Backspace) {
+      if (button === SystelabVirtualKeyboardButton.Backspace) {
         output = this.removeAt(output, ...commonParams);
-      } else if (button === VirtualKeyboardButton.Space) {
+      } else if (button === SystelabVirtualKeyboardButton.Space) {
         output = this.addStringAt(output, ' ', ...commonParams);
-      } else if (button === VirtualKeyboardButton.Tab) {
+      } else if (button === SystelabVirtualKeyboardButton.Tab) {
         output = this.addStringAt(output, '\t', ...commonParams);
-      } else if (button === VirtualKeyboardButton.Enter) {
+      } else if (button === SystelabVirtualKeyboardButton.Enter) {
         if (this.isTextarea) {
           output = this.addStringAt(output, '\n', ...commonParams);
         }
@@ -192,10 +193,10 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
   private isAcceptedNonStandardButton(button: string): boolean {
     return [
-      VirtualKeyboardButton.Backspace.toString(),
-      VirtualKeyboardButton.Space.toString(),
-      VirtualKeyboardButton.Tab.toString(),
-      VirtualKeyboardButton.Enter.toString(),
+      SystelabVirtualKeyboardButton.Backspace.toString(),
+      SystelabVirtualKeyboardButton.Space.toString(),
+      SystelabVirtualKeyboardButton.Tab.toString(),
+      SystelabVirtualKeyboardButton.Enter.toString(),
     ].includes(button);
   }
 
@@ -205,7 +206,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     const eventInit: KeyboardEventInit = {
       bubbles: true,
       cancelable: true,
-      shiftKey: this.selectedLayout === VirtualKeyboardLayouts.shift,
+      shiftKey: this.selectedLayout === SystelabVirtualKeyboardLayouts.shift,
       key: key,
       code: code,
       location: 0,
@@ -234,7 +235,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
       code = key;
 
       // Fix to standard key code
-      if (code.toLowerCase() === VirtualKeyboardButton.Backspace.slice(1, VirtualKeyboardButton.Backspace.length - 1).toLowerCase()) {
+      if (code.toLowerCase() === SystelabVirtualKeyboardButton.Backspace.slice(1, SystelabVirtualKeyboardButton.Backspace.length - 1).toLowerCase()) {
         code = 'Backspace';
       }
     } else {
@@ -254,19 +255,10 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
   private toggleShift() {
     let currentLayout = this.keyboard.options.layoutName;
-    let selectedLayout: VirtualKeyboardLayouts =
-      currentLayout === VirtualKeyboardLayouts.default ? VirtualKeyboardLayouts.shift : VirtualKeyboardLayouts.default;
+    let selectedLayout: SystelabVirtualKeyboardLayouts =
+      currentLayout === SystelabVirtualKeyboardLayouts.default ? SystelabVirtualKeyboardLayouts.shift : SystelabVirtualKeyboardLayouts.default;
 
     this.setLayout(selectedLayout);
-  }
-
-  private setLayout(layout: VirtualKeyboardLayouts): void {
-    this.selectedLayout = layout;
-    if (this.keyboard) {
-      this.keyboard.setOptions({
-        layoutName: layout,
-      });
-    }
   }
 
   private isStandardButton(button: string) {

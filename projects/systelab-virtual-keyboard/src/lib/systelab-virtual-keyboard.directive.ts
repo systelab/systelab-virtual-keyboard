@@ -16,15 +16,16 @@ import {
   Inject,
   Input,
   OnDestroy,
-  OnInit,
+  OnInit, Optional,
   Renderer2,
 } from '@angular/core';
 
 import { DOCUMENT } from '@angular/common';
 
-import { VirtualKeyboardInputTypes, VirtualKeyboardLayouts } from './constants';
+import { SystelabVirtualKeyboardInputTypes, SystelabVirtualKeyboardLayouts } from './constants';
 import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.component';
 import { SystelabVirtualKeyboardOverlayService } from './systelab-virtual-keyboard-overlay.service';
+import { VIRTUAL_KEYBOARD_CONFIG, SystelabVirtualKeyboardConfig } from './systelab-virtual-keyboard.config';
 
 @Directive({
   selector: 'input[vkEnabled], textarea[vkEnabled]',
@@ -57,8 +58,12 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
 
   private enabled = false;
   @Input()
-  set vkEnabled(enabled: boolean) {
-    this.enabled = true;
+  set vkEnabled(enabled: boolean | string) {
+    if (typeof enabled === 'string') {
+      this.enabled = true;
+    } else {
+      this.enabled = enabled;
+    }
   };
   get vkEnabled(): boolean {
     return this.enabled;
@@ -69,8 +74,12 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   get vkFixedBottom(): boolean {
     return this.fixedBottom;
   }
-  set vkFixedBottom(fixedBottom: boolean) {
-    this.fixedBottom = fixedBottom;
+  set vkFixedBottom(fixedBottom: boolean | string) {
+    if (typeof fixedBottom === 'string') {
+      this.fixedBottom = true;
+    } else {
+      this.fixedBottom = fixedBottom;
+    }
   }
 
   private debug = false;
@@ -82,6 +91,15 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     this.debug = debug;
   }
 
+  private config: SystelabVirtualKeyboardConfig;
+  @Input()
+  get vkConfig(): SystelabVirtualKeyboardConfig {
+    return this.config;
+  }
+  set vkConfig(config: SystelabVirtualKeyboardConfig) {
+    this.config = config;
+  }
+
   private panelRef!: ComponentRef<SystelabVirtualKeyboardComponent>;
   private showKeyboardButtonElement: HTMLElement;
 
@@ -90,7 +108,10 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     private readonly overlayService: SystelabVirtualKeyboardOverlayService,
     private readonly renderer: Renderer2,
     @Inject(DOCUMENT) private readonly document: any,
-  ) {}
+    @Optional() @Inject(VIRTUAL_KEYBOARD_CONFIG) private virtualKeyboardConfig: SystelabVirtualKeyboardConfig,
+  ) {
+    this.config = this.virtualKeyboardConfig;
+  }
 
   ngOnInit() {
     this.attachKeyboardIcon();
@@ -130,27 +151,31 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     this.panelRef = this.overlayService.create(this.inputOrigin(), this.vkFixedBottom, currentLayout);
     this.panelRef.instance.debug = this.vkDebug;
     this.panelRef.instance.setActiveInput(this.elementRef.nativeElement);
+    this.panelRef.instance.setLayout(currentLayout);
     this.panelRef.instance.closePanel.subscribe(() => this.closePanel());
   }
 
-  private getLayout(activeInputElement: HTMLInputElement | HTMLTextAreaElement): VirtualKeyboardLayouts {
+  private getLayout(activeInputElement: HTMLInputElement | HTMLTextAreaElement): SystelabVirtualKeyboardLayouts {
+    if (this.config?.hasOwnProperty('layout')) {
+      return this.config.layout;
+    }
     if (this.isInputAlphabetic(activeInputElement)) {
-      return VirtualKeyboardLayouts.default;
+      return SystelabVirtualKeyboardLayouts.default;
     } else if (this.isInputNumeric(activeInputElement)) {
-      return VirtualKeyboardLayouts.numeric;
+      return SystelabVirtualKeyboardLayouts.numeric;
     } else {
-      return VirtualKeyboardLayouts.default;
+      return SystelabVirtualKeyboardLayouts.default;
     }
   }
 
   private isInputAlphabetic(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
     const inputType = activeInputElement?.type;
-    return inputType && [VirtualKeyboardInputTypes.text, VirtualKeyboardInputTypes.password].some((i) => i === inputType);
+    return inputType && [SystelabVirtualKeyboardInputTypes.text, SystelabVirtualKeyboardInputTypes.password].some((i) => i === inputType);
   }
 
   private isInputNumeric(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
     const inputType = activeInputElement?.type;
-    return inputType && [VirtualKeyboardInputTypes.number].some((i) => i === inputType);
+    return inputType && [SystelabVirtualKeyboardInputTypes.number].some((i) => i === inputType);
   }
 
   private closePanel(): void {
