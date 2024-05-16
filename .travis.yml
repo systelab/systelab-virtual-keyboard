@@ -1,0 +1,64 @@
+sudo: required
+dist: jammy
+language: node_js
+node_js:
+  - '20.11.0'
+addons:
+  apt:
+    update: true
+    sources:
+      - google-chrome
+    packages:
+      - dpkg
+  chrome: stable
+
+services:
+  - xvfb
+
+before_install:
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
+  - npm i -g npm@8.19.4
+  - npm --version
+
+install:
+  - npm install -g makeshift && makeshift -s @systelab-technologies -r https://registry.npmjs.org
+  - npm install -g codecov
+  - npm install -g codacy-coverage
+  - npm ci
+
+before_script:
+  - export NODE_OPTIONS="--max-old-space-size=8192"
+
+script:
+  - npm run build-lib
+  - npm run build-showcase
+  - npm run test
+
+after_success:
+  - cat coverage/systelab-components/lcov.info | codecov
+  - cat ./coverage/systelab-components/lcov.info | codacy-coverage
+
+before_deploy: |
+  gem install dpl -v 2.0.3.beta.4
+  if [ -n "$GITHUB_API_KEY" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    git clone https://github.com/systelab/systelab.github.io.git
+    rm -rf systelab.github.io/components/*
+    cp -r dist/systelab-components/* systelab.github.io/components
+    sed -i -e "s~base href=\"/\"~base href=\"/components/\"~g" ./systelab.github.io/components/index.html
+    cd systelab.github.io
+    git add .
+    git -c user.name='travis' -c user.email='travis' commit -m 'New deploy from Travis'
+    git push -f -q https://systelab:$GITHUB_API_KEY@github.com/systelab/systelab.github.io
+    cd ..
+  fi
+  cd dist/systelab-components
+
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: aserra@werfen.com
+  edge: true
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
