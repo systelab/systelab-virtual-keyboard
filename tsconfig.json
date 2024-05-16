@@ -18,7 +18,7 @@
       "dom"
     ],
     "paths": {
-      "systelab-charts": [
+      "systelab-virtual-keyboard": [
         "dist/systelab-virtual-keyboard"
       ]
     },

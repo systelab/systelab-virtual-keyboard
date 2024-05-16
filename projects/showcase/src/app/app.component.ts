@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-  SystelabVirtualKeyboardConfig
-} from '../../../systelab-virtual-keyboard/src/lib/systelab-virtual-keyboard.config';
-import { SystelabVirtualKeyboardLayouts } from '../../../systelab-virtual-keyboard/src/lib/constants';
+  SystelabVirtualKeyboardConfig,
+  SystelabVirtualKeyboardLayouts
+} from 'systelab-virtual-keyboard';
 
 @Component({
   selector: 'app-root',
