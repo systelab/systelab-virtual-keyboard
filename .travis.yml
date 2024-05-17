@@ -36,8 +36,8 @@ script:
   - npm run test
 
 after_success:
-  - cat coverage/systelab-components/lcov.info | codecov
-  - cat ./coverage/systelab-components/lcov.info | codacy-coverage
+  - cat coverage/systelab-virtual-keyboard/lcov.info | codecov
+  - cat ./coverage/systelab-virtual-keyboard/lcov.info | codacy-coverage
 
 before_deploy: |
   gem install dpl -v 2.0.3.beta.4
