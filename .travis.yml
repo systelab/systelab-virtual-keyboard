@@ -47,7 +47,7 @@ before_deploy: |
     git push -f -q https://systelab:$GITHUB_API_KEY@github.com/systelab/systelab.github.io
     cd ..
   fi
-  cd dist/virtual-keyboard
+  cd dist/systelab-virtual-keyboard
 
 deploy:
   skip_cleanup: true
