@@ -24,6 +24,11 @@ export enum SystelabVirtualKeyboardLayouts {
   numeric = 'numeric',
 }
 
+export enum SystelabVirtualKeyboardInputMethods {
+  onlyMouseEvents = 'onlyMouseEvents',
+  onlyTouchEvents = 'onlyTouchEvents',
+}
+
 export enum SystelabVirtualKeyboardInputTypes {
   text = 'text',
   number = 'number',
