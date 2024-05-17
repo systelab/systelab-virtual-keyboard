@@ -7,7 +7,7 @@ import {
 } from './constants';
 
 @Component({
-  selector: 'iw-virtual-keyboard.component',
+  selector: 'systelab-virtual-keyboard.component',
   standalone: true,
   imports: [],
   templateUrl: './systelab-virtual-keyboard.component.html',
