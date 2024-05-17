@@ -40,6 +40,14 @@
     "@types/node": "20.11.5",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
+    "@wdio/allure-reporter": "7.16.10",
+    "@wdio/cli": "7.16.10",
+    "@wdio/jasmine-framework": "7.16.6",
+    "@wdio/junit-reporter": "7.19.7",
+    "@wdio/local-runner": "7.16.10",
+    "@wdio/spec-reporter": "7.16.9",
+    "@wdio/types": "7.16.3",
+    "chromedriver": "124.0.1",
     "eslint": "8.56.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-jsdoc": "48.0.2",
@@ -51,7 +59,11 @@
     "karma-jasmine": "4.0.2",
     "karma-jasmine-html-reporter": "2.1.0",
     "ng-packagr": "17.1.0",
+    "pixelmatch": "5.3.0",
+    "pngjs": "7.0.0",
+    "systelab-components-wdio-test": "1.13.0",
     "ts-node": "10.9.2",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "wdio-chromedriver-service": "8.1.1"
   }
 }
