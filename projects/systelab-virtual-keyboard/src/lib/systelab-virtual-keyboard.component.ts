@@ -163,7 +163,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
       layout,
     };
 
-    if (this.virtualKeyboardConfig.hasOwnProperty('inputMethod')) {
+    if (this.virtualKeyboardConfig?.hasOwnProperty('inputMethod')) {
       if (this.virtualKeyboardConfig.inputMethod === SystelabVirtualKeyboardInputMethods.onlyMouseEvents) {
         keyboardOptions = {
           ...keyboardOptions,
