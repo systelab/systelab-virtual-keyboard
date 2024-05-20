@@ -8,8 +8,11 @@
     "build-showcase": "ng build showcase --configuration production",
     "build-lib": "ng build systelab-virtual-keyboard --configuration production",
     "watch": "ng build systelab-virtual-keyboard --watch --configuration development",
-    "test-dev": "ng run showcase:wdio:dev",
-    "test-ci": "ng run showcase:wdio:ci"
+    "test-dev": "concurrently --success first --kill-others \"npm run start-wdio\" \"npm run execute-wdio-dev\"",
+    "test-ci": "concurrently --success first --kill-others \"npm run start-wdio\" \"npm run execute-wdio-ci\"",
+    "execute-wdio-dev": "npm run wait-for-server && node node_modules/@wdio/cli/bin/wdio ./projects/showcase/test/wdio.conf.dev.ts",
+    "execute-wdio-ci": "npm run wait-for-server && node node_modules/@wdio/cli/bin/wdio ./projects/showcase/test/wdio.conf.ci.ts",
+    "wait-for-server": "wait-on http://localhost:4200"
   },
   "private": true,
   "dependencies": {
@@ -50,6 +53,7 @@
     "@wdio/spec-reporter": "7.16.9",
     "@wdio/types": "7.16.3",
     "colors": "1.4.0",
+    "concurrently": "8.2.2",
     "chromedriver": "124.0.1",
     "eslint": "8.56.0",
     "eslint-plugin-import": "2.29.1",
@@ -68,6 +72,7 @@
     "systelab-wdio-builder": "14.0.0",
     "ts-node": "10.9.2",
     "typescript": "5.2.2",
+    "wait-on": "7.2.0",
     "wdio-chromedriver-service": "8.1.1"
   }
 }
