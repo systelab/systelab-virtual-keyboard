@@ -90,6 +90,11 @@
               "sourceMap": true
             },
             "wdio": {
+              "extractLicenses": false,
+              "sourceMap": true,
+              "optimization": false,
+              "namedChunks": true,
+              "preserveSymlinks": true,
               "fileReplacements": [
                 {
                   "replace": "projects/showcase/src/environments/environment.ts",
