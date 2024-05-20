@@ -8,7 +8,7 @@ import {
   Optional,
   Output
 } from '@angular/core';
-import SimpleKeyboard from 'simple-keyboard';
+import { SimpleKeyboard } from 'simple-keyboard';
 import {
   SystelabVirtualKeyboardButton,
   SystelabVirtualKeyboardInputMethods,

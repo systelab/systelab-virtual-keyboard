@@ -32,28 +32,19 @@ import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systel
   selector: 'input[vkEnabled], textarea[vkEnabled]',
 })
 export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, OnDestroy {
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent | TouchEvent) {
-    const simpleKeyboardElement = document.querySelector('.simple-keyboard');
-    const showKeyboardButtonClicked = (event.target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
-    if (
-      !simpleKeyboardElement?.contains(event.target as Node) &&
-      !this.elementRef?.nativeElement?.contains(event.target as Node) &&
-      !this.showKeyboardButtonElement?.contains(event.target as Node) &&
-      !showKeyboardButtonClicked
-    ) {
-      if (this.overlayService.isCreated()) {
-        this.overlayService.destroy();
-      }
-    }
-  }
-
   @HostListener('window:touchmove', ['$event'])
   @HostListener('window:touchend', ['$event'])
   @HostListener('window:wheel', ['$event'])
   onDocumentScroll() {
     if (this.overlayService.isCreated()) {
       // update position and size on scroll
+    }
+  }
+
+  @HostListener('focus', ['$event'])
+  onFocus(event: MouseEvent | TouchEvent): void {
+    if (!this.overlayService.isOpen()) {
+      this.openPanel();
     }
   }
 
@@ -149,7 +140,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
 
     const currentLayout = this.getLayout(this.elementRef.nativeElement);
 
-    this.panelRef = this.overlayService.create(this.inputOrigin(), this.vkFixedBottom, currentLayout);
+    this.panelRef = this.overlayService.create(this.inputOrigin(), this.showKeyboardButtonElement, this.vkFixedBottom, currentLayout);
     this.panelRef.instance.debug = this.vkDebug;
     this.panelRef.instance.setActiveInput(this.elementRef.nativeElement);
     this.panelRef.instance.setLayout(currentLayout);
