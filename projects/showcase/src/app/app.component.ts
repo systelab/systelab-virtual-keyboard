@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  SystelabVirtualKeyboardConfig,
-  SystelabVirtualKeyboardLayouts
-} from 'systelab-virtual-keyboard';
+import { SystelabVirtualKeyboardConfig, SystelabVirtualKeyboardLayouts } from 'systelab-virtual-keyboard';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +7,12 @@ import {
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  public vkConfig: SystelabVirtualKeyboardConfig = {
+  public vkConfigLayout: SystelabVirtualKeyboardConfig = {
     layout: SystelabVirtualKeyboardLayouts.numeric,
+  }
+
+  public vkConfigButton: SystelabVirtualKeyboardConfig = {
+    showButton: true,
   }
 }
 

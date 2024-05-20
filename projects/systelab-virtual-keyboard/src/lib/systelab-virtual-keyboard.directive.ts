@@ -39,12 +39,16 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   onDocumentScroll() {
     if (this.overlayService.isCreated()) {
       this.overlayService.updatePosition();
-
     }
   }
 
   @HostListener('focus', ['$event'])
   onFocus(event: MouseEvent | TouchEvent): void {
+    console.log('Focused');
+    if (this.overlayService.isCreated()) {
+      this.closePanel();
+    }
+    this.overlayService.setFocusDispatched(true);
     if (!this.overlayService.isOpen()) {
       this.openPanel();
     }
@@ -108,11 +112,13 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   }
 
   ngOnInit() {
-    this.attachKeyboardIcon();
+    if (this.config?.showButton) {
+      this.attachKeyboardIcon();
+    }
   }
 
   ngAfterViewInit() {
-    if (this.vkEnabled) {
+    if (this.vkEnabled && this.config?.showButton) {
       const keyboardIcon = this.elementRef.nativeElement.parentElement.querySelector('i');
       keyboardIcon.addEventListener('click', this.togglePanel.bind(this));
     }

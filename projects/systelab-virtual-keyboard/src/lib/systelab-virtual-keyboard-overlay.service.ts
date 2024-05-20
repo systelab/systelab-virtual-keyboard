@@ -30,6 +30,7 @@ export class SystelabVirtualKeyboardOverlayService {
   private showKeyboardButtonElement: HTMLElement;
   private open: boolean;
   private layout: SystelabVirtualKeyboardLayouts;
+  private focusDispatched: boolean = false;
 
   constructor(private readonly overlay: Overlay) {
     this.initListener();
@@ -74,6 +75,10 @@ export class SystelabVirtualKeyboardOverlayService {
     this.updatePositionStrategy(this.inputOrigin, this.fixedBottom);
   }
 
+  public setFocusDispatched(dispatched: boolean): void {
+    this.focusDispatched = dispatched;
+  }
+
   public destroy(): void {
     if (this.overlayRef) {
       this.overlayRef.dispose();
@@ -87,6 +92,10 @@ export class SystelabVirtualKeyboardOverlayService {
   }
 
   private handleClick(event: MouseEvent) {
+    if (this.focusDispatched) {
+      this.focusDispatched = false;
+      return;
+    }
     console.log('Document clicked:', event);
     event.stopPropagation();
     const simpleKeyboardElement = document.querySelector('.simple-keyboard');

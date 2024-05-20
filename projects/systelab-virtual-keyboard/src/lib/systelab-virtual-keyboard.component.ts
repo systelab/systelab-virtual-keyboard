@@ -117,7 +117,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     if (this.debug) {
       console.log('Caret start at:', this.caretPosition, this.caretPositionEnd);
     }
-    this.focusActiveInput();
   }
 
   public setLayout(layout: SystelabVirtualKeyboardLayouts): void {
@@ -193,6 +192,10 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
   private handleKeyPress(button: string, e?: Event): void {
     if (this.debug) {
       console.log('Key press:', button);
+    }
+
+    if (button[0] === '&' && button.length > 1) {
+      button = new DOMParser().parseFromString(button, 'text/html').body.textContent;
     }
 
     if (button === SystelabVirtualKeyboardButton.Shift || button === SystelabVirtualKeyboardButton.Lock) {
@@ -273,9 +276,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     this.activeInputElement?.dispatchEvent(new KeyboardEvent('keypress', eventInit));
     this.activeInputElement?.dispatchEvent(new Event('input', { bubbles: true }));
     this.activeInputElement?.dispatchEvent(new KeyboardEvent('keyup', eventInit));
-
-    // And set focus to input
-    this.focusActiveInput();
   }
 
   /*
@@ -300,13 +300,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     return { key, code };
-  }
-
-  private focusActiveInput(): void {
-    this.activeInputElement?.focus();
-    if (!this.isInputNumeric(this.activeInputElement)) {
-      this.activeInputElement?.setSelectionRange(this.caretPosition, this.caretPositionEnd);
-    }
   }
 
   private toggleShift() {
