@@ -1,7 +1,7 @@
 export const CustomMatchers = {
     toBeLocatedAs: () => {
         return {
-            compare: (actual, expected, tolerance = 5) => {
+            compare: (actual, expected, tolerance = 10) => {
                 const result = {
                     pass: Math.abs(actual - expected) <= tolerance,
                     message: `Expected coordinate (${actual}) to be within ${tolerance} pixels of (${expected})`

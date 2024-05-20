@@ -85,7 +85,7 @@ describe("PositionAndSize", () => {
         });
     });
 
-    it("Change focus to input text with manually configured numeric layout by clicking on background and then setting focus on that input", async () => {
+    it("Change focus to input text with manually configured numeric layout", async () => {
         await ShowcasePage.get().clickOnBackground();
         await ShowcasePage.get().getManualNumericLayoutField().setFocus();
 
@@ -128,5 +128,31 @@ describe("PositionAndSize", () => {
         });
     });
 
+    it("Change focus to input field configured virtual keyboard in fixed bottom position", async () => {
+        await ShowcasePage.get().clickOnBackground();
+        await ShowcasePage.get().getFixedBottomPositioningField().setFocus();
+
+        await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
+        });
+
+        const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
+        await ReportUtility.addExpectedResult("Virtual keyboard size is about 1200x305 pixels", async() => {
+            expect(keyboardRect.width).toBeSizedAs(1200);
+            expect(keyboardRect.height).toBeSizedAs(305);
+        });
+
+        const windowSize = await Browser.getWindowSize();
+        await ReportUtility.addExpectedResult("Virtual keyboard is located aligned with the bottom on the window", async() => {
+            const automationBannerHeight = 50;
+            expect(keyboardRect.y).toBeLocatedAs(windowSize.height - keyboardRect.height - automationBannerHeight);
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is horizontally centered on the window", async() => {
+            const windowCenterX = (windowSize.width / 2);
+            const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
+            expect(keyboardCenterX).toBeLocatedAs(windowCenterX);
+        });
+    });
 
 });
