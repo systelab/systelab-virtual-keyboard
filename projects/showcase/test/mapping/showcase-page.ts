@@ -30,6 +30,6 @@ export class ShowcasePage extends BasePage {
     }
 
     public async clickOnBackground(): Promise<void> {
-      await this.byCSS('section').click();
+      await this.byCSS('h1').click();
     }
 }
