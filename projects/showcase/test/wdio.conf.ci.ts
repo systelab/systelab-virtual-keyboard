@@ -18,7 +18,7 @@ exports.config = {
         browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
-            args: ['--headless', '--window-size=1920x1080'],
+            args: ['--headless', 'disable-gpu', '--window-size=1920x1080'],
         },
     }],
     debug: true,
