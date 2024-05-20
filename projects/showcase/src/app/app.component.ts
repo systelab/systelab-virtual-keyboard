@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SystelabVirtualKeyboardConfig, SystelabVirtualKeyboardLayouts } from 'systelab-virtual-keyboard';
 import { environment } from '../environments/environment';
 
@@ -8,9 +8,13 @@ import { environment } from '../environments/environment';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public vkConfigLayout: SystelabVirtualKeyboardConfig = {
     layout: SystelabVirtualKeyboardLayouts.numeric,
+  }
+
+  public vkConfigIcon: SystelabVirtualKeyboardConfig = {
+    showIcon: true,
   }
 
   ngOnInit() {
@@ -18,10 +22,6 @@ export class AppComponent {
       const body = document.getElementsByTagName('body')[0];
       body.classList.add('wdio-disable-animations');
     }
-  }
-
-  public vkConfigButton: SystelabVirtualKeyboardConfig = {
-    showButton: true,
   }
 }
 

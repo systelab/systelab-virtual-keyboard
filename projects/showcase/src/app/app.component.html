@@ -2,19 +2,19 @@
   <h1>Virtual Keyboard Showcase</h1>
 
   <div id="alphanumeric-field" class="input-container">
-    <input class="input" type="text" placeholder="Alphanumerical keyboard" [vkEnabled]="true">
-  </div>
-
-  <div id="numeric-field" class="input-container">
-    <input class="input" type="number" placeholder="Numeric keyboard" vkEnabled>
+    <input class="input" type="text" placeholder="Auto-configured alphanumeric layout" [vkEnabled]="true">
   </div>
 
   <div id="numeric-default-layout-field" class="input-container">
-    <input class="input" type="number" placeholder="Numeric input default layout" vkEnabled [vkConfig]="vkConfigLayout">
+    <input class="input" type="number" placeholder="Auto-configured numeric layout" vkEnabled>
+  </div>
+
+  <div id="numeric-field" class="input-container">
+    <input class="input" type="text" placeholder="Manually configured numeric layout" vkEnabled [vkConfig]="vkConfigLayout">
   </div>
 
   <div id="show-button-field" class="input-container">
-    <input class="input" type="number" placeholder="Show button" vkEnabled [vkConfig]="vkConfigButton">
+    <input class="input" type="number" placeholder="Show virtual keyboard icon" vkEnabled [vkConfig]="vkConfigIcon">
   </div>
 
   <div id="fixed-bottom-field" class="input-container">
