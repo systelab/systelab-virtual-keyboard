@@ -1,37 +1,51 @@
-# SystelabVirtualKeyboard (THIS IS AN ALPHA VERSION)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4b9aac15463b46bba542091304304388)](https://www.codacy.com/gh/systelab/systelab-components/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=systelab/systelab-components&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.com/systelab/systelab-components.svg?branch=master)](https://travis-ci.com/systelab/systelab-components)
+[![codecov](https://codecov.io/gh/systelab/systelab-components/branch/master/graph/badge.svg)](https://codecov.io/gh/systelab/systelab-components)
+[![npm version](https://badge.fury.io/js/systelab-components.svg)](https://badge.fury.io/js/systelab-components)
+[![Known Vulnerabilities](https://snyk.io/test/github/systelab/systelab-components/badge.svg?targetFile=package.json)](https://snyk.io/test/github/systelab/systelab-components?targetFile=package.json)
 
-Systelab Virtual Keyboard is a on-screen keyboard focused on touch devices.
+# systelab-virtual-keyboard
 
-## Using the directive
+Library with common UI components to speed up your Angular developments. You can take a look to the components in our showcase at https://systelab.github.io/virtual-keyboard.
 
-Before use the directive you have to import the module into your application.
+## Working with the repo
 
-```typescript
-NgModule({
-  imports: [
-    ...,
-    SystelabVirtualKeyboardModule,
-  ]
-})
+In order to clone the repository and test the library use the following commands:
+
+```bash
+git clone https://github.com/systelab/systelab-virtual-keyboard.git
+cd systelab-virtual-keyboard
+npm ci
+npm run build-lib
+npm start
 ```
 
-Then the virtual keyboard can be enabled for inputs or textareas. To enable it the attribute *vkEnabled* can be used into the desire HTML element. It can be binding dynamically in the same way *[vkEnabled]="vkEnabledVariable"*
+This will bootstrap a showcase application to test the library.
 
-```html
-<input class="input" type="number" placeholder="Numeric input default layout" vkEnabled vkFixedBottom [vkConfig]="vkConfig">
+Use watch in the library build to detect file changes automatically (except from css). Start application in a different terminal:
+
+Terminal 1
+
+```bash
+ng build systelab-virtual-keyboard --watch
 ```
 
-## Directive options
+Terminal 2
 
-The default behaviour can be overrided trought some attributes:
+```bash
+ng serve
+```
 
-* vkEnabled: enable the virtual keyboard for the element
-* vkFixedBottom: fix the virtual keyboard to the bottom of the page
-* vkConfig: configuration object
+## Test
 
-### Configuration object
+### Unit
 
-The configuration params are describe into the interface *SystelabVirtualKeyboardConfig*
+```bash
+ng test
+```
 
-* layout: usually the virtual keyboard select the layout between *default* or *numeric* depending on the input type. But with the config object you can override this behaviour and force the desired layout. The available layouts are described in the enum *SystelabVirtualKeyboardLayouts*
+# Breaking changes
 
+## Version 0.0.1
+
+-   Pre-release version

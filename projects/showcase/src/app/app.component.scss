@@ -1,12 +1,13 @@
 .main-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   overflow: hidden;
   padding-top: 200px;
   touch-action: pan-y !important;
   z-index: 0;
+  height: 200vh;
 }
 
 .input-container {

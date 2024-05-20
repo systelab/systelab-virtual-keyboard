@@ -25,10 +25,16 @@ interface PositionStrategyOrigin {
 })
 export class SystelabVirtualKeyboardOverlayService {
   private overlayRef!: OverlayRef;
+  private inputOrigin: HTMLInputElement;
+  private fixedBottom: boolean;
+  private showKeyboardButtonElement: HTMLElement;
   private open: boolean;
   private layout: SystelabVirtualKeyboardLayouts;
+  private focusDispatched: boolean = false;
 
-  constructor(private readonly overlay: Overlay) {}
+  constructor(private readonly overlay: Overlay) {
+    this.initListener();
+  }
 
   public isCreated(): boolean {
     return !!this.overlayRef;
@@ -40,9 +46,13 @@ export class SystelabVirtualKeyboardOverlayService {
 
   public create(
     inputOrigin: HTMLInputElement,
+    showKeyboardButtonElement: HTMLElement,
     fixedBottom: boolean,
     layout: SystelabVirtualKeyboardLayouts = SystelabVirtualKeyboardLayouts.default,
   ): ComponentRef<SystelabVirtualKeyboardComponent> {
+    this.inputOrigin = inputOrigin;
+    this.fixedBottom = fixedBottom;
+    this.showKeyboardButtonElement = showKeyboardButtonElement;
     this.layout = layout;
     this.overlayRef = this.overlay.create({
       hasBackdrop: false,
@@ -61,12 +71,51 @@ export class SystelabVirtualKeyboardOverlayService {
     return this.overlayRef.attach(new ComponentPortal(SystelabVirtualKeyboardComponent));
   }
 
+  public updatePosition(): void {
+    this.updatePositionStrategy(this.inputOrigin, this.fixedBottom);
+  }
+
+  public setFocusDispatched(dispatched: boolean): void {
+    this.focusDispatched = dispatched;
+  }
+
   public destroy(): void {
     if (this.overlayRef) {
       this.overlayRef.dispose();
     }
     this.overlayRef = null;
     this.open = false;
+  }
+
+  private initListener() {
+    document.addEventListener('click', this.handleClick.bind(this));
+  }
+
+  private handleClick(event: MouseEvent) {
+    if (this.focusDispatched) {
+      this.focusDispatched = false;
+      return;
+    }
+    console.log('Document clicked:', event);
+    event.stopPropagation();
+    const simpleKeyboardElement = document.querySelector('.simple-keyboard');
+    const showKeyboardButtonClicked = (event.target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
+
+    const containsKeyboard = simpleKeyboardElement?.contains(event.target as Node);
+    const containsElementRef = this.inputOrigin?.contains(event.target as Node);
+    // const containsFocusedElement = this.focusedElement?.contains(event.target as Node);
+    const containsShowButton = this.showKeyboardButtonElement?.contains(event.target as Node);
+    if (
+      !containsKeyboard &&
+      !containsElementRef &&
+      // !containsFocusedElement &&
+      !containsShowButton &&
+      !showKeyboardButtonClicked
+    ) {
+      if (this.isCreated()) {
+        this.destroy();
+      }
+    }
   }
 
   public hasAttached(): boolean {

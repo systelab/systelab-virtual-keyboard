@@ -7,9 +7,8 @@
     "start-wdio": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve --configuration wdio",
     "build-showcase": "ng build showcase --configuration production",
     "build-lib": "ng build systelab-virtual-keyboard --configuration production",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build systelab-virtual-keyboard --watch --configuration development",
     "test-showcase": "ng wdio",
-    "test": "ng test"
   },
   "private": true,
   "dependencies": {

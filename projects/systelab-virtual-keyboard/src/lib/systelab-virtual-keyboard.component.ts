@@ -1,10 +1,22 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
-import SimpleKeyboard from 'simple-keyboard';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Optional,
+  Output
+} from '@angular/core';
+import { SimpleKeyboard } from 'simple-keyboard';
 import {
   SystelabVirtualKeyboardButton,
+  SystelabVirtualKeyboardInputMethods,
   SystelabVirtualKeyboardInputTypes,
   SystelabVirtualKeyboardLayouts
 } from './constants';
+import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
+import { KeyboardOptions } from 'simple-keyboard/build/interfaces';
 
 @Component({
   selector: 'systelab-virtual-keyboard.component',
@@ -53,7 +65,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
   @Output() closePanel = new EventEmitter<void>();
 
-  constructor(private elementRef: ElementRef<HTMLInputElement>) {}
+  constructor(private elementRef: ElementRef<HTMLInputElement>, @Optional() @Inject(VIRTUAL_KEYBOARD_CONFIG) private virtualKeyboardConfig: SystelabVirtualKeyboardConfig,) {}
 
   ngAfterViewInit() {
     const layout = {
@@ -73,20 +85,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
       ],
       [SystelabVirtualKeyboardLayouts.numeric]: ['7 8 9', '4 5 6', '1 2 3', '0 {bksp}'],
     };
-    this.keyboard = new SimpleKeyboard('.simple-keyboard', {
-      onKeyPress: (button) => this.handleKeyPress(button),
-      mergeDisplay: true,
-      display: {
-        [SystelabVirtualKeyboardButton.Backspace]: 'delete',
-      },
-      buttonTheme: [
-        {
-          class: 'virtual-keyboard-delete-button',
-          buttons: `${SystelabVirtualKeyboardButton.Backspace}`,
-        },
-      ],
-      layout,
-    });
+
+    const keyboardOptions: KeyboardOptions = this.prepareKeyboardConfig();
+    this.keyboard = new SimpleKeyboard('.simple-keyboard', keyboardOptions);
     this.setLayout(this.selectedLayout);
     if (this.debug) {
       console.log('Layout: ', layout);
@@ -116,7 +117,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     if (this.debug) {
       console.log('Caret start at:', this.caretPosition, this.caretPositionEnd);
     }
-    this.focusActiveInput();
   }
 
   public setLayout(layout: SystelabVirtualKeyboardLayouts): void {
@@ -126,6 +126,57 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         layoutName: layout,
       });
     }
+  }
+
+  private prepareKeyboardConfig(): KeyboardOptions {
+    const layout = {
+      [SystelabVirtualKeyboardLayouts.default]: [
+        '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
+        '{tab} q w e r t y u i o p [ ] \\',
+        "{lock} a s d f g h j k l ; ' {enter}",
+        '{shift} z x c v b n m , . / {shift}',
+        '{space}',
+      ],
+      [SystelabVirtualKeyboardLayouts.shift]: [
+        '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
+        '{tab} Q W E R T Y U I O P { } |',
+        '{lock} A S D F G H J K L : " {enter}',
+        '{shift} Z X C V B N M &lt; &gt; ? {shift}',
+        '{space}',
+      ],
+      [SystelabVirtualKeyboardLayouts.numeric]: ['7 8 9', '4 5 6', '1 2 3', '0 {bksp}'],
+    };
+
+    let keyboardOptions: KeyboardOptions = {
+      onKeyPress: (button) => this.handleKeyPress(button),
+      mergeDisplay: true,
+      display: {
+        [SystelabVirtualKeyboardButton.Backspace]: 'delete',
+      },
+      buttonTheme: [
+        {
+          class: 'virtual-keyboard-delete-button',
+          buttons: `${SystelabVirtualKeyboardButton.Backspace}`,
+        },
+      ],
+      layout,
+    };
+
+    if (this.virtualKeyboardConfig?.hasOwnProperty('inputMethod')) {
+      if (this.virtualKeyboardConfig.inputMethod === SystelabVirtualKeyboardInputMethods.onlyMouseEvents) {
+        keyboardOptions = {
+          ...keyboardOptions,
+          useMouseEvents: true,
+        }
+      } else if (this.virtualKeyboardConfig.inputMethod === SystelabVirtualKeyboardInputMethods.onlyTouchEvents) {
+        keyboardOptions = {
+          ...keyboardOptions,
+          useTouchEvents: true,
+        }
+      }
+    }
+
+    return keyboardOptions;
   }
 
   private isInputAlphabetic(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
@@ -141,6 +192,10 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
   private handleKeyPress(button: string, e?: Event): void {
     if (this.debug) {
       console.log('Key press:', button);
+    }
+
+    if (button[0] === '&' && button.length > 1) {
+      button = new DOMParser().parseFromString(button, 'text/html').body.textContent;
     }
 
     if (button === SystelabVirtualKeyboardButton.Shift || button === SystelabVirtualKeyboardButton.Lock) {
@@ -221,9 +276,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     this.activeInputElement?.dispatchEvent(new KeyboardEvent('keypress', eventInit));
     this.activeInputElement?.dispatchEvent(new Event('input', { bubbles: true }));
     this.activeInputElement?.dispatchEvent(new KeyboardEvent('keyup', eventInit));
-
-    // And set focus to input
-    this.focusActiveInput();
   }
 
   /*
@@ -248,13 +300,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     return { key, code };
-  }
-
-  private focusActiveInput(): void {
-    this.activeInputElement?.focus();
-    if (!this.isInputNumeric(this.activeInputElement)) {
-      this.activeInputElement?.setSelectionRange(this.caretPosition, this.caretPositionEnd);
-    }
   }
 
   private toggleShift() {
