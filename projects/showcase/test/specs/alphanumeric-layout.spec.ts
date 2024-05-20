@@ -16,8 +16,8 @@ describe("AlphanumericLayout", () => {
         TestIdentification.captureEnvironment();
     });
 
-    it("Open virtual keyboard on alphanumeric input field", async () => {
-        await ShowcasePage.get().getAlphanumericalField().openVirtualKeyboard();
+    it("Set focus on alphanumeric input field", async () => {
+        await ShowcasePage.get().getAlphanumericalField().setFocus();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown with 5 rows of keys including all numbers, all lowercase letters, " + 
                                               "some symbols and some special keys", async() => {

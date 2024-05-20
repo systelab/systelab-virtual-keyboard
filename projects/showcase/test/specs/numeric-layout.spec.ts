@@ -16,8 +16,8 @@ describe("NumericLayout", () => {
         TestIdentification.captureEnvironment();
     });
 
-    it("Open virtual keyboard on numerical input field", async () => {
-        await ShowcasePage.get().getNumericField().openVirtualKeyboard();
+    it("Set focus on numerical input field", async () => {
+        await ShowcasePage.get().getNumericField().setFocus();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown with 4 rows of keys including all numbers and backspace", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
