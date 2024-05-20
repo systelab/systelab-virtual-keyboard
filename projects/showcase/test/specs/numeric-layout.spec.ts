@@ -16,8 +16,8 @@ describe("NumericLayout", () => {
         TestIdentification.captureEnvironment();
     });
 
-    it("Set focus on numerical input field", async () => {
-        await ShowcasePage.get().getNumericField().setFocus();
+    it("Set focus on auto-configured numeric input field", async () => {
+        await ShowcasePage.get().getAutoNumericLayoutField().setFocus();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown with 4 rows of keys including all numbers and backspace", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
@@ -33,7 +33,7 @@ describe("NumericLayout", () => {
         await VirtualKeyboard.get().clickKeys('9876543210');
 
         await ReportUtility.addExpectedResult("Numeric input displays '9876543210'", async() => {
-            expect(await ShowcasePage.get().getNumericField().getText()).toEqual('9876543210');
+            expect(await ShowcasePage.get().getAutoNumericLayoutField().getText()).toEqual('9876543210');
         });
     });
 
@@ -43,7 +43,7 @@ describe("NumericLayout", () => {
         await VirtualKeyboard.get().clickBackspace();
 
         await ReportUtility.addExpectedResult("Numeric input displays '9876543'", async() => {
-            expect(await ShowcasePage.get().getNumericField().getText()).toEqual('9876543');
+            expect(await ShowcasePage.get().getAutoNumericLayoutField().getText()).toEqual('9876543');
         });
     });
 
@@ -51,7 +51,7 @@ describe("NumericLayout", () => {
         await VirtualKeyboard.get().clickKeys('666');
 
         await ReportUtility.addExpectedResult("Numeric input displays '9876543666'", async() => {
-            expect(await ShowcasePage.get().getNumericField().getText()).toEqual('9876543666');
+            expect(await ShowcasePage.get().getAutoNumericLayoutField().getText()).toEqual('9876543666');
         });
     });
 

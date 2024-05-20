@@ -16,8 +16,8 @@ describe("AlphanumericLayout", () => {
         TestIdentification.captureEnvironment();
     });
 
-    it("Set focus on alphanumeric input field", async () => {
-        await ShowcasePage.get().getAlphanumericalField().setFocus();
+    it("Set focus on auto-configured alphanumeric layout input field", async () => {
+        await ShowcasePage.get().getAutoAlphanumericLayoutField().setFocus();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown with 5 rows of keys including all numbers, all lowercase letters, " + 
                                               "some symbols and some special keys", async() => {
@@ -35,7 +35,7 @@ describe("AlphanumericLayout", () => {
         await VirtualKeyboard.get().clickKeys('abcdefghijklmnopqrstuvwxyz');
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays 'abcdefghijklmnopqrstuvwxyz'", async() => {
-            expect(await ShowcasePage.get().getAlphanumericalField().getText()).toEqual('abcdefghijklmnopqrstuvwxyz');
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('abcdefghijklmnopqrstuvwxyz');
         });
     });
 
@@ -45,7 +45,7 @@ describe("AlphanumericLayout", () => {
         await VirtualKeyboard.get().clickBackspace();
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays 'abcdefghijklmnopqrstuvw'", async() => {
-            expect(await ShowcasePage.get().getAlphanumericalField().getText()).toEqual('abcdefghijklmnopqrstuvw');
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('abcdefghijklmnopqrstuvw');
         });
     });
 
@@ -53,16 +53,16 @@ describe("AlphanumericLayout", () => {
         await VirtualKeyboard.get().clickKeys('1234567890');
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays 'abcdefghijklmnopqrstuvw1234567890'", async() => {
-            expect(await ShowcasePage.get().getAlphanumericalField().getText()).toEqual('abcdefghijklmnopqrstuvw1234567890');
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('abcdefghijklmnopqrstuvw1234567890');
         });
     });
 
     it("Clear input content and write some symbols by clicking on virtual keyboard keys", async () => {
-        await ShowcasePage.get().getAlphanumericalField().clear();
+        await ShowcasePage.get().getAutoAlphanumericLayoutField().clear();
         await VirtualKeyboard.get().clickKeys("`-=;,./");
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays '`-=;,./'", async() => {
-            expect(await ShowcasePage.get().getAlphanumericalField().getText()).toEqual("`-=;,./");
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual("`-=;,./");
         });
     });
 
@@ -81,20 +81,20 @@ describe("AlphanumericLayout", () => {
     });
 
     it("Clear input content and write 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' by clicking on virtual keyboard keys", async () => {
-        await ShowcasePage.get().getAlphanumericalField().clear();
+        await ShowcasePage.get().getAutoAlphanumericLayoutField().clear();
         await VirtualKeyboard.get().clickKeys('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'", async() => {
-            expect(await ShowcasePage.get().getAlphanumericalField().getText()).toEqual('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
         });
     });
 
     it("Clear again input content and write some other symbols by clicking on virtual keyboard keys", async () => {
-        await ShowcasePage.get().getAlphanumericalField().clear();
+        await ShowcasePage.get().getAutoAlphanumericLayoutField().clear();
         await VirtualKeyboard.get().clickKeys('!@#$%#^*()_+?|{}:"');
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays '!@#$%#^*()_+?|{}:\"'", async() => {
-            expect(await ShowcasePage.get().getAlphanumericalField().getText()).toEqual('!@#$%#^*()_+?|{}:"');
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('!@#$%#^*()_+?|{}:"');
         });
     });
 
@@ -113,7 +113,7 @@ describe("AlphanumericLayout", () => {
     });
 
     it("Clear again input content and write some text with a space and a tab by clicking on virtual keyboard keys", async () => {
-        await ShowcasePage.get().getAlphanumericalField().clear();
+        await ShowcasePage.get().getAutoAlphanumericLayoutField().clear();
         await VirtualKeyboard.get().clickKeys('space');
         await VirtualKeyboard.get().clickSpace();
         await VirtualKeyboard.get().clickKeys('and');
@@ -121,7 +121,7 @@ describe("AlphanumericLayout", () => {
         await VirtualKeyboard.get().clickKeys('tab');
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays 'space and\ttab'", async() => {
-            expect(await ShowcasePage.get().getAlphanumericalField().getText()).toEqual('space and\ttab');
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('space and\ttab');
         });
     });
 

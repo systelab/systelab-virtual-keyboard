@@ -1,23 +1,23 @@
 <section class="main-container">
   <h1>Virtual Keyboard Showcase</h1>
 
-  <div id="alphanumeric-field" class="input-container">
+  <div id="auto-alphanumeric-layout-field" class="input-container">
     <input class="input" type="text" placeholder="Auto-configured alphanumeric layout" [vkEnabled]="true">
   </div>
 
-  <div id="numeric-default-layout-field" class="input-container">
+  <div id="auto-numeric-layout-field" class="input-container">
     <input class="input" type="number" placeholder="Auto-configured numeric layout" vkEnabled>
   </div>
 
-  <div id="numeric-field" class="input-container">
+  <div id="manual-numeric-layout-field" class="input-container">
     <input class="input" type="text" placeholder="Manually configured numeric layout" vkEnabled [vkConfig]="vkConfigLayout">
   </div>
 
-  <div id="show-button-field" class="input-container">
+  <div id="show-virtual-keyboard-icon-field" class="input-container">
     <input class="input" type="number" placeholder="Show virtual keyboard icon" vkEnabled [vkConfig]="vkConfigIcon">
   </div>
 
-  <div id="fixed-bottom-field" class="input-container">
-    <input id="fixed-bottom-input" class="input" type="text" placeholder="Fixed bottom keyboard" vkEnabled vkFixedBottom>
+  <div id="fixed-bottom-positioning-field" class="input-container">
+    <input class="input" type="text" placeholder="Fixed bottom positioning" vkEnabled vkFixedBottom>
   </div>
 </section>
