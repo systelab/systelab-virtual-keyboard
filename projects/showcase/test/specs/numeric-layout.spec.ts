@@ -16,7 +16,7 @@ describe("NumericLayout", () => {
         TestIdentification.captureEnvironment();
     });
 
-    it("Set focus on numerical input field", async () => {
+    it("Set focus on auto-configured numeric input field", async () => {
         await ShowcasePage.get().getAutoNumericLayoutField().setFocus();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown with 4 rows of keys including all numbers and backspace", async() => {
