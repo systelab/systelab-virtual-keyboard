@@ -18,7 +18,7 @@ describe("PositionAndSize", () => {
         TestIdentification.captureEnvironment();
     });
 
-    it("Open virtual keyboard on alphanumeric input field", async () => {
+    it("Open virtual keyboard on input field with auto-configured alphanumeric layout", async () => {
         await ShowcasePage.get().getAutoAlphanumericLayoutField().setFocus();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
@@ -33,7 +33,7 @@ describe("PositionAndSize", () => {
             expect(keyboardRect.height).toBeSizedAs(305);
         });
 
-        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the alphanumerical input field", async() => {
+        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the auto-configured alphanumeric input field", async() => {
             expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
         });
 
@@ -44,29 +44,51 @@ describe("PositionAndSize", () => {
         });
     });
 
-    // it("Press 'Tab' key on physical keyboard to navigate to next numerical input field", async () => {
-    //     await Browser.pressTab();
+    it("Press 'Tab' key on physical keyboard to change focus to input field with auto-configured numeric layout", async () => {
+        await Browser.pressTab();
 
-    //     const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
-    //     const inputRect = await ShowcasePage.get().getAutoNumericLayoutField().getBoundingRect();
+        const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
+        const inputRect = await ShowcasePage.get().getAutoNumericLayoutField().getBoundingRect();
 
-    //     await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
-    //         expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
-    //     });
+        await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
+        });
 
-    //     await ReportUtility.addExpectedResult("Virtual keyboard size is close to 400x265", async() => {
-    //         expect(keyboardRect.width).toBeSizedAs(400);
-    //         expect(keyboardRect.height).toBeSizedAs(265);
-    //     });
+        await ReportUtility.addExpectedResult("Virtual keyboard size is close to 400x265", async() => {
+            expect(keyboardRect.width).toBeSizedAs(400);
+            expect(keyboardRect.height).toBeSizedAs(265);
+        });
 
-    //     await ReportUtility.addExpectedResult("Virtual keyboard is located just under the numerical input field", async() => {
-    //         expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
-    //     });
+        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the auto-configured numerical input field", async() => {
+            expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
+        });
 
-    //     await ReportUtility.addExpectedResult("Virtual keyboard is horizontally centered respect to input field", async() => {
-    //         const inputCenterX = inputRect.x + (inputRect.width / 2);
-    //         const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
-    //         expect(keyboardCenterX).toBeLocatedAs(inputCenterX);
-    //     });
-    // });
+        await ReportUtility.addExpectedResult("Virtual keyboard is horizontally centered respect to input field", async() => {
+            const inputCenterX = inputRect.x + (inputRect.width / 2);
+            const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
+            expect(keyboardCenterX).toBeLocatedAs(inputCenterX);
+        });
+    });
+
+    it("Change focus to input text with manually configured numeric layout by clicking on background and then setting focus on that input", async () => {
+        await ShowcasePage.get().clickOnBackground();
+        await ShowcasePage.get().getManualNumericLayoutField().setFocus();
+
+        const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
+        const inputRect = await ShowcasePage.get().getManualNumericLayoutField().getBoundingRect();
+
+        await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the manually configured numeric input field", async() => {
+            expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is horizontally centered respect to input field", async() => {
+            const inputCenterX = inputRect.x + (inputRect.width / 2);
+            const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
+            expect(keyboardCenterX).toBeLocatedAs(inputCenterX);
+        });
+    });
 });
