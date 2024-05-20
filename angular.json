@@ -143,15 +143,15 @@
         "wdio": {
           "builder": "systelab-wdio-builder:test",
           "options": {
-            "wdioConfig": "./wdio.conf.dev.ts",
+            "wdioConfig": "./projects/showcase/test/wdio.conf.dev.ts",
             "devServerTarget": "showcase:serve:wdio"
           },
           "configurations": {
             "dev": {
-              "wdioConfig": "./wdio.conf.dev.ts"
+              "wdioConfig": "./projects/showcase/test/wdio.conf.dev.ts"
             },
             "ci": {
-              "wdioConfig": "./wdio.conf.ci.ts"
+              "wdioConfig": "./projects/showcase/test/wdio.conf.ci.ts"
             }
           }
         }

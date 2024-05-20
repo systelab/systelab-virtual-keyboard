@@ -19,7 +19,7 @@ describe("PositionAndSize", () => {
     });
 
     it("Open virtual keyboard on alphanumeric input field", async () => {
-        await ShowcasePage.get().getAlphanumericalField().openVirtualKeyboard();
+        await ShowcasePage.get().getAlphanumericalField().setFocus();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
         const inputRect = await ShowcasePage.get().getAlphanumericalField().getBoundingRect();

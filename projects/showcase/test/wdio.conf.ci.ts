@@ -18,8 +18,7 @@ exports.config = {
         browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
-            args: ['--start-fullscreen'],
-            // args: ['--headless', '--window-size=1920x1080'],
+            args: ['--headless', '--window-size=1920x1080'],
         },
     }],
     debug: true,
