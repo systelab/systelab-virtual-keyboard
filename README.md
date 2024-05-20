@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.com/systelab/systelab-virtual-keyboard.svg?branch=master)](https://travis-ci.com/systelab/systelab-virtual-keyboard)
+[![Build Status](https://api.travis-ci.com/systelab/systelab-virtual-keyboard.svg?branch=master)](https://app.travis-ci.com/systelab/systelab-virtual-keyboard)
 [![npm version](https://badge.fury.io/js/systelab-virtual-keyboard.svg)](https://badge.fury.io/js/systelab-virtual-keyboard)
 [![Known Vulnerabilities](https://snyk.io/test/github/systelab/systelab-virtual-keyboard/badge.svg?targetFile=package.json)](https://snyk.io/test/github/systelab/systelab-virtual-keyboard?targetFile=package.json)
 
