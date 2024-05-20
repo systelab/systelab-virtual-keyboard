@@ -2,7 +2,6 @@ import { Browser, ReportUtility, TestIdentification } from 'systelab-components-
 import { ShowcasePage } from '../mapping/showcase-page';
 import { VirtualKeyboard } from '../mapping/virtual-keyboard';
 import { VersionUtility } from '../utils/version.util';
-import { BoundingRect } from '../model/bounding-rect.model';
 
 
 describe("PositionAndSize", () => {
@@ -22,8 +21,8 @@ describe("PositionAndSize", () => {
     it("Open virtual keyboard on alphanumeric input field", async () => {
         await ShowcasePage.get().getAlphanumericalField().openVirtualKeyboard();
 
-        const keyboardRect: BoundingRect = await VirtualKeyboard.get().getBoundingRect();
-        const inputRect: BoundingRect = await ShowcasePage.get().getAlphanumericalField().getBoundingRect();
+        const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
+        const inputRect = await ShowcasePage.get().getAlphanumericalField().getBoundingRect();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
