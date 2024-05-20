@@ -8,7 +8,7 @@
     "build-showcase": "ng build showcase --configuration production",
     "build-lib": "ng build systelab-virtual-keyboard --configuration production",
     "watch": "ng build systelab-virtual-keyboard --watch --configuration development",
-    "test-showcase": "ng wdio",
+    "test-showcase": "ng wdio"
   },
   "private": true,
   "dependencies": {
