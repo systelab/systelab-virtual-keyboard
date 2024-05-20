@@ -1,7 +1,4 @@
 import { ElementFinder, Widget } from 'systelab-components-wdio-test';
-import { BoundingRect } from '../model/bounding-rect.model';
-import { Location } from '../model/location.model';
-import { Size } from '../model/size.model';
 
 
 export class InputField extends Widget {
@@ -25,21 +22,8 @@ export class InputField extends Widget {
         return this.elem.byCSS(".virtual-keyboard-show-button").click();
     }
 
-    public async getBoundingRect(): Promise<BoundingRect> {
-        const rect = browser.execute((selector) => {
-            return document.querySelector(selector).getBoundingClientRect();
-        }, this.getElement().getLocator().selector);
-        return rect;
-    }
-
-    public async getLocation(): Promise<Location> {
-        const inputText = await this.getInputText().findElement();
-        return inputText.getLocation();
-    }
-
-    public async getSize(): Promise<Size> {
-        const inputText = await this.getInputText().findElement();
-        return inputText.getSize();
+    public async getBoundingRect(): Promise<{x: number, y: number, width: number, height: number}> {
+        return this.getInputText().getBoundingRect();
     }
 
     private getInputText(): ElementFinder {

@@ -1,7 +1,4 @@
 import { BasePage, ElementArrayFinder, ElementFinder } from 'systelab-components-wdio-test';
-import { Location } from '../model/location.model';
-import { Size } from '../model/size.model';
-import { BoundingRect } from '../model/bounding-rect.model';
 
 
 export class VirtualKeyboard extends BasePage {
@@ -19,22 +16,8 @@ export class VirtualKeyboard extends BasePage {
         return this.getElementFinder().isPresent();
     }
 
-    public async getBoundingRect(): Promise<BoundingRect> {
-        const virtualKeyboard = await this.getElementFinder().findElement();
-        const rect = browser.execute((selector) => {
-            return document.querySelector(selector).getBoundingClientRect();
-        }, 'systelab-virtual-keyboard');
-        return rect;
-    }
-
-    public async getLocation(): Promise<Location> {
-        const virtualKeyboard = await this.getElementFinder().findElement();
-        return virtualKeyboard.getLocation();
-    }
-
-    public async getSize(): Promise<Size> {
-        const virtualKeyboard = await this.getElementFinder().findElement();
-        return virtualKeyboard.getSize();
+    public async getBoundingRect(): Promise<{x: number, y: number, width: number, height: number}> {
+        return this.getElementFinder().getBoundingRect();
     }
 
     public async getRowCount(): Promise<number> {
