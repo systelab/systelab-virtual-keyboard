@@ -28,12 +28,12 @@ describe("PositionAndSize", () => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
         });
 
-        await ReportUtility.addExpectedResult("Virtual keyboard size is close to 1200x305", async() => {
+        await ReportUtility.addExpectedResult("Virtual keyboard size is about 1200x305 pixels", async() => {
             expect(keyboardRect.width).toBeSizedAs(1200);
             expect(keyboardRect.height).toBeSizedAs(305);
         });
 
-        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the input field", async() => {
+        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the alphanumerical input field", async() => {
             expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
         });
 
@@ -44,4 +44,29 @@ describe("PositionAndSize", () => {
         });
     });
 
+    it("Press 'Tab' key on physical keyboard to navigate to next numerical input field", async () => {
+        await Browser.pressTab();
+
+        const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
+        const inputRect = await ShowcasePage.get().getNumericField().getBoundingRect();
+
+        await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard size is close to 400x265", async() => {
+            expect(keyboardRect.width).toBeSizedAs(400);
+            expect(keyboardRect.height).toBeSizedAs(265);
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the numerical input field", async() => {
+            expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is horizontally centered respect to input field", async() => {
+            const inputCenterX = inputRect.x + (inputRect.width / 2);
+            const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
+            expect(keyboardCenterX).toBeLocatedAs(inputCenterX);
+        });
+    });
 });
