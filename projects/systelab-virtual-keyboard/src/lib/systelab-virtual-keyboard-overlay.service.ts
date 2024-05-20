@@ -26,6 +26,7 @@ interface PositionStrategyOrigin {
 export class SystelabVirtualKeyboardOverlayService {
   private overlayRef!: OverlayRef;
   private inputOrigin: HTMLInputElement;
+  private fixedBottom: boolean;
   private showKeyboardButtonElement: HTMLElement;
   private open: boolean;
   private layout: SystelabVirtualKeyboardLayouts;
@@ -49,6 +50,7 @@ export class SystelabVirtualKeyboardOverlayService {
     layout: SystelabVirtualKeyboardLayouts = SystelabVirtualKeyboardLayouts.default,
   ): ComponentRef<SystelabVirtualKeyboardComponent> {
     this.inputOrigin = inputOrigin;
+    this.fixedBottom = fixedBottom;
     this.showKeyboardButtonElement = showKeyboardButtonElement;
     this.layout = layout;
     this.overlayRef = this.overlay.create({
@@ -66,6 +68,10 @@ export class SystelabVirtualKeyboardOverlayService {
 
     this.open = true;
     return this.overlayRef.attach(new ComponentPortal(SystelabVirtualKeyboardComponent));
+  }
+
+  public updatePosition(): void {
+    this.updatePositionStrategy(this.inputOrigin, this.fixedBottom);
   }
 
   public destroy(): void {

@@ -35,9 +35,11 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   @HostListener('window:touchmove', ['$event'])
   @HostListener('window:touchend', ['$event'])
   @HostListener('window:wheel', ['$event'])
+  @HostListener('document:scroll', ['$event'])
   onDocumentScroll() {
     if (this.overlayService.isCreated()) {
-      // update position and size on scroll
+      this.overlayService.updatePosition();
+
     }
   }
 
