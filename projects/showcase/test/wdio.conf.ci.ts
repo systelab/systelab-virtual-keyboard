@@ -19,6 +19,7 @@ exports.config = {
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
             args: ['--headless', 'disable-gpu', '--window-size=1920x1080'],
+            excludeSwitches: ['enable-automation'],
         },
     }],
     debug: true,

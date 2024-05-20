@@ -20,6 +20,7 @@ exports.config = {
         'goog:chromeOptions': {
             args: ['--start-fullscreen'],
             // args: ['--headless', '--window-size=1920x1080'],
+            excludeSwitches: ['enable-automation'],
         },
     }],
     debug: true,
