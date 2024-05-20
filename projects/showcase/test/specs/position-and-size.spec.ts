@@ -2,12 +2,12 @@ import { Browser, ReportUtility, TestIdentification } from 'systelab-components-
 import { ShowcasePage } from '../mapping/showcase-page';
 import { VirtualKeyboard } from '../mapping/virtual-keyboard';
 import { VersionUtility } from '../utils/version.util';
+import { CustomMatchers } from '../matchers/custom-matchers';
 
 
 describe("PositionAndSize", () => {
-    const TOLERANCE = 10;
-
     beforeAll(async () => {
+        jasmine.addMatchers(CustomMatchers);
         await Browser.navigateToURL("/");
     });
 
@@ -29,12 +29,18 @@ describe("PositionAndSize", () => {
         });
 
         await ReportUtility.addExpectedResult("Virtual keyboard size is close to 1200x305", async() => {
-            expect(keyboardRect.width).toBeCloseTo(1200, TOLERANCE);
-            expect(keyboardRect.height).toBeCloseTo(305, TOLERANCE);
+            expect(keyboardRect.width).toBeSizedAs(1200);
+            expect(keyboardRect.height).toBeSizedAs(305);
         });
 
         await ReportUtility.addExpectedResult("Virtual keyboard is located just under the input field", async() => {
-            expect(keyboardRect.y).toBeCloseTo(inputRect.y + inputRect.height, TOLERANCE);
+            expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is horizontally centered respect to input field", async() => {
+            const inputCenterX = inputRect.x + (inputRect.width / 2);
+            const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
+            expect(keyboardCenterX).toBeLocatedAs(inputCenterX);
         });
     });
 
