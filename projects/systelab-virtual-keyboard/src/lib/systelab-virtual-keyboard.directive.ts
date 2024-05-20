@@ -112,13 +112,13 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   }
 
   ngOnInit() {
-    if (this.config?.showButton) {
+    if (this.config?.showIcon) {
       this.attachKeyboardIcon();
     }
   }
 
   ngAfterViewInit() {
-    if (this.vkEnabled && this.config?.showButton) {
+    if (this.vkEnabled && this.config?.showIcon) {
       const keyboardIcon = this.elementRef.nativeElement.parentElement.querySelector('i');
       keyboardIcon.addEventListener('click', this.togglePanel.bind(this));
     }

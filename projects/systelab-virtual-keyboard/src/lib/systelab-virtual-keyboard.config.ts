@@ -6,5 +6,5 @@ export const VIRTUAL_KEYBOARD_CONFIG = new InjectionToken<SystelabVirtualKeyboar
 export interface SystelabVirtualKeyboardConfig {
   layout?: SystelabVirtualKeyboardLayouts;
   inputMethod?: SystelabVirtualKeyboardInputMethods;
-  showButton?: boolean;
+  showIcon?: boolean;
 }

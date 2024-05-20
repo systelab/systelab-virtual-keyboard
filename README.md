@@ -1,8 +1,7 @@
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4b9aac15463b46bba542091304304388)](https://www.codacy.com/gh/systelab/systelab-components/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=systelab/systelab-components&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://travis-ci.com/systelab/systelab-components.svg?branch=master)](https://travis-ci.com/systelab/systelab-components)
-[![codecov](https://codecov.io/gh/systelab/systelab-components/branch/master/graph/badge.svg)](https://codecov.io/gh/systelab/systelab-components)
-[![npm version](https://badge.fury.io/js/systelab-components.svg)](https://badge.fury.io/js/systelab-components)
-[![Known Vulnerabilities](https://snyk.io/test/github/systelab/systelab-components/badge.svg?targetFile=package.json)](https://snyk.io/test/github/systelab/systelab-components?targetFile=package.json)
+[![Build Status](https://travis-ci.com/systelab/systelab-virtual-keyboard.svg?branch=master)](https://travis-ci.com/systelab/systelab-virtual-keyboard)
+[![npm version](https://badge.fury.io/js/systelab-virtual-keyboard.svg)](https://badge.fury.io/js/systelab-virtual-keyboard)
+[![Known Vulnerabilities](https://snyk.io/test/github/systelab/systelab-virtual-keyboard/badge.svg?targetFile=package.json)](https://snyk.io/test/github/systelab/systelab-virtual-keyboard?targetFile=package.json)
+
 
 # systelab-virtual-keyboard
 

@@ -1,21 +1,23 @@
 <section class="main-container">
-  <div class="input-container">
-    <input class="input" type="text" placeholder="Alphanumerical keyboard" [vkEnabled]="true">
+  <h1>Virtual Keyboard Showcase</h1>
+
+  <div id="alphanumeric-field" class="input-container">
+    <input class="input" type="text" placeholder="Auto-configured alphanumeric layout" [vkEnabled]="true">
   </div>
 
-  <div class="input-container">
-    <input class="input" type="number" placeholder="Numeric keyboard" vkEnabled>
+  <div id="numeric-default-layout-field" class="input-container">
+    <input class="input" type="number" placeholder="Auto-configured numeric layout" vkEnabled>
   </div>
 
-  <div class="input-container">
-    <input class="input" type="number" placeholder="Numeric input default layout" vkEnabled [vkConfig]="vkConfigLayout">
+  <div id="numeric-field" class="input-container">
+    <input class="input" type="text" placeholder="Manually configured numeric layout" vkEnabled [vkConfig]="vkConfigLayout">
   </div>
 
-  <div class="input-container">
-    <input class="input" type="number" placeholder="Show button" vkEnabled [vkConfig]="vkConfigButton">
+  <div id="show-button-field" class="input-container">
+    <input class="input" type="number" placeholder="Show virtual keyboard icon" vkEnabled [vkConfig]="vkConfigIcon">
   </div>
 
-  <div class="input-container">
-    <input class="input" type="text" placeholder="Fixed bottom keyboard" vkEnabled vkFixedBottom>
+  <div id="fixed-bottom-field" class="input-container">
+    <input id="fixed-bottom-input" class="input" type="text" placeholder="Fixed bottom keyboard" vkEnabled vkFixedBottom>
   </div>
 </section>
