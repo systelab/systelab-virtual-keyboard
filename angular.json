@@ -88,6 +88,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "wdio": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/showcase/src/environments/environment.ts",
+                  "with": "projects/showcase/src/environments/environment.wdio.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -100,6 +108,9 @@
             },
             "development": {
               "buildTarget": "showcase:build:development"
+            },
+            "wdio": {
+              "buildTarget": "showcase:build:wdio"
             }
           },
           "defaultConfiguration": "development"
@@ -127,6 +138,21 @@
               "projects/showcase/src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "wdio": {
+          "builder": "systelab-wdio-builder:test",
+          "options": {
+            "wdioConfig": "./wdio.conf.dev.ts",
+            "devServerTarget": "showcase:serve:wdio"
+          },
+          "configurations": {
+            "dev": {
+              "wdioConfig": "./wdio.conf.dev.ts"
+            },
+            "ci": {
+              "wdioConfig": "./wdio.conf.ci.ts"
+            }
           }
         }
       }
