@@ -106,4 +106,27 @@ describe("PositionAndSize", () => {
             expect(keyboardCenterX).toBeLocatedAs(inputCenterX);
         });
     });
+
+    it("Click on virtual keyboard icon of the only input field that has it", async () => {
+        await ShowcasePage.get().clickOnBackground();
+        await ShowcasePage.get().getShowVirtualKeyboardIconField().clickVirtualKeyboardIcon();
+
+        await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
+        });
+
+        const inputRect = await ShowcasePage.get().getShowVirtualKeyboardIconField().getBoundingRect();
+        const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
+        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the input field with the icon", async() => {
+            expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
+        });
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is horizontally centered respect to input field with the icon", async() => {
+            const inputCenterX = inputRect.x + (inputRect.width / 2);
+            const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
+            expect(keyboardCenterX).toBeLocatedAs(inputCenterX);
+        });
+    });
+
+
 });
