@@ -26,11 +26,19 @@ export class InputField extends Widget {
         return this.getInputText().getBoundingRect();
     }
 
-    public async clickVirtualKeyboardButton(): Promise<void> {
-        return this.elem.byCSS(".virtual-keyboard-show-button").click();
+    public async isVirtualKeyboardIconPresent(): Promise<boolean> {
+        return this.getVirtualKeyboardIcon().isPresent();
+    }
+
+    public async clickVirtualKeyboardIcon(): Promise<void> {
+        return this.getVirtualKeyboardIcon().click();
     }
 
     private getInputText(): ElementFinder {
         return this.elem.byTagName("input");
+    }
+
+    private getVirtualKeyboardIcon(): ElementFinder {
+        return this.elem.byCSS(".virtual-keyboard-show-button");
     }
 }

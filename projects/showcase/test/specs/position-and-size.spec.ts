@@ -18,6 +18,21 @@ describe("PositionAndSize", () => {
         TestIdentification.captureEnvironment();
     });
 
+    it("Inspect elements displayed just after opening showcase page", async () => {
+        await ReportUtility.addExpectedResult("Virtual keyboard is not shown", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeFalsy();
+        });
+
+        await ReportUtility.addExpectedResult("Icon to open virtual keyboard is shown only for one of the inputs", async() => {
+            expect(await ShowcasePage.get().getShowVirtualKeyboardIconField().isVirtualKeyboardIconPresent()).toBeTruthy();
+
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().isVirtualKeyboardIconPresent()).toBeFalsy();
+            expect(await ShowcasePage.get().getAutoNumericLayoutField().isVirtualKeyboardIconPresent()).toBeFalsy();
+            expect(await ShowcasePage.get().getManualNumericLayoutField().isVirtualKeyboardIconPresent()).toBeFalsy();
+            expect(await ShowcasePage.get().getFixedBottomPositioningField().isVirtualKeyboardIconPresent()).toBeFalsy();
+        });
+    });
+
     it("Open virtual keyboard on input field with auto-configured alphanumeric layout", async () => {
         await ShowcasePage.get().getAutoAlphanumericLayoutField().setFocus();
 
