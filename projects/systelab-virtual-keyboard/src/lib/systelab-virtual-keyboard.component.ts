@@ -150,6 +150,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     let keyboardOptions: KeyboardOptions = {
       onKeyPress: (button) => this.handleKeyPress(button),
       mergeDisplay: true,
+      theme: 'hg-theme-default hg-layout-default myTheme',
       display: {
         [SystelabVirtualKeyboardButton.Backspace]: 'delete',
       },
