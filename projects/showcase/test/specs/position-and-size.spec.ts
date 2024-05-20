@@ -19,10 +19,10 @@ describe("PositionAndSize", () => {
     });
 
     it("Open virtual keyboard on alphanumeric input field", async () => {
-        await ShowcasePage.get().getAlphanumericalField().setFocus();
+        await ShowcasePage.get().getAutoAlphanumericLayoutField().setFocus();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
-        const inputRect = await ShowcasePage.get().getAlphanumericalField().getBoundingRect();
+        const inputRect = await ShowcasePage.get().getAutoAlphanumericLayoutField().getBoundingRect();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
@@ -48,7 +48,7 @@ describe("PositionAndSize", () => {
         await Browser.pressTab();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
-        const inputRect = await ShowcasePage.get().getNumericField().getBoundingRect();
+        const inputRect = await ShowcasePage.get().getAutoNumericLayoutField().getBoundingRect();
 
         await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
