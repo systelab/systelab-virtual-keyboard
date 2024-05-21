@@ -8,29 +8,29 @@
  */
 
 export enum SystelabVirtualKeyboardButton {
-  Done = '{done}',
-  Enter = '{enter}',
-  Shift = '{shift}',
-  Lock = '{lock}',
-  Backspace = '{bksp}',
-  Language = '{language}',
-  Space = '{space}',
-  Tab = '{tab}',
+    Done = '{done}',
+    Enter = '{enter}',
+    Shift = '{shift}',
+    Lock = '{lock}',
+    Backspace = '{bksp}',
+    Language = '{language}',
+    Space = '{space}',
+    Tab = '{tab}',
 }
 
 export enum SystelabVirtualKeyboardLayouts {
-  default = 'default',
-  shift = 'shift',
-  numeric = 'numeric',
+    default = 'default',
+    shift = 'shift',
+    numeric = 'numeric',
 }
 
 export enum SystelabVirtualKeyboardInputMethods {
-  onlyMouseEvents = 'onlyMouseEvents',
-  onlyTouchEvents = 'onlyTouchEvents',
+    onlyMouseEvents = 'onlyMouseEvents',
+    onlyTouchEvents = 'onlyTouchEvents',
 }
 
 export enum SystelabVirtualKeyboardInputTypes {
-  text = 'text',
-  number = 'number',
-  password = 'password',
+    text = 'text',
+    number = 'number',
+    password = 'password',
 }

@@ -21,186 +21,186 @@ interface PositionStrategyOrigin {
 }
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class SystelabVirtualKeyboardOverlayService {
-  private overlayRef!: OverlayRef;
-  private inputOrigin: HTMLInputElement;
-  private fixedBottom: boolean;
-  private showKeyboardButtonElement: HTMLElement;
-  private open: boolean;
-  private layout: SystelabVirtualKeyboardLayouts;
-  private focusDispatched: boolean = false;
+    private overlayRef!: OverlayRef;
+    private inputOrigin: HTMLInputElement;
+    private fixedBottom: boolean;
+    private showKeyboardButtonElement: HTMLElement;
+    private open: boolean;
+    private layout: SystelabVirtualKeyboardLayouts;
+    private focusDispatched: boolean = false;
 
-  constructor(private readonly overlay: Overlay) {
-    this.initListener();
-  }
-
-  public isCreated(): boolean {
-    return !!this.overlayRef;
-  }
-
-  public isOpen(): boolean {
-    return this.open;
-  }
-
-  public create(
-    inputOrigin: HTMLInputElement,
-    showKeyboardButtonElement: HTMLElement,
-    fixedBottom: boolean,
-    layout: SystelabVirtualKeyboardLayouts = SystelabVirtualKeyboardLayouts.default,
-  ): ComponentRef<SystelabVirtualKeyboardComponent> {
-    this.inputOrigin = inputOrigin;
-    this.fixedBottom = fixedBottom;
-    this.showKeyboardButtonElement = showKeyboardButtonElement;
-    this.layout = layout;
-    this.overlayRef = this.overlay.create({
-      hasBackdrop: false,
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      disposeOnNavigation: true,
-    });
-    this.overlayRef.addPanelClass('virtual-keyboard-overlay-pane');
-    if (fixedBottom) {
-      this.overlayRef.addPanelClass('virtual-keyboard-fixed-bottom');
+    constructor(private readonly overlay: Overlay) {
+        this.initListener();
     }
 
-    this.updatePositionStrategy(inputOrigin, fixedBottom);
-    this.updateSize();
-
-    this.open = true;
-    return this.overlayRef.attach(new ComponentPortal(SystelabVirtualKeyboardComponent));
-  }
-
-  public updatePosition(): void {
-    this.updatePositionStrategy(this.inputOrigin, this.fixedBottom);
-  }
-
-  public setFocusDispatched(dispatched: boolean): void {
-    this.focusDispatched = dispatched;
-  }
-
-  public destroy(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
+    public isCreated(): boolean {
+        return !!this.overlayRef;
     }
-    this.overlayRef = null;
-    this.open = false;
-  }
 
-  private initListener() {
-    document.addEventListener('click', this.handleClick.bind(this));
-  }
-
-  private handleClick(event: MouseEvent) {
-    if (this.focusDispatched) {
-      this.focusDispatched = false;
-      return;
+    public isOpen(): boolean {
+        return this.open;
     }
-    console.log('Document clicked:', event);
-    event.stopPropagation();
-    const simpleKeyboardElement = document.querySelector('.simple-keyboard');
-    const showKeyboardButtonClicked = (event.target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
 
-    const containsKeyboard = simpleKeyboardElement?.contains(event.target as Node);
-    const containsElementRef = this.inputOrigin?.contains(event.target as Node);
-    // const containsFocusedElement = this.focusedElement?.contains(event.target as Node);
-    const containsShowButton = this.showKeyboardButtonElement?.contains(event.target as Node);
-    if (
-      !containsKeyboard &&
+    public create(
+        inputOrigin: HTMLInputElement,
+        showKeyboardButtonElement: HTMLElement,
+        fixedBottom: boolean,
+        layout: SystelabVirtualKeyboardLayouts = SystelabVirtualKeyboardLayouts.default,
+    ): ComponentRef<SystelabVirtualKeyboardComponent> {
+        this.inputOrigin = inputOrigin;
+        this.fixedBottom = fixedBottom;
+        this.showKeyboardButtonElement = showKeyboardButtonElement;
+        this.layout = layout;
+        this.overlayRef = this.overlay.create({
+            hasBackdrop: false,
+            scrollStrategy: this.overlay.scrollStrategies.reposition(),
+            disposeOnNavigation: true,
+        });
+        this.overlayRef.addPanelClass('virtual-keyboard-overlay-pane');
+        if (fixedBottom) {
+            this.overlayRef.addPanelClass('virtual-keyboard-fixed-bottom');
+        }
+
+        this.updatePositionStrategy(inputOrigin, fixedBottom);
+        this.updateSize();
+
+        this.open = true;
+        return this.overlayRef.attach(new ComponentPortal(SystelabVirtualKeyboardComponent));
+    }
+
+    public updatePosition(): void {
+        this.updatePositionStrategy(this.inputOrigin, this.fixedBottom);
+    }
+
+    public setFocusDispatched(dispatched: boolean): void {
+        this.focusDispatched = dispatched;
+    }
+
+    public destroy(): void {
+        if (this.overlayRef) {
+            this.overlayRef.dispose();
+        }
+        this.overlayRef = null;
+        this.open = false;
+    }
+
+    private initListener() {
+        document.addEventListener('click', this.handleClick.bind(this));
+    }
+
+    private handleClick(event: MouseEvent) {
+        if (this.focusDispatched) {
+            this.focusDispatched = false;
+            return;
+        }
+        console.log('Document clicked:', event);
+        event.stopPropagation();
+        const simpleKeyboardElement = document.querySelector('.simple-keyboard');
+        const showKeyboardButtonClicked = (event.target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
+
+        const containsKeyboard = simpleKeyboardElement?.contains(event.target as Node);
+        const containsElementRef = this.inputOrigin?.contains(event.target as Node);
+        // const containsFocusedElement = this.focusedElement?.contains(event.target as Node);
+        const containsShowButton = this.showKeyboardButtonElement?.contains(event.target as Node);
+        if (
+            !containsKeyboard &&
       !containsElementRef &&
       // !containsFocusedElement &&
       !containsShowButton &&
       !showKeyboardButtonClicked
-    ) {
-      if (this.isCreated()) {
-        this.destroy();
-      }
-    }
-  }
-
-  public hasAttached(): boolean {
-    return this.overlayRef?.hasAttached();
-  }
-
-  private updatePositionStrategy(inputOrigin: HTMLInputElement, fixedBottom: boolean): void {
-    this.overlayRef.updatePositionStrategy(this.getPositionStrategy(inputOrigin, fixedBottom));
-  }
-
-  private updateSize(): void {
-    this.overlayRef.updateSize(this.getOverlaySize());
-  }
-
-  private getPositionStrategy(inputOrigin: HTMLInputElement, fixedBottom: boolean): PositionStrategy {
-    if (fixedBottom) {
-      return this.overlay.position().global().centerHorizontally().bottom('0');
+        ) {
+            if (this.isCreated()) {
+                this.destroy();
+            }
+        }
     }
 
-    const pointWithDimensions: PositionStrategyOrigin = this.computePositionStrategyOrigin(inputOrigin);
+    public hasAttached(): boolean {
+        return this.overlayRef?.hasAttached();
+    }
 
-    return this.overlay
-      .position()
-      .flexibleConnectedTo(pointWithDimensions)
-      .withFlexibleDimensions(false)
-      .withLockedPosition(true)
-      .withPush(false)
-      .withPositions([
-        {
-          originX: 'start',
-          originY: 'bottom',
-          overlayX: 'start',
-          overlayY: 'top',
-        },
-        {
-          originX: 'start',
-          originY: 'top',
-          overlayX: 'start',
-          overlayY: 'bottom',
-        },
-        {
-          originX: 'end',
-          originY: 'bottom',
-          overlayX: 'end',
-          overlayY: 'top',
-        },
-        {
-          originX: 'end',
-          originY: 'top',
-          overlayX: 'end',
-          overlayY: 'bottom',
-        },
-      ]);
-  }
+    private updatePositionStrategy(inputOrigin: HTMLInputElement, fixedBottom: boolean): void {
+        this.overlayRef.updatePositionStrategy(this.getPositionStrategy(inputOrigin, fixedBottom));
+    }
 
-  private getOverlaySize(): OverlaySizeConfig {
-    const overlayWidth = this.layout === SystelabVirtualKeyboardLayouts.numeric ? '400px' : '1200px';
+    private updateSize(): void {
+        this.overlayRef.updateSize(this.getOverlaySize());
+    }
 
-    return {
-      width: overlayWidth,
-      maxWidth: overlayWidth,
-      minWidth: overlayWidth,
-    };
-  }
+    private getPositionStrategy(inputOrigin: HTMLInputElement, fixedBottom: boolean): PositionStrategy {
+        if (fixedBottom) {
+            return this.overlay.position().global().centerHorizontally().bottom('0');
+        }
 
-  private computePositionStrategyOrigin(inputOrigin: HTMLInputElement): PositionStrategyOrigin {
-    const overlayOffsetX = this.computeOverlayOffsetX(inputOrigin);
-    const { width: overlayWidthString } = this.getOverlaySize();
-    const overlayWidth = Number((overlayWidthString as string).replace('px', ''));
-    const {x, y, width, height} = inputOrigin.getBoundingClientRect();
-    return {
-      width,
-      height,
-      x: width < overlayWidth ? x - overlayOffsetX : x + overlayOffsetX,
-      y,
-    };
-  }
+        const pointWithDimensions: PositionStrategyOrigin = this.computePositionStrategyOrigin(inputOrigin);
 
-  private computeOverlayOffsetX(inputOrigin: HTMLInputElement): number {
-    const { width: overlayWidthString } = this.getOverlaySize();
-    const overlayWidth = Number((overlayWidthString as string).replace('px', ''));
-    const inputWidth = inputOrigin.getBoundingClientRect().width;
+        return this.overlay
+            .position()
+            .flexibleConnectedTo(pointWithDimensions)
+            .withFlexibleDimensions(false)
+            .withLockedPosition(true)
+            .withPush(false)
+            .withPositions([
+                {
+                    originX: 'start',
+                    originY: 'bottom',
+                    overlayX: 'start',
+                    overlayY: 'top',
+                },
+                {
+                    originX: 'start',
+                    originY: 'top',
+                    overlayX: 'start',
+                    overlayY: 'bottom',
+                },
+                {
+                    originX: 'end',
+                    originY: 'bottom',
+                    overlayX: 'end',
+                    overlayY: 'top',
+                },
+                {
+                    originX: 'end',
+                    originY: 'top',
+                    overlayX: 'end',
+                    overlayY: 'bottom',
+                },
+            ]);
+    }
 
-    const extraWidth = overlayWidth - inputWidth;
+    private getOverlaySize(): OverlaySizeConfig {
+        const overlayWidth = this.layout === SystelabVirtualKeyboardLayouts.numeric ? '400px' : '1200px';
 
-    return Math.abs(extraWidth) / 2;
-  }
+        return {
+            width: overlayWidth,
+            maxWidth: overlayWidth,
+            minWidth: overlayWidth,
+        };
+    }
+
+    private computePositionStrategyOrigin(inputOrigin: HTMLInputElement): PositionStrategyOrigin {
+        const overlayOffsetX = this.computeOverlayOffsetX(inputOrigin);
+        const { width: overlayWidthString } = this.getOverlaySize();
+        const overlayWidth = Number((overlayWidthString as string).replace('px', ''));
+        const {x, y, width, height} = inputOrigin.getBoundingClientRect();
+        return {
+            width,
+            height,
+            x: width < overlayWidth ? x - overlayOffsetX : x + overlayOffsetX,
+            y,
+        };
+    }
+
+    private computeOverlayOffsetX(inputOrigin: HTMLInputElement): number {
+        const { width: overlayWidthString } = this.getOverlaySize();
+        const overlayWidth = Number((overlayWidthString as string).replace('px', ''));
+        const inputWidth = inputOrigin.getBoundingClientRect().width;
+
+        const extraWidth = overlayWidth - inputWidth;
+
+        return Math.abs(extraWidth) / 2;
+    }
 }
