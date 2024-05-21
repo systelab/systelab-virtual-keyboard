@@ -4,7 +4,7 @@ import { SystelabVirtualKeyboardInputMethods, SystelabVirtualKeyboardLayouts } f
 export const VIRTUAL_KEYBOARD_CONFIG = new InjectionToken<SystelabVirtualKeyboardConfig>('VIRTUAL_KEYBOARD_CONFIG');
 
 export interface SystelabVirtualKeyboardConfig {
-  layout?: SystelabVirtualKeyboardLayouts;
-  inputMethod?: SystelabVirtualKeyboardInputMethods;
-  showIcon?: boolean;
+    layout?: SystelabVirtualKeyboardLayouts;
+    inputMethod?: SystelabVirtualKeyboardInputMethods;
+    showIcon?: boolean;
 }

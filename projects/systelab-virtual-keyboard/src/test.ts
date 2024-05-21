@@ -7,9 +7,9 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 
 // First, initialize the Angular testing environment.
 getTestBed()
-  .initTestEnvironment(
-    BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting(), {
-      teardown: { destroyAfterEach: false }
-    }
-  );
+    .initTestEnvironment(
+        BrowserDynamicTestingModule,
+        platformBrowserDynamicTesting(), {
+            teardown: { destroyAfterEach: false }
+        }
+    );

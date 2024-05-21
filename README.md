@@ -21,18 +21,16 @@ npm start
 
 This will bootstrap a showcase application to test the library.
 
-Use watch in the library build to detect file changes automatically (except from css). Start application in a different terminal:
-
-Terminal 1
+Use watch to generate a library build and detect file changes automatically (*except for css*) in Terminal 1:
 
 ```bash
-ng build systelab-virtual-keyboard --watch
+npm run watch
 ```
 
-Terminal 2
+Start the showcase application in Terminal 2:
 
 ```bash
-ng serve
+npm start
 ```
 
 ## Test

@@ -1,31 +1,31 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "skipLibCheck": true,
-    "outDir": "./dist/out-tsc",
-    "allowJs": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
-    "paths": {
-      "systelab-virtual-keyboard": [
-        "dist/systelab-virtual-keyboard"
-      ]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "skipLibCheck": true,
+        "outDir": "./dist/out-tsc",
+        "allowJs": true,
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "module": "es2020",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "ES2022",
+        "lib": [
+            "es2018",
+            "dom"
+        ],
+        "paths": {
+            "systelab-virtual-keyboard": [
+                "dist/systelab-virtual-keyboard"
+            ]
+        },
+        "useDefineForClassFields": false
     },
-    "useDefineForClassFields": false
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
+    }
 }

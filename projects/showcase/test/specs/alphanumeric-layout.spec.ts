@@ -2,6 +2,7 @@ import { Browser, ReportUtility, TestIdentification } from 'systelab-components-
 import { ShowcasePage } from '../mapping/showcase-page';
 import { VirtualKeyboard } from '../mapping/virtual-keyboard';
 import { VersionUtility } from '../utils/version.util';
+import { LayoutExpectation } from '../expectation/layout.expectation';
 
 
 describe("AlphanumericLayout", () => {
@@ -12,23 +13,14 @@ describe("AlphanumericLayout", () => {
     beforeEach(async() => {
         TestIdentification.setTmsLink("TC-AlphanumericLayout");
         TestIdentification.setDescription("Checks if the alphanumeric layout of the virtual keyboard behaves as expected.");
-        TestIdentification.setAppVersion(await VersionUtility.getLibraryVersion());
+        TestIdentification.setAppVersion(VersionUtility.getLibraryVersion());
         TestIdentification.captureEnvironment();
     });
 
     it("Set focus on auto-configured alphanumeric layout input field", async () => {
         await ShowcasePage.get().getAutoAlphanumericLayoutField().setFocus();
 
-        await ReportUtility.addExpectedResult("Virtual keyboard is shown with 5 rows of keys including all numbers, all lowercase letters, " + 
-                                              "some symbols and some special keys", async() => {
-            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
-            expect(await VirtualKeyboard.get().getRowCount()).toEqual(5);
-            expect(await VirtualKeyboard.get().getRowKeys(0)).toEqual([      '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '{bksp}']);
-            expect(await VirtualKeyboard.get().getRowKeys(1)).toEqual([  '{tab}', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\']);
-            expect(await VirtualKeyboard.get().getRowKeys(2)).toEqual([ '{lock}', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '{enter}']);
-            expect(await VirtualKeyboard.get().getRowKeys(3)).toEqual(['{shift}', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '{shift}']);
-            expect(await VirtualKeyboard.get().getRowKeys(4)).toEqual(['{space}']);
-        });
+        await LayoutExpectation.expectAlphanumericLowercaseLayout();
     });
 
     it("Write 'abcdefghijklmnopqrstuvwxyz' by clicking on virtual keyboard keys", async () => {
@@ -69,15 +61,7 @@ describe("AlphanumericLayout", () => {
     it("Click on 'Caps Lock' virtual keyboard key to change layout to uppercase", async () => {
         await VirtualKeyboard.get().clickCapsLock();
 
-        await ReportUtility.addExpectedResult("Virtual keyboard now shows all letters in uppercase and more symbols", async() => {
-            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
-            expect(await VirtualKeyboard.get().getRowCount()).toEqual(5);
-            expect(await VirtualKeyboard.get().getRowKeys(0)).toEqual([      '~', '!', '@', '#', '$', '%', '^', '&amp;', '*', '(', ')', '_', '+', '{bksp}']);
-            expect(await VirtualKeyboard.get().getRowKeys(1)).toEqual([  '{tab}', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|']);
-            expect(await VirtualKeyboard.get().getRowKeys(2)).toEqual([ '{lock}', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '{enter}']);
-            expect(await VirtualKeyboard.get().getRowKeys(3)).toEqual(['{shift}', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '&lt;', '&gt;', '?', '{shift}']);
-            expect(await VirtualKeyboard.get().getRowKeys(4)).toEqual(['{space}']);
-        });
+        await LayoutExpectation.expectAlphanumericUppercaseLayout();
     });
 
     it("Clear input content and write 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' by clicking on virtual keyboard keys", async () => {
@@ -101,16 +85,20 @@ describe("AlphanumericLayout", () => {
     it("Click again on 'Caps Lock' to return to lowercase layout", async () => {
         await VirtualKeyboard.get().clickCapsLock();
 
-        await ReportUtility.addExpectedResult("Virtual keyboard is shown again with all lowercase letters and numbers", async() => {
-            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
-            expect(await VirtualKeyboard.get().getRowCount()).toEqual(5);
-            expect(await VirtualKeyboard.get().getRowKeys(0)).toEqual([      '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '{bksp}']);
-            expect(await VirtualKeyboard.get().getRowKeys(1)).toEqual([  '{tab}', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\']);
-            expect(await VirtualKeyboard.get().getRowKeys(2)).toEqual([ '{lock}', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '{enter}']);
-            expect(await VirtualKeyboard.get().getRowKeys(3)).toEqual(['{shift}', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '{shift}']);
-            expect(await VirtualKeyboard.get().getRowKeys(4)).toEqual(['{space}']);
-        });
+        await LayoutExpectation.expectAlphanumericLowercaseLayout();
     });
+
+    it("Click on 'Shift' virtual keyboard key to change layout to uppercase for only once key", async () => {
+        await VirtualKeyboard.get().clickShift();
+
+        await LayoutExpectation.expectAlphanumericUppercaseLayout();
+    });
+
+    it("Click on 'S' virtual keyboard key and the lowercase layout is back", async() => {
+        await VirtualKeyboard.get().clickKey('S');
+
+        await LayoutExpectation.expectAlphanumericLowercaseLayout();
+    })
 
     it("Clear again input content and write some text with a space and a tab by clicking on virtual keyboard keys", async () => {
         await ShowcasePage.get().getAutoAlphanumericLayoutField().clear();

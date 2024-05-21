@@ -14,7 +14,7 @@ describe("PositionAndSize", () => {
     beforeEach(async() => {
         TestIdentification.setTmsLink("TC-PositionAndSize");
         TestIdentification.setDescription("Checks if the virtual keyboard is positioned and dimensioned as expected.");
-        TestIdentification.setAppVersion(await VersionUtility.getLibraryVersion());
+        TestIdentification.setAppVersion(VersionUtility.getLibraryVersion());
         TestIdentification.captureEnvironment();
     });
 
