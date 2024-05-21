@@ -202,7 +202,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     if (button === SystelabVirtualKeyboardButton.Shift || button === SystelabVirtualKeyboardButton.Lock) {
       this.shiftPressed = button === SystelabVirtualKeyboardButton.Shift;
-      this.toggleShift();
+      this.toggleShiftLayout();
     } else if (button === SystelabVirtualKeyboardButton.Done) {
       this.closePanel.emit();
       return;
@@ -225,7 +225,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     this.dispatchEvents(button);
 
     if (this.shiftPressed) {
-      this.toggleShift();
+      this.toggleShiftLayout();
     }
     this.shiftPressed = button === SystelabVirtualKeyboardButton.Shift;
   }
@@ -310,9 +310,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     return { key, code };
   }
 
-  private toggleShift() {
-    let currentLayout = this.keyboard.options.layoutName;
-    let selectedLayout: SystelabVirtualKeyboardLayouts =
+  private toggleShiftLayout(): void {
+    const currentLayout = this.keyboard.options.layoutName;
+    const selectedLayout: SystelabVirtualKeyboardLayouts =
       currentLayout === SystelabVirtualKeyboardLayouts.default ? SystelabVirtualKeyboardLayouts.shift : SystelabVirtualKeyboardLayouts.default;
 
     this.setLayout(selectedLayout);

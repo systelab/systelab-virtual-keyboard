@@ -43,7 +43,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
   }
 
   @HostListener('focus', ['$event'])
-  onFocus(event: MouseEvent | TouchEvent): void {
+  onFocus(): void {
     console.log('Focused');
     if (this.overlayService.isCreated()) {
       this.closePanel();
@@ -182,7 +182,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     this.overlayService.destroy();
   }
 
-  private inputOrigin(): any {
+  private inputOrigin(): HTMLInputElement {
     return this.elementRef.nativeElement;
   }
 
