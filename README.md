@@ -5,11 +5,11 @@
 
 # systelab-virtual-keyboard
 
-Library with common UI components to speed up your Angular developments. You can take a look to the components in our showcase at https://systelab.github.io/virtual-keyboard.
+Library that integrates a virtual keyboard to allow entering input data through a touch screen. You can take a look to this component in our showcase at https://systelab.github.io/virtual-keyboard.
 
 ## Working with the repo
 
-In order to clone the repository and test the library use the following commands:
+In order to clone the repository and work with the library use the following commands:
 
 ```bash
 git clone https://github.com/systelab/systelab-virtual-keyboard.git
@@ -37,14 +37,8 @@ ng serve
 
 ## Test
 
-### Unit
+This library comes with a suite of automated tests based on WebDriverIO framework. It can be executed with:
 
 ```bash
-ng test
+npm run test-dev
 ```
-
-# Breaking changes
-
-## Version 0.0.1
-
--   Pre-release version
