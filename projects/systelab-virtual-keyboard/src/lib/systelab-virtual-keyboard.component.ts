@@ -62,6 +62,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
   private caretPosition: number | null = null;
   private caretPositionEnd: number | null = null;
   private activeInputElement!: HTMLInputElement | HTMLTextAreaElement | null;
+  private shiftPressed: boolean = false;
 
   @Output() closePanel = new EventEmitter<void>();
 
@@ -200,6 +201,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     if (button === SystelabVirtualKeyboardButton.Shift || button === SystelabVirtualKeyboardButton.Lock) {
+      this.shiftPressed = button === SystelabVirtualKeyboardButton.Shift;
       this.toggleShift();
     } else if (button === SystelabVirtualKeyboardButton.Done) {
       this.closePanel.emit();
@@ -221,6 +223,11 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     this.dispatchEvents(button);
+
+    if (this.shiftPressed) {
+      this.toggleShift();
+    }
+    this.shiftPressed = button === SystelabVirtualKeyboardButton.Shift;
   }
 
   private handleButtonOutput(button: string): string {
