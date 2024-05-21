@@ -12,7 +12,7 @@ describe("NumericLayout", () => {
     beforeEach(async() => {
         TestIdentification.setTmsLink("TC-NumericLayout");
         TestIdentification.setDescription("Checks if the numeric layout of the virtual keyboard behaves as expected.");
-        TestIdentification.setAppVersion(await VersionUtility.getLibraryVersion());
+        TestIdentification.setAppVersion(VersionUtility.getLibraryVersion());
         TestIdentification.captureEnvironment();
     });
 
