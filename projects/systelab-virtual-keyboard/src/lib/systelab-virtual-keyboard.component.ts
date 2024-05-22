@@ -12,7 +12,6 @@ import { SimpleKeyboard } from 'simple-keyboard';
 import {
     SystelabVirtualKeyboardButton,
     SystelabVirtualKeyboardInputMethods,
-    SystelabVirtualKeyboardInputModes,
     SystelabVirtualKeyboardLayouts
 } from './constants';
 import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
@@ -105,16 +104,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             console.log('Layout:', `${inputType}_${this.selectedLayout}`);
         }
 
-        let selectionStart: number;
-        let selectionEnd: number;
-        if (this.isInputNumeric(input)) {
-            selectionStart = this.activeInputElement.value.toString().length;
-            selectionEnd = this.activeInputElement.value.toString().length;
-        } else {
-            selectionStart = this.activeInputElement.selectionStart;
-            selectionEnd = this.activeInputElement.selectionEnd;
-        }
-
+        const { selectionStart, selectionEnd } = this.activeInputElement;
         this.setCaretPosition(selectionStart, selectionEnd);
 
         if (this.debug) {
@@ -182,16 +172,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         }
 
         return keyboardOptions;
-    }
-
-    private isInputAlphabetic(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
-        const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputModes.text, SystelabVirtualKeyboardInputModes.password].some((i) => i === inputType);
-    }
-
-    private isInputNumeric(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
-        const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputModes.numeric].some((i) => i === inputType);
     }
 
     private handleKeyPress(button: string, e?: Event): void {
@@ -417,12 +397,10 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     private focusActiveInput(): void {
         this.activeInputElement?.focus();
-        if (!this.isInputNumeric(this.activeInputElement)) {
-            this.activeInputElement?.setSelectionRange(
-                this.caretPosition,
-                this.caretPositionEnd
-            );
-        }
+        this.activeInputElement?.setSelectionRange(
+            this.caretPosition,
+            this.caretPositionEnd
+        );
     }
 
     private updateCaretPosition(length: number, minus = false) {
