@@ -240,7 +240,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             } else if (button === SystelabVirtualKeyboardButton.Space) {
                 output = this.addStringAt(output, ' ', ...commonParams);
             } else if (button === SystelabVirtualKeyboardButton.Tab) {
-                output = this.addStringAt(output, '\t', ...commonParams);
+                // Do nothing for tab
             } else if (button === SystelabVirtualKeyboardButton.Enter) {
                 if (this.isTextarea) {
                     output = this.addStringAt(output, '\n', ...commonParams);
@@ -279,7 +279,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             code: code,
             location: 0,
         };
-
         // Simulate all needed events on base element
         this.activeInputElement?.dispatchEvent(new KeyboardEvent('keydown', eventInit));
         this.activeInputElement?.dispatchEvent(new KeyboardEvent('keypress', eventInit));
