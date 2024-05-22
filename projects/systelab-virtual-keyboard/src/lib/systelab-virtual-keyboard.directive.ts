@@ -37,6 +37,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     @HostListener('window:wheel', ['$event'])
     @HostListener('document:scroll', ['$event'])
     onDocumentScroll() {
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isCreated()) {
             this.overlayService.updatePosition();
         }
@@ -44,7 +47,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
 
     @HostListener('focus', ['$event'])
     onFocus(): void {
-        console.log('Focused');
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isCreated()) {
             this.closePanel();
         }
@@ -139,6 +144,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     }
 
     private togglePanel(): void {
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isOpen()) {
             this.closePanel();
         } else {
@@ -147,6 +155,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     }
 
     private openPanel(): void {
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isCreated()) {
             this.overlayService.destroy();
         }

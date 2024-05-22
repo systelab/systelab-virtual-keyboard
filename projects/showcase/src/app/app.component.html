@@ -1,6 +1,14 @@
 <section class="main-container">
     <h1>Virtual Keyboard Showcase</h1>
 
+    <div id="no-keyboard-directive" class="input-container">
+        <input class="input" type="text" placeholder="No keyboard directive">
+    </div>
+
+    <div id="disabled-keyboard-via-variable" class="input-container">
+        <input class="input" type="text" placeholder="Disabled keyboard via variable" [vkEnabled]="vkEnabled">
+    </div>
+
     <div id="auto-alphanumeric-layout-field" class="input-container">
         <input class="input" type="text" placeholder="Auto-configured alphanumeric layout" [vkEnabled]="true">
     </div>
