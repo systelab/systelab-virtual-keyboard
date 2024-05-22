@@ -29,8 +29,8 @@ export enum SystelabVirtualKeyboardInputMethods {
     onlyTouchEvents = 'onlyTouchEvents',
 }
 
-export enum SystelabVirtualKeyboardInputTypes {
+export enum SystelabVirtualKeyboardInputModes {
     text = 'text',
-    number = 'number',
+    numeric = 'numeric',
     password = 'password',
 }

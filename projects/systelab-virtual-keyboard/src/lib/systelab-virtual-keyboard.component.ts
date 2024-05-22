@@ -12,7 +12,7 @@ import { SimpleKeyboard } from 'simple-keyboard';
 import {
     SystelabVirtualKeyboardButton,
     SystelabVirtualKeyboardInputMethods,
-    SystelabVirtualKeyboardInputTypes,
+    SystelabVirtualKeyboardInputModes,
     SystelabVirtualKeyboardLayouts
 } from './constants';
 import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
@@ -34,6 +34,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     @HostListener('window:pointerup', ['$event'])
+    @HostListener('window:mouseup', ['$event'])
     handleMouseUp(event: PointerEvent): void {
         this.caretEventHandler(event);
     }
@@ -119,6 +120,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         if (this.debug) {
             console.log('Caret start at:', this.caretPosition, this.caretPositionEnd);
         }
+        this.focusActiveInput();
     }
 
     public setLayout(layout: SystelabVirtualKeyboardLayouts): void {
@@ -184,12 +186,12 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     private isInputAlphabetic(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
         const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputTypes.text, SystelabVirtualKeyboardInputTypes.password].some((i) => i === inputType);
+        return inputType && [SystelabVirtualKeyboardInputModes.text, SystelabVirtualKeyboardInputModes.password].some((i) => i === inputType);
     }
 
     private isInputNumeric(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
         const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputTypes.number].some((i) => i === inputType);
+        return inputType && [SystelabVirtualKeyboardInputModes.numeric].some((i) => i === inputType);
     }
 
     private handleKeyPress(button: string, e?: Event): void {
@@ -410,6 +412,16 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             if (this.debug) {
                 console.log(`Caret position reset due to "${event?.type}" event`, event);
             }
+        }
+    }
+
+    private focusActiveInput(): void {
+        this.activeInputElement?.focus();
+        if (!this.isInputNumeric(this.activeInputElement)) {
+            this.activeInputElement?.setSelectionRange(
+                this.caretPosition,
+                this.caretPositionEnd
+            );
         }
     }
 
