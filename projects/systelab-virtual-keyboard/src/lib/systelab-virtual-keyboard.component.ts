@@ -12,7 +12,6 @@ import { SimpleKeyboard } from 'simple-keyboard';
 import {
     SystelabVirtualKeyboardButton,
     SystelabVirtualKeyboardInputMethods,
-    SystelabVirtualKeyboardInputTypes,
     SystelabVirtualKeyboardLayouts
 } from './constants';
 import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
@@ -34,6 +33,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     @HostListener('window:pointerup', ['$event'])
+    @HostListener('window:mouseup', ['$event'])
     handleMouseUp(event: PointerEvent): void {
         this.caretEventHandler(event);
     }
@@ -104,21 +104,13 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             console.log('Layout:', `${inputType}_${this.selectedLayout}`);
         }
 
-        let selectionStart: number;
-        let selectionEnd: number;
-        if (this.isInputNumeric(input)) {
-            selectionStart = this.activeInputElement.value.toString().length;
-            selectionEnd = this.activeInputElement.value.toString().length;
-        } else {
-            selectionStart = this.activeInputElement.selectionStart;
-            selectionEnd = this.activeInputElement.selectionEnd;
-        }
-
+        const { selectionStart, selectionEnd } = this.activeInputElement;
         this.setCaretPosition(selectionStart, selectionEnd);
 
         if (this.debug) {
             console.log('Caret start at:', this.caretPosition, this.caretPositionEnd);
         }
+        this.focusActiveInput();
     }
 
     public setLayout(layout: SystelabVirtualKeyboardLayouts): void {
@@ -182,16 +174,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         return keyboardOptions;
     }
 
-    private isInputAlphabetic(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
-        const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputTypes.text, SystelabVirtualKeyboardInputTypes.password].some((i) => i === inputType);
-    }
-
-    private isInputNumeric(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
-        const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputTypes.number].some((i) => i === inputType);
-    }
-
     private handleKeyPress(button: string, e?: Event): void {
         if (this.debug) {
             console.log('Key press:', button);
@@ -240,7 +222,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             } else if (button === SystelabVirtualKeyboardButton.Space) {
                 output = this.addStringAt(output, ' ', ...commonParams);
             } else if (button === SystelabVirtualKeyboardButton.Tab) {
-                output = this.addStringAt(output, '\t', ...commonParams);
+                // Do nothing for tab
             } else if (button === SystelabVirtualKeyboardButton.Enter) {
                 if (this.isTextarea) {
                     output = this.addStringAt(output, '\n', ...commonParams);
@@ -279,7 +261,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             code: code,
             location: 0,
         };
-
         // Simulate all needed events on base element
         this.activeInputElement?.dispatchEvent(new KeyboardEvent('keydown', eventInit));
         this.activeInputElement?.dispatchEvent(new KeyboardEvent('keypress', eventInit));
@@ -412,6 +393,14 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
                 console.log(`Caret position reset due to "${event?.type}" event`, event);
             }
         }
+    }
+
+    private focusActiveInput(): void {
+        this.activeInputElement?.focus();
+        this.activeInputElement?.setSelectionRange(
+            this.caretPosition,
+            this.caretPositionEnd
+        );
     }
 
     private updateCaretPosition(length: number, minus = false) {

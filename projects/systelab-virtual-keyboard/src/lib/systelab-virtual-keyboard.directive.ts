@@ -23,7 +23,7 @@ import {
 
 import { DOCUMENT } from '@angular/common';
 
-import { SystelabVirtualKeyboardInputTypes, SystelabVirtualKeyboardLayouts } from './constants';
+import { SystelabVirtualKeyboardInputModes, SystelabVirtualKeyboardLayouts } from './constants';
 import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.component';
 import { SystelabVirtualKeyboardOverlayService } from './systelab-virtual-keyboard-overlay.service';
 import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
@@ -37,6 +37,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     @HostListener('window:wheel', ['$event'])
     @HostListener('document:scroll', ['$event'])
     onDocumentScroll() {
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isCreated()) {
             this.overlayService.updatePosition();
         }
@@ -44,7 +47,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
 
     @HostListener('focus', ['$event'])
     onFocus(): void {
-        console.log('Focused');
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isCreated()) {
             this.closePanel();
         }
@@ -133,12 +138,19 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     }
 
     ngOnDestroy(): void {
+        if (this.vkEnabled && this.config?.showIcon) {
+            const keyboardIcon = this.elementRef.nativeElement.parentElement.querySelector('i');
+            keyboardIcon.removeEventListener('click', this.togglePanel.bind(this));
+        }
         if (this.overlayService.isCreated()) {
             this.overlayService.destroy();
         }
     }
 
     private togglePanel(): void {
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isOpen()) {
             this.closePanel();
         } else {
@@ -147,6 +159,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     }
 
     private openPanel(): void {
+        if (!this.vkEnabled) {
+            return;
+        }
         if (this.overlayService.isCreated()) {
             this.overlayService.destroy();
         }
@@ -177,13 +192,17 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     }
 
     private isInputAlphabetic(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
-        const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputTypes.text, SystelabVirtualKeyboardInputTypes.password].some((i) => i === inputType);
+        const inputMode = this.getInputMode(activeInputElement);
+        return inputMode &&  [SystelabVirtualKeyboardInputModes.text, SystelabVirtualKeyboardInputModes.password].some((i) => i === inputMode);
     }
 
     private isInputNumeric(activeInputElement: HTMLInputElement | HTMLTextAreaElement): boolean {
-        const inputType = activeInputElement?.type;
-        return inputType && [SystelabVirtualKeyboardInputTypes.number].some((i) => i === inputType);
+        const inputMode = this.getInputMode(activeInputElement);
+        return inputMode && [SystelabVirtualKeyboardInputModes.numeric].some((i) => i === inputMode);
+    }
+
+    private getInputMode(activeInputElement: HTMLInputElement | HTMLTextAreaElement): string {
+        return activeInputElement?.inputMode ?? activeInputElement?.type;
     }
 
     private closePanel(): void {

@@ -106,10 +106,9 @@ describe("AlphanumericLayout", () => {
         await VirtualKeyboard.get().clickSpace();
         await VirtualKeyboard.get().clickKeys('and');
         await VirtualKeyboard.get().clickTab();
-        await VirtualKeyboard.get().clickKeys('tab');
 
         await ReportUtility.addExpectedResult("Alphanumeric input displays 'space and\ttab'", async() => {
-            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('space and\ttab');
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('space and');
         });
     });
 

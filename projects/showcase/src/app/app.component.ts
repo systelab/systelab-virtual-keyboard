@@ -9,6 +9,8 @@ import { environment } from '../environments/environment';
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+    public vkEnabled: boolean = false;
+    
     public vkConfigLayout: SystelabVirtualKeyboardConfig = {
         layout: SystelabVirtualKeyboardLayouts.numeric,
     }
