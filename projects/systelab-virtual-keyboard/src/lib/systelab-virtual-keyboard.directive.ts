@@ -40,23 +40,28 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         if (!this.vkEnabled) {
             return;
         }
-        if (this.overlayService.isCreated()) {
-            this.overlayService.updatePosition();
-        }
+        this.overlayService.updatePosition();
     }
 
-    @HostListener('focus', ['$event'])
-    onFocus(): void {
+    @HostListener('click', ['$event'])
+    onClick(): void {
+        if (!this.vkEnabled || !this.config.showOnMouseClick) {
+            return;
+        }
+
+        this.closePanel();
+        this.overlayService.setClickAlreadyHandled();
+        this.openPanel();
+    }
+
+    @HostListener('touchend', ['$event'])
+    onTouchEnd(): void {
         if (!this.vkEnabled) {
             return;
         }
-        if (this.overlayService.isCreated()) {
-            this.closePanel();
-        }
-        this.overlayService.setFocusDispatched(true);
-        if (!this.overlayService.isOpen()) {
-            this.openPanel();
-        }
+
+        this.closePanel();
+        this.openPanel();
     }
 
     private enabled = false;
@@ -142,9 +147,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
             const keyboardIcon = this.elementRef.nativeElement.parentElement.querySelector('i');
             keyboardIcon.removeEventListener('click', this.togglePanel.bind(this));
         }
-        if (this.overlayService.isCreated()) {
-            this.overlayService.destroy();
-        }
+        this.overlayService.destroy();
     }
 
     private togglePanel(): void {
