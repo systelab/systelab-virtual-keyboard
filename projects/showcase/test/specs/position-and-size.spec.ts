@@ -59,8 +59,8 @@ describe("PositionAndSize", () => {
         });
     });
 
-    it("Press 'Tab' key on physical keyboard to change focus to input field with auto-configured numeric layout", async () => {
-        await Browser.pressTab();
+    it("Tap on auto-configured numeric layout input field", async () => {
+        await ShowcasePage.get().getAutoNumericLayoutField().setFocus();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
         const inputRect = await ShowcasePage.get().getAutoNumericLayoutField().getBoundingRect();
