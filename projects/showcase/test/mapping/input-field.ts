@@ -4,7 +4,7 @@ import { VirtualKeyboard } from './virtual-keyboard';
 
 export class InputField extends Widget {
     public async setFocus(): Promise<void> {
-        return this.getInputText().click();
+        return this.getInputText().tap();
     }
 
     public async clear(): Promise<void> {
