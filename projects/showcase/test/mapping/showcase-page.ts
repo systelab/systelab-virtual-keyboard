@@ -35,6 +35,5 @@ export class ShowcasePage extends BasePage {
 
     public async clickOnBackground(): Promise<void> {
       await this.byCSS('h1').click();
-      await this.byCSS('h1').click(); // TODO: Hack needed while implementation issue is fixed
     }
 }
