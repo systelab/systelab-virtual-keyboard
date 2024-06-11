@@ -3,8 +3,12 @@ import { VirtualKeyboard } from './virtual-keyboard';
 
 
 export class InputField extends Widget {
-    public async setFocus(): Promise<void> {
+    public async tap(): Promise<void> {
         return this.getInputText().tap();
+    }
+
+    public async click(): Promise<void> {
+        return this.getInputText().click();
     }
 
     public async clear(): Promise<void> {

@@ -16,8 +16,8 @@ describe("NumericLayout", () => {
         TestIdentification.captureEnvironment();
     });
 
-    it("Set focus on auto-configured numeric input field", async () => {
-        await ShowcasePage.get().getAutoNumericLayoutField().setFocus();
+    it("Tap on auto-configured numeric input field", async () => {
+        await ShowcasePage.get().getAutoNumericLayoutField().tap();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is shown with 4 rows of keys including all numbers and backspace", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
@@ -55,8 +55,8 @@ describe("NumericLayout", () => {
         });
     });
 
-    it("Click on page background to hide virtual keyboard", async () => {
-        await ShowcasePage.get().clickOnBackground();
+    it("Tap on page background to hide virtual keyboard", async () => {
+        await ShowcasePage.get().tapOnBackground();
 
         await ReportUtility.addExpectedResult("Virtual keyboard is not displayed", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeFalsy();

@@ -29,11 +29,15 @@ export class ShowcasePage extends BasePage {
       return new InputField(this.byId('show-virtual-keyboard-icon-field'));
     }
 
+    public getShowOnMouseClickField(): InputField {
+      return new InputField(this.byId('show-on-mouse-click-field'));
+    }
+
     public getFixedBottomPositioningField(): InputField {
       return new InputField(this.byId('fixed-bottom-positioning-field'));
     }
 
-    public async clickOnBackground(): Promise<void> {
-      await this.byCSS('h1').click();
+    public async tapOnBackground(): Promise<void> {
+      await this.byCSS('h1').tap();
     }
 }
