@@ -61,6 +61,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         }
 
         this.closePanel();
+        this.overlayService.setTouchEndAlreadyHandled();
         this.openPanel();
     }
 

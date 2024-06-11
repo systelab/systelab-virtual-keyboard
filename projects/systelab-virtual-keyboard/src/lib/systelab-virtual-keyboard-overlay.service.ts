@@ -31,6 +31,7 @@ export class SystelabVirtualKeyboardOverlayService {
     private open: boolean;
     private layout: SystelabVirtualKeyboardLayouts;
     private clickAlreadyHandled: boolean = false;
+    private touchEndAlreadyHandled: boolean = false;
 
     constructor(private readonly overlay: Overlay) {
         this.initListener();
@@ -79,6 +80,10 @@ export class SystelabVirtualKeyboardOverlayService {
         this.clickAlreadyHandled = true;
     }
 
+    public setTouchEndAlreadyHandled(): void {
+        this.touchEndAlreadyHandled = true;
+    }
+
     public destroy(): void {
         if (this.overlayRef) {
             this.overlayRef.dispose();
@@ -89,6 +94,7 @@ export class SystelabVirtualKeyboardOverlayService {
 
     private initListener() {
         document.addEventListener('click', this.handleClick.bind(this));
+        document.addEventListener('touchend', this.handleTouchEnd.bind(this));
     }
 
     private handleClick(event: MouseEvent) {
@@ -98,16 +104,29 @@ export class SystelabVirtualKeyboardOverlayService {
         }
 
         event.stopPropagation();
+        this.handleEventTarget(event.target);
+    }
 
-        const showKeyboardButtonClicked: boolean = (event.target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
-        const virtualKeyboardClicked: boolean = document.querySelector('.simple-keyboard')?.contains(event.target as Node);
-        const inputElementClicked: boolean = this.inputOrigin?.contains(event.target as Node);
-        const containsShowButton: boolean = this.showKeyboardButtonElement?.contains(event.target as Node);
+    private handleTouchEnd(event: TouchEvent) {
+        if (this.touchEndAlreadyHandled) {
+            this.touchEndAlreadyHandled = false;
+            return;
+        }
 
-        if (!virtualKeyboardClicked &&
-            !inputElementClicked &&
+        event.stopPropagation();
+        this.handleEventTarget(event.target);
+    }
+
+    private handleEventTarget(target: EventTarget) {
+        const showKeyboardButtonTarget: boolean = (target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
+        const virtualKeyboardTarget: boolean = document.querySelector('.simple-keyboard')?.contains(target as Node);
+        const inputElementTarget: boolean = this.inputOrigin?.contains(target as Node);
+        const containsShowButton: boolean = this.showKeyboardButtonElement?.contains(target as Node);
+
+        if (!virtualKeyboardTarget &&
+            !inputElementTarget &&
             !containsShowButton &&
-            !showKeyboardButtonClicked) {
+            !showKeyboardButtonTarget) {
             if (this.isCreated()) {
                 this.destroy();
             }
