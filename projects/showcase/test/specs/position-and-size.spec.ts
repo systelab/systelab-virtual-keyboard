@@ -108,7 +108,7 @@ describe("PositionAndSize", () => {
         });
     });
 
-    it("Tap on background and click on virtual keyboard icon of the only input field that has it", async () => {
+    it("Tap on background and then click on virtual keyboard icon of the only input field that has it", async () => {
         await ShowcasePage.get().tapOnBackground();
         await ShowcasePage.get().getShowVirtualKeyboardIconField().clickVirtualKeyboardIcon();
 

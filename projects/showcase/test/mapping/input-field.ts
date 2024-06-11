@@ -14,7 +14,7 @@ export class InputField extends Widget {
     public async clear(): Promise<void> {
         const currentText = await this.getText();
         for (let i = 0; i < currentText.length; i++) {
-            await VirtualKeyboard.get().clickBackspace();
+            await VirtualKeyboard.get().tapOnBackspace();
         }
     }
 

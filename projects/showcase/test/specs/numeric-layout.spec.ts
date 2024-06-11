@@ -29,26 +29,26 @@ describe("NumericLayout", () => {
         });
     });
 
-    it("Write '9876543210' by clicking on virtual keyboard keys", async () => {
-        await VirtualKeyboard.get().clickKeys('9876543210');
+    it("Write '9876543210' by tapping on virtual keyboard keys", async () => {
+        await VirtualKeyboard.get().tapOnKeys('9876543210');
 
         await ReportUtility.addExpectedResult("Numeric input displays '9876543210'", async() => {
             expect(await ShowcasePage.get().getAutoNumericLayoutField().getText()).toEqual('9876543210');
         });
     });
 
-    it("Press 3 times the backspace key on the virtual keyboard", async () => {
-        await VirtualKeyboard.get().clickBackspace();
-        await VirtualKeyboard.get().clickBackspace();
-        await VirtualKeyboard.get().clickBackspace();
+    it("Tap 3 times the backspace key on the virtual keyboard", async () => {
+        await VirtualKeyboard.get().tapOnBackspace();
+        await VirtualKeyboard.get().tapOnBackspace();
+        await VirtualKeyboard.get().tapOnBackspace();
 
         await ReportUtility.addExpectedResult("Numeric input displays '9876543'", async() => {
             expect(await ShowcasePage.get().getAutoNumericLayoutField().getText()).toEqual('9876543');
         });
     });
 
-    it("Append '666' by clicking on virtual keyboard keys", async () => {
-        await VirtualKeyboard.get().clickKeys('666');
+    it("Append '666' by tapping on virtual keyboard keys", async () => {
+        await VirtualKeyboard.get().tapOnKeys('666');
 
         await ReportUtility.addExpectedResult("Numeric input displays '9876543666'", async() => {
             expect(await ShowcasePage.get().getAutoNumericLayoutField().getText()).toEqual('9876543666');
