@@ -1,4 +1,5 @@
 import { BasePage, ElementArrayFinder, ElementFinder } from 'systelab-components-wdio-test';
+import { SystelabVirtualKeyboardButton } from 'systelab-virtual-keyboard';
 
 
 export class VirtualKeyboard extends BasePage {
@@ -43,27 +44,27 @@ export class VirtualKeyboard extends BasePage {
     }
 
     public async tapOnBackspace(): Promise<void> {
-        await this.tapOnKey('{bksp}');
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Backspace);
     }
 
     public async tapOnTab(): Promise<void> {
-        await this.tapOnKey('{tab}');
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Tab);
     }
 
     public async tapOnCapsLock(): Promise<void> {
-        await this.tapOnKey('{lock}');
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Lock);
     }
 
     public async tapOnShift(): Promise<void> {
-        await this.tapOnKey('{shift}');
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Shift);
     }
 
     public async tapOnEnter(): Promise<void> {
-        await this.tapOnKey('{enter}');
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Enter);
     }
 
     public async tapOnSpace(): Promise<void> {
-        await this.tapOnKey('{space}');
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Space);
     }
 
     public async tapOnKey(keyValue: string): Promise<void> {
