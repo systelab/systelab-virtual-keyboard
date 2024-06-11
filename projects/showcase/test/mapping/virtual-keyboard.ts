@@ -1,5 +1,5 @@
 import { BasePage, ElementArrayFinder, ElementFinder } from 'systelab-components-wdio-test';
-import { SystelabVirtualKeyboardButton } from 'systelab-virtual-keyboard';
+import { SystelabVirtualKeyboardButton } from '../../../systelab-virtual-keyboard/src/public-api';
 
 
 export class VirtualKeyboard extends BasePage {
