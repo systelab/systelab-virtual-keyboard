@@ -33,8 +33,8 @@ describe("PositionAndSize", () => {
         });
     });
 
-    it("Open virtual keyboard on input field with auto-configured alphanumeric layout", async () => {
-        await ShowcasePage.get().getAutoAlphanumericLayoutField().setFocus();
+    it("Tap on input field with auto-configured alphanumeric layout", async () => {
+        await ShowcasePage.get().getAutoAlphanumericLayoutField().tap();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
         const inputRect = await ShowcasePage.get().getAutoAlphanumericLayoutField().getBoundingRect();
@@ -59,8 +59,9 @@ describe("PositionAndSize", () => {
         });
     });
 
-    it("Press 'Tab' key on physical keyboard to change focus to input field with auto-configured numeric layout", async () => {
-        await Browser.pressTab();
+    it("Tap on background and tap on auto-configured numeric layout input field", async () => {
+        await ShowcasePage.get().tapOnBackground();
+        await ShowcasePage.get().getAutoNumericLayoutField().tap();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
         const inputRect = await ShowcasePage.get().getAutoNumericLayoutField().getBoundingRect();
@@ -85,9 +86,9 @@ describe("PositionAndSize", () => {
         });
     });
 
-    it("Change focus to input text with manually configured numeric layout", async () => {
-        await ShowcasePage.get().clickOnBackground();
-        await ShowcasePage.get().getManualNumericLayoutField().setFocus();
+    it("Tap on background and tap on input text with manually configured numeric layout", async () => {
+        await ShowcasePage.get().tapOnBackground();
+        await ShowcasePage.get().getManualNumericLayoutField().tap();
 
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
         const inputRect = await ShowcasePage.get().getManualNumericLayoutField().getBoundingRect();
@@ -107,8 +108,8 @@ describe("PositionAndSize", () => {
         });
     });
 
-    it("Click on virtual keyboard icon of the only input field that has it", async () => {
-        await ShowcasePage.get().clickOnBackground();
+    it("Tap on background and then click on virtual keyboard icon of the only input field that has it", async () => {
+        await ShowcasePage.get().tapOnBackground();
         await ShowcasePage.get().getShowVirtualKeyboardIconField().clickVirtualKeyboardIcon();
 
         await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
@@ -128,9 +129,33 @@ describe("PositionAndSize", () => {
         });
     });
 
+    it("Tap on background and do a mouse click on same input field", async () => {
+        await ShowcasePage.get().tapOnBackground();
+        await ShowcasePage.get().getShowVirtualKeyboardIconField().click();
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is not shown anymore", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeFalsy();
+        });
+    });
+    
+    it("Do a mouse click on the only input field that accepts mouse clicks to show virtual keyboard", async () => {
+        await ShowcasePage.get().tapOnBackground();
+        await ShowcasePage.get().getShowOnMouseClickField().click();
+
+        await ReportUtility.addExpectedResult("Virtual keyboard is shown again", async() => {
+            expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
+        });
+
+        const inputRect = await ShowcasePage.get().getShowOnMouseClickField().getBoundingRect();
+        const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
+        await ReportUtility.addExpectedResult("Virtual keyboard is located just under the input field that accepts clicks", async() => {
+            expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
+        });
+    });
+
     it("Change focus to input field configured virtual keyboard in fixed bottom position", async () => {
-        await ShowcasePage.get().clickOnBackground();
-        await ShowcasePage.get().getFixedBottomPositioningField().setFocus();
+        await ShowcasePage.get().tapOnBackground();
+        await ShowcasePage.get().getFixedBottomPositioningField().tap();
 
         await ReportUtility.addExpectedResult("Virtual keyboard continues being shown", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();

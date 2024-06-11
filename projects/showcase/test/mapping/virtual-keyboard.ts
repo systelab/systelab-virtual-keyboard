@@ -1,4 +1,5 @@
 import { BasePage, ElementArrayFinder, ElementFinder } from 'systelab-components-wdio-test';
+import { SystelabVirtualKeyboardButton } from '../../../systelab-virtual-keyboard/src/lib/constants';
 
 
 export class VirtualKeyboard extends BasePage {
@@ -35,39 +36,39 @@ export class VirtualKeyboard extends BasePage {
         return keys;
     }
 
-    public async clickKeys(text: string): Promise<void> {
+    public async tapOnKeys(text: string): Promise<void> {
         const keys: string[] = text.split('');
         for (let i = 0; i < keys.length; i++) {
-            await this.clickKey(keys[i]);
+            await this.tapOnKey(keys[i]);
         }
     }
 
-    public async clickBackspace(): Promise<void> {
-        await this.clickKey('{bksp}');
+    public async tapOnBackspace(): Promise<void> {
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Backspace);
     }
 
-    public async clickTab(): Promise<void> {
-        await this.clickKey('{tab}');
+    public async tapOnTab(): Promise<void> {
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Tab);
     }
 
-    public async clickCapsLock(): Promise<void> {
-        await this.clickKey('{lock}');
+    public async tapOnCapsLock(): Promise<void> {
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Lock);
     }
 
-    public async clickShift(): Promise<void> {
-        await this.clickKey('{shift}');
+    public async tapOnShift(): Promise<void> {
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Shift);
     }
 
-    public async clickEnter(): Promise<void> {
-        await this.clickKey('{enter}');
+    public async tapOnEnter(): Promise<void> {
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Enter);
     }
 
-    public async clickSpace(): Promise<void> {
-        await this.clickKey('{space}');
+    public async tapOnSpace(): Promise<void> {
+        await this.tapOnKey(SystelabVirtualKeyboardButton.Space);
     }
 
-    public async clickKey(keyValue: string): Promise<void> {
+    public async tapOnKey(keyValue: string): Promise<void> {
         const keySelector: ElementFinder = this.getElementFinder().byCSS(`[data-skbtn='${keyValue}']`);
-        await keySelector.click();
+        await keySelector.click(); // Hack as current implementation of WDIO tap is not working
     }
 }

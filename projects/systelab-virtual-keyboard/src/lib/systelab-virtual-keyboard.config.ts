@@ -7,4 +7,5 @@ export interface SystelabVirtualKeyboardConfig {
     layout?: SystelabVirtualKeyboardLayouts;
     inputMethod?: SystelabVirtualKeyboardInputMethods;
     showIcon?: boolean;
+    showOnMouseClick?: boolean;
 }

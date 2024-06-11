@@ -3,14 +3,18 @@ import { VirtualKeyboard } from './virtual-keyboard';
 
 
 export class InputField extends Widget {
-    public async setFocus(): Promise<void> {
+    public async tap(): Promise<void> {
+        return this.getInputText().tap();
+    }
+
+    public async click(): Promise<void> {
         return this.getInputText().click();
     }
 
     public async clear(): Promise<void> {
         const currentText = await this.getText();
         for (let i = 0; i < currentText.length; i++) {
-            await VirtualKeyboard.get().clickBackspace();
+            await VirtualKeyboard.get().tapOnBackspace();
         }
     }
 

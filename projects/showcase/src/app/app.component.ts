@@ -19,6 +19,10 @@ export class AppComponent implements OnInit {
         showIcon: true,
     }
 
+    public vkConfigMouseClick: SystelabVirtualKeyboardConfig = {
+        showOnMouseClick: true,
+    }
+
     ngOnInit() {
         if (!environment.animationsEnabled) {
             const body = document.getElementsByTagName('body')[0];
