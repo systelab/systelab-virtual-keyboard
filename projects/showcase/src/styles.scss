@@ -3,12 +3,16 @@
 @import 'simple-keyboard/build/css/index';
 @import '@angular/cdk/overlay-prebuilt.css';
 
-.cdk-overlay-dark-backdrop {
+:root {
+    --systelab-virtual-keyboard-font-family: Lato, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+}
+
+.systelab-virtual-keyboard__backdrop {
     backdrop-filter: saturate(30%);
     transition: all .3s !important;
 }
 
-.cdk-overlay-pane {
+.systelab-virtual-keyboard__panel {
     background-color: var(--slab_background_primary);
     box-shadow: 0 0 30px rgba(0, 0, 0, .2);
     border-radius: 7px;
