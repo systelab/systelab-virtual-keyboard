@@ -30,7 +30,8 @@ export class SystelabVirtualKeyboardOverlayService {
     private showKeyboardButtonElement: HTMLElement;
     private open: boolean;
     private layout: SystelabVirtualKeyboardLayouts;
-    private focusDispatched: boolean = false;
+    private clickAlreadyHandled: boolean = false;
+    private touchEndAlreadyHandled: boolean = false;
 
     constructor(private readonly overlay: Overlay) {
         this.initListener();
@@ -76,8 +77,12 @@ export class SystelabVirtualKeyboardOverlayService {
         this.updatePositionStrategy(this.inputOrigin, this.fixedBottom);
     }
 
-    public setFocusDispatched(dispatched: boolean): void {
-        this.focusDispatched = dispatched;
+    public setClickAlreadyHandled(): void {
+        this.clickAlreadyHandled = true;
+    }
+
+    public setTouchEndAlreadyHandled(): void {
+        this.touchEndAlreadyHandled = true;
     }
 
     public destroy(): void {
@@ -90,29 +95,39 @@ export class SystelabVirtualKeyboardOverlayService {
 
     private initListener() {
         document.addEventListener('click', this.handleClick.bind(this));
+        document.addEventListener('touchend', this.handleTouchEnd.bind(this));
     }
 
     private handleClick(event: MouseEvent) {
-        if (this.focusDispatched) {
-            this.focusDispatched = false;
+        if (this.clickAlreadyHandled) {
+            this.clickAlreadyHandled = false;
             return;
         }
 
         event.stopPropagation();
-        const simpleKeyboardElement = document.querySelector('.simple-keyboard');
-        const showKeyboardButtonClicked = (event.target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
+        this.handleEventTarget(event.target);
+    }
 
-        const containsKeyboard = simpleKeyboardElement?.contains(event.target as Node);
-        const containsElementRef = this.inputOrigin?.contains(event.target as Node);
-        // const containsFocusedElement = this.focusedElement?.contains(event.target as Node);
-        const containsShowButton = this.showKeyboardButtonElement?.contains(event.target as Node);
-        if (
-            !containsKeyboard &&
-      !containsElementRef &&
-      // !containsFocusedElement &&
-      !containsShowButton &&
-      !showKeyboardButtonClicked
-        ) {
+    private handleTouchEnd(event: TouchEvent) {
+        if (this.touchEndAlreadyHandled) {
+            this.touchEndAlreadyHandled = false;
+            return;
+        }
+
+        event.stopPropagation();
+        this.handleEventTarget(event.target);
+    }
+
+    private handleEventTarget(target: EventTarget) {
+        const showKeyboardButtonTarget: boolean = (target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
+        const virtualKeyboardTarget: boolean = document.querySelector('.simple-keyboard')?.contains(target as Node);
+        const inputElementTarget: boolean = this.inputOrigin?.contains(target as Node);
+        const containsShowButton: boolean = this.showKeyboardButtonElement?.contains(target as Node);
+
+        if (!virtualKeyboardTarget &&
+            !inputElementTarget &&
+            !containsShowButton &&
+            !showKeyboardButtonTarget) {
             if (this.isCreated()) {
                 this.destroy();
             }
@@ -124,11 +139,15 @@ export class SystelabVirtualKeyboardOverlayService {
     }
 
     private updatePositionStrategy(inputOrigin: HTMLInputElement, fixedBottom: boolean): void {
-        this.overlayRef.updatePositionStrategy(this.getPositionStrategy(inputOrigin, fixedBottom));
+        if (!!this.overlayRef) {
+            this.overlayRef.updatePositionStrategy(this.getPositionStrategy(inputOrigin, fixedBottom));
+        }
     }
 
     private updateSize(): void {
-        this.overlayRef.updateSize(this.getOverlaySize());
+        if (!!this.overlayRef) {
+            this.overlayRef.updateSize(this.getOverlaySize());
+        }
     }
 
     private getPositionStrategy(inputOrigin: HTMLInputElement, fixedBottom: boolean): PositionStrategy {
