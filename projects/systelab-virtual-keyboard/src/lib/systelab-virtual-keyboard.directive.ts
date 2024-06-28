@@ -222,7 +222,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
             const child = this.document.createElement('i');
             child.classList.add('fa');
             child.classList.add('fa-keyboard');
-            child.classList.add('virtual-keyboard-show-button');
+            child.classList.add('systelab-virtual-keyboard__show-button');
             this.renderer.appendChild(this.elementRef.nativeElement.parentElement, child);
             this.showKeyboardButtonElement = child;
         }

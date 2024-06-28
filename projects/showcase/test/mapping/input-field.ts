@@ -43,6 +43,6 @@ export class InputField extends Widget {
     }
 
     private getVirtualKeyboardIcon(): ElementFinder {
-        return this.elem.byCSS(".virtual-keyboard-show-button");
+        return this.elem.byCSS(".systelab-virtual-keyboard__show-button");
     }
 }

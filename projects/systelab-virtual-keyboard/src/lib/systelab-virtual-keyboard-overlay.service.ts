@@ -59,10 +59,11 @@ export class SystelabVirtualKeyboardOverlayService {
             hasBackdrop: false,
             scrollStrategy: this.overlay.scrollStrategies.reposition(),
             disposeOnNavigation: true,
+            backdropClass: 'systelab-virtual-keyboard__backdrop',
+            panelClass: 'systelab-virtual-keyboard__panel',
         });
-        this.overlayRef.addPanelClass('virtual-keyboard-overlay-pane');
         if (fixedBottom) {
-            this.overlayRef.addPanelClass('virtual-keyboard-fixed-bottom');
+            this.overlayRef.addPanelClass('systelab-virtual-keyboard__panel--fixed-bottom');
         }
 
         this.updatePositionStrategy(inputOrigin, fixedBottom);
