@@ -53,7 +53,7 @@ deploy:
   skip_cleanup: true
   provider: npm
   edge:
-    branch: v2.0.3-beta.4
+    branch: v2.0.3-beta.5
   email: aserra@werfen.com
   api_key: $NPM_TOKEN
   on:
