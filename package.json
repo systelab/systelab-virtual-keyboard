@@ -8,8 +8,8 @@
     "build-showcase": "ng build showcase --configuration production",
     "build-lib": "ng build systelab-virtual-keyboard --configuration production",
     "watch": "ng build systelab-virtual-keyboard --watch --configuration development",
-    "test-dev": "concurrently --success first --kill-others \"npm run start-wdio\" \"npm run execute-wdio-dev\"",
-    "test-ci": "concurrently --success first --kill-others \"npm run start-wdio\" \"npm run execute-wdio-ci\"",
+    "test-dev": "concurrently --success first --kill-others \"npm run start-wdio\" \"wait-on http://localhost:4200 && npm run execute-wdio-dev\"",
+    "test-ci": "concurrently --success first --kill-others \"npm run start-wdio\" \"wait-on http://localhost:4200 && npm run execute-wdio-ci\"",
     "execute-wdio-dev": "npm run wait-for-server && node node_modules/@wdio/cli/bin/wdio ./projects/showcase/test/wdio.conf.dev.ts",
     "execute-wdio-ci": "npm run wait-for-server && node node_modules/@wdio/cli/bin/wdio ./projects/showcase/test/wdio.conf.ci.ts",
     "wait-for-server": "wait-on http://localhost:4200"
@@ -17,7 +17,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "18.1.1",
-    "@angular/cdk": "17.0.5",
+    "@angular/cdk": "18.1.1",
     "@angular/common": "18.1.1",
     "@angular/compiler": "18.1.1",
     "@angular/core": "18.1.1",
