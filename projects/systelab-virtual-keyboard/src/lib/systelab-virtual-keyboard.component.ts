@@ -38,16 +38,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         this.caretEventHandler(event);
     }
 
-    @HostListener('window:select', ['$event'])
-    handleSelect(event: Event): void {
-        this.caretEventHandler(event);
-    }
-
-    @HostListener('window:selectionchange', ['$event'])
-    handleSelectionChange(event: Event): void {
-        this.caretEventHandler(event);
-    }
-
     get maxLength(): number {
         return this.activeInputElement?.maxLength ?? -1;
     }
