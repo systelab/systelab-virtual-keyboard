@@ -1,4 +1,4 @@
-var packageFile = require('../../../../package.json');
+import packageFile from './../../../../package.json' assert { type: 'json' };
 
 export class VersionUtility {
     public static getLibraryVersion(): string {

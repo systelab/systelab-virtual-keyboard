@@ -1,14 +1,25 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../../out-tsc/spec",
-    "types": [
-      "jasmine"
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../../out-tsc/spec",
+        "sourceMap": true,
+        "target": "es2015",
+        "module": "NodeNext",
+        "removeComments": true,
+        "noImplicitAny": true,
+        "strictPropertyInitialization": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true,
+        "moduleResolution": "NodeNext",
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "types": [
+            "jasmine"
+        ]
+    },
+    "include": [
+        "src/**/*.spec.ts",
+        "src/**/*.d.ts"
     ]
-  },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
-  ]
 }

@@ -1,14 +1,17 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "sourceMap": false,
+        "sourceMap": true,
         "target": "es2015",
-        "module": "commonjs",
+        "module": "NodeNext",
         "removeComments": true,
         "noImplicitAny": true,
         "strictPropertyInitialization": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
+        "moduleResolution": "NodeNext",
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
         "types": [
             "node",
             "webdriverio/async",
@@ -18,5 +21,8 @@
     },
     "include": [
         "**/*.ts"
-    ]
+    ],
+    "ts-node": {
+        "transpileOnly": true
+    }
 }

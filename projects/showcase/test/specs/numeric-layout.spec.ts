@@ -1,7 +1,7 @@
 import { Browser, ReportUtility, TestIdentification } from 'systelab-components-wdio-test';
-import { ShowcasePage } from '../mapping/showcase-page';
-import { VirtualKeyboard } from '../mapping/virtual-keyboard';
-import { VersionUtility } from '../utils/version.util';
+import { ShowcasePage } from '../mapping/showcase-page.js';
+import { VirtualKeyboard } from '../mapping/virtual-keyboard.js';
+import { VersionUtility } from '../utils/version.util.js';
 
 
 describe("NumericLayout", () => {
