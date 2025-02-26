@@ -3,17 +3,6 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "outDir": "../../out-tsc/spec",
-        "sourceMap": true,
-        "target": "es2015",
-        "module": "NodeNext",
-        "removeComments": true,
-        "noImplicitAny": true,
-        "strictPropertyInitialization": true,
-        "strictNullChecks": true,
-        "esModuleInterop": true,
-        "moduleResolution": "NodeNext",
-        "allowJs": true,
-        "allowSyntheticDefaultImports": true,
         "types": [
             "jasmine"
         ]

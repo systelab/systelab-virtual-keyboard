@@ -2,7 +2,7 @@
     "compileOnSave": true,
     "compilerOptions": {
         "sourceMap": true,
-        "target": "es2015",
+        "target": "ES2022",
         "module": "NodeNext",
         "removeComments": true,
         "noImplicitAny": true,
