@@ -1,5 +1,5 @@
 import { ReportUtility } from 'systelab-components-wdio-test';
-import { VirtualKeyboard } from '../mapping/virtual-keyboard';
+import { VirtualKeyboard } from '../mapping/virtual-keyboard.js';
 
 export class LayoutExpectation {
     public static async expectAlphanumericUppercaseLayout() {

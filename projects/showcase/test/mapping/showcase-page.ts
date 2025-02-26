@@ -1,5 +1,5 @@
 import { BasePage } from 'systelab-components-wdio-test';
-import { InputField } from './input-field';
+import { InputField } from './input-field.js';
 
 
 export class ShowcasePage extends BasePage {

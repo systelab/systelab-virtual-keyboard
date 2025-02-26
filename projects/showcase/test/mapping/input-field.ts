@@ -1,5 +1,5 @@
 import { ElementFinder, Widget } from 'systelab-components-wdio-test';
-import { VirtualKeyboard } from './virtual-keyboard';
+import { VirtualKeyboard } from './virtual-keyboard.js';
 
 
 export class InputField extends Widget {

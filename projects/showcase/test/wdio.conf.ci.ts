@@ -1,6 +1,6 @@
-const TestCaseReporter = require('systelab-components-wdio-test/src/reporters/test-case.reporter');
+import TestCaseReporter from 'systelab-components-wdio-test/lib/reporters/test-case.reporter.js';
 
-exports.config = {
+export const config = {
     autoCompileOpts: {
         autoCompile: true,
         tsNodeOpts: {
@@ -31,11 +31,11 @@ exports.config = {
     connectionRetryCount: 3,
     services: [
         ['chromedriver'],
-    ], 
+    ],
     framework: 'jasmine',
     reporters: [
         TestCaseReporter.default
-    ],   
+    ],
     jasmineOpts: {
         defaultTimeoutInterval: 60000,
         expectationResultHandler: function(passed, assertion) {},
