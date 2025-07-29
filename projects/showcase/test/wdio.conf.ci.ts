@@ -1,4 +1,5 @@
 const TestCaseReporter = require('systelab-components-wdio-test/src/reporters/test-case.reporter');
+const ScreenshotReporter = require('systelab-components-wdio-test/lib/reporters/screenshot.reporter.js');
 
 exports.config = {
     autoCompileOpts: {
@@ -18,8 +19,15 @@ exports.config = {
         browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
-            args: ['--headless', 'disable-gpu', '--window-size=1920x1080'],
-            excludeSwitches: ['enable-automation'],
+            args: [
+                '--headless=new',
+                '--no-sandbox',
+                '--disable-gpu',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-web-security',
+                '--window-size=1920,1080'
+            ],
         },
     }],
     debug: true,
@@ -39,5 +47,14 @@ exports.config = {
     jasmineOpts: {
         defaultTimeoutInterval: 60000,
         expectationResultHandler: function(passed, assertion) {},
+    },
+    beforeSession: function (config, capabilities, specs) {
+        ScreenshotReporter.ScreenshotReporter.setBasePath('reports/screenshots');
+    },
+    beforeSuite: function (suite) {
+        ScreenshotReporter.ScreenshotReporter.beforeSuite(suite);
+    },
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+        await ScreenshotReporter.ScreenshotReporter.afterTest(test, context, { error, result, duration, passed, retries });
     },
 }

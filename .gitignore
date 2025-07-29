@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# Automated test reports
+reports
+
 # Node
 /node_modules
 npm-debug.log
