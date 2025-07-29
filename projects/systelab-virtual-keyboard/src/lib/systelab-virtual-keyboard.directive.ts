@@ -30,6 +30,7 @@ import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systel
 
 @Directive({
     selector: 'input[vkEnabled], textarea[vkEnabled]',
+    standalone: false,
 })
 export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, OnDestroy {
     @HostListener('window:touchmove', ['$event'])

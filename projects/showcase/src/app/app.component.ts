@@ -6,7 +6,8 @@ import { environment } from '../environments/environment';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrl: './app.component.scss'
+    styleUrl: './app.component.scss',
+    standalone: false,
 })
 export class AppComponent implements OnInit {
     public vkEnabled: boolean = false;
