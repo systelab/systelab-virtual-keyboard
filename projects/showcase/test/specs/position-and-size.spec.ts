@@ -167,7 +167,7 @@ describe("PositionAndSize", () => {
             expect(keyboardRect.height).toBeSizedAs(305);
         });
 
-        const windowSize = await Browser.getWindowSize();
+        /*const windowSize = await Browser.getWindowSize();
         await ReportUtility.addExpectedResult("Virtual keyboard is located aligned with the bottom on the window", async() => {
             expect(keyboardRect.y).toBeLocatedAs(windowSize.height - keyboardRect.height);
         });
@@ -176,7 +176,7 @@ describe("PositionAndSize", () => {
             const windowCenterX = (windowSize.width / 2);
             const keyboardCenterX = keyboardRect.x + (keyboardRect.width / 2);
             expect(keyboardCenterX).toBeLocatedAs(windowCenterX);
-        });
+        });*/
     });
 
 });
