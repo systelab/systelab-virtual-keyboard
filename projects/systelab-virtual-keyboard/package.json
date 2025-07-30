@@ -1,12 +1,12 @@
 {
     "name": "systelab-virtual-keyboard",
-    "version": "19.0.0",
+    "version": "20.0.0",
     "peerDependencies": {
-        "@angular/common": "^19.0.0",
-        "@angular/core": "^19.0.0",
-        "@angular/cdk": "^19.0.0",
-        "simple-keyboard": "~3.7.94",
-        "simple-keyboard-layouts": "~3.4.7"
+        "@angular/common": "^20.0.0",
+        "@angular/core": "^20.0.0",
+        "@angular/cdk": "^20.0.0",
+        "simple-keyboard": "~3.8.71",
+        "simple-keyboard-layouts": "~3.4.114"
     },
     "dependencies": {
         "tslib": "^2.3.0"
