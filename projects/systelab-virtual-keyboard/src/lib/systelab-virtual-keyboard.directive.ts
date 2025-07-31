@@ -8,20 +8,21 @@
  */
 
 import {
-    AfterViewInit,
-    ComponentRef,
-    Directive,
-    ElementRef,
-    HostListener,
-    Inject,
-    Input,
-    OnDestroy,
-    OnInit,
-    Optional,
-    Renderer2,
+  AfterViewInit,
+  ComponentRef,
+  Directive,
+  ElementRef,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Renderer2,
+  DOCUMENT
 } from '@angular/core';
 
-import { DOCUMENT } from '@angular/common';
+
 
 import { SystelabVirtualKeyboardInputModes, SystelabVirtualKeyboardLayouts } from './constants';
 import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.component';

@@ -18,9 +18,9 @@
             "dom"
         ],
         "paths": {
-            "systelab-virtual-keyboard": [
-                "dist/systelab-virtual-keyboard"
-            ]
+        "systelab-virtual-keyboard": [
+            "dist/systelab-virtual-keyboard"
+        ]
         },
         "useDefineForClassFields": false
     },
