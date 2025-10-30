@@ -10,11 +10,14 @@
         .hg-button {
             box-sizing: border-box;
             height: 65px;
+            min-width: 75px;
         }
     }
 
     &.hg-layout-shift,
-    &.hg-layout-alpha-numeric {
+    &.hg-layout-alpha-numeric,
+    &.hg-layout-alpha-numeric-uppercase,
+    &.hg-layout-alpha-numeric-uppercase-shift {
         .hg-row {
             &:first-child .hg-button {
                 height: 50px;
@@ -38,5 +41,10 @@
             padding-right: 15px;
             padding-bottom: 15px;
         }
+    }
+
+    .virtual-keyboard-lock-active,
+    .virtual-keyboard-shift-active {
+        background-color: #4D4D4D;
     }
 }

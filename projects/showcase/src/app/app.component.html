@@ -17,9 +17,14 @@
         <input class="input" type="text" inputmode="numeric" placeholder="Auto-configured numeric layout" vkEnabled>
     </div>
 
+    <div id="manual-alpha-numeric-uppercase-layout-field" class="input-container">
+        <input class="input" type="text" placeholder="Manually configured alpha numeric uppercase layout" vkEnabled
+               [vkConfig]="vkConfigAlphaNumericUppercaseLayout">
+    </div>
+
     <div id="manual-numeric-layout-field" class="input-container">
         <input class="input" type="text" placeholder="Manually configured numeric layout" vkEnabled
-               [vkConfig]="vkConfigLayout">
+               [vkConfig]="vkConfigNumericLayout">
     </div>
 
     <div id="show-virtual-keyboard-icon-field" class="input-container">

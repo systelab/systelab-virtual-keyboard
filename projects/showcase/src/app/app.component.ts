@@ -13,8 +13,12 @@ import { SystelabVirtualKeyboardConstants } from '../../../systelab-virtual-keyb
 export class AppComponent implements OnInit {
     public vkEnabled: boolean = false;
 
-    public vkConfigLayout: SystelabVirtualKeyboardConfig = {
+    public vkConfigNumericLayout: SystelabVirtualKeyboardConfig = {
         layout: SystelabVirtualKeyboardConstants.Layouts.numeric,
+    }
+
+    public vkConfigAlphaNumericUppercaseLayout: SystelabVirtualKeyboardConfig = {
+        layout: SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase,
     }
 
     public vkConfigIcon: SystelabVirtualKeyboardConfig = {

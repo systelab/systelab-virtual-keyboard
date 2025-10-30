@@ -47,7 +47,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     private caretPosition: number | null = null;
     private caretPositionEnd: number | null = null;
     private activeInputElement!: HTMLInputElement | HTMLTextAreaElement | null;
+
     private shiftPressed: boolean = false;
+    private capsLockOn: boolean = false;
 
     @Output() closePanel = new EventEmitter<void>();
 
@@ -139,9 +141,18 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             button = new DOMParser().parseFromString(button, 'text/html').body.textContent;
         }
 
-        if (button === SystelabVirtualKeyboardConstants.Button.Shift || button === SystelabVirtualKeyboardConstants.Button.Lock) {
-            this.shiftPressed = button === SystelabVirtualKeyboardConstants.Button.Shift;
+        if (button === SystelabVirtualKeyboardConstants.Button.Shift ) {
+            this.shiftPressed = true;
             this.toggleShiftLayout();
+            this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
+        } else if (button === SystelabVirtualKeyboardConstants.Button.Lock) {
+            this.capsLockOn = !this.capsLockOn;
+            this.toggleShiftLayout();
+            if (this.capsLockOn) {
+                this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Lock, 'virtual-keyboard-lock-active');
+            } else {
+                this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Lock, 'virtual-keyboard-lock-active');
+            }
         } else if (button === SystelabVirtualKeyboardConstants.Button.Done) {
             this.closePanel.emit();
             return;
@@ -166,7 +177,8 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         if (this.shiftPressed) {
             this.toggleShiftLayout();
         }
-        this.shiftPressed = button === SystelabVirtualKeyboardConstants.Button.Shift;
+        this.shiftPressed = false;
+        this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
     }
 
     private handleButtonOutput(button: string): string {
@@ -250,10 +262,16 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     private toggleShiftLayout(): void {
         const currentLayout = this.keyboard.options.layoutName;
-        const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-            currentLayout ===SystelabVirtualKeyboardConstants.Layouts.alphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.shift : SystelabVirtualKeyboardConstants.Layouts.alphaNumeric;
 
-        this.setLayout(selectedLayout);
+        if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.shift) {
+            const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
+                currentLayout ===SystelabVirtualKeyboardConstants.Layouts.alphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.shift : SystelabVirtualKeyboardConstants.Layouts.alphaNumeric;
+            this.setLayout(selectedLayout);
+        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase || currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift) {
+            const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
+                currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase ? SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift : SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase;
+            this.setLayout(selectedLayout);
+        }
     }
 
     private isStandardButton(button: string) {
