@@ -192,7 +192,7 @@ export class SystelabVirtualKeyboardOverlayService {
     }
 
     private getOverlaySize(): OverlaySizeConfig {
-        const overlayWidth = this.layout === SystelabVirtualKeyboardConstants.Layouts.numeric ? '400px' : '1200px';
+        const overlayWidth = this.layout === SystelabVirtualKeyboardConstants.Layouts.numeric ? '400px' : '1420px';
 
         return {
             width: overlayWidth,

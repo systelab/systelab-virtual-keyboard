@@ -10,7 +10,9 @@
         .hg-button {
             box-sizing: border-box;
             height: 65px;
-            min-width: 75px;
+            min-width: 93.75px;
+            max-width: none !important;
+            border-radius: 10px;
         }
     }
 
@@ -46,5 +48,6 @@
     .virtual-keyboard-lock-active,
     .virtual-keyboard-shift-active {
         background-color: #4D4D4D;
+        color: #FFFFFF;
     }
 }

@@ -142,9 +142,13 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         }
 
         if (button === SystelabVirtualKeyboardConstants.Button.Shift ) {
-            this.shiftPressed = true;
+            this.shiftPressed = !this.shiftPressed;
             this.toggleShiftLayout();
-            this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
+            if (this.shiftPressed) {
+                this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
+            } else {
+                this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
+            }
         } else if (button === SystelabVirtualKeyboardConstants.Button.Lock) {
             this.capsLockOn = !this.capsLockOn;
             this.toggleShiftLayout();
@@ -270,6 +274,10 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase || currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift) {
             const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
                 currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase ? SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift : SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase;
+            this.setLayout(selectedLayout);
+        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.numeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.numericShift) {
+            const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
+                currentLayout === SystelabVirtualKeyboardConstants.Layouts.numeric ? SystelabVirtualKeyboardConstants.Layouts.numericShift : SystelabVirtualKeyboardConstants.Layouts.numeric;
             this.setLayout(selectedLayout);
         }
     }

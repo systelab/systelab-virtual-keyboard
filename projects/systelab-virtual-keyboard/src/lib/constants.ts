@@ -16,6 +16,7 @@ export namespace SystelabVirtualKeyboardConstants {
         alphaNumericUppercaseShift = 'alpha-numeric-uppercase-shift',
         shift = 'shift',
         numeric = 'numeric',
+        numericShift = 'numeric-shift',
     }
 
     export const LayoutDefinitions = {
@@ -54,7 +55,8 @@ export namespace SystelabVirtualKeyboardConstants {
             '{shift} Z X C V B N M &lt; &gt; ? {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.numeric]: ['7 8 9', '4 5 6', '1 2 3', '0 {bksp}'],
+        [SystelabVirtualKeyboardConstants.Layouts.numeric]: ['7 8 9 {bksp}', '4 5 6 +', '1 2 3 -', '{shift} 0 . {enter}'],
+        [SystelabVirtualKeyboardConstants.Layouts.numericShift]: ['! @ # {bksp}', '$ % _ =', '& * ( -', '{shift} ) . {enter}'],
     };
 
     export enum Button {
