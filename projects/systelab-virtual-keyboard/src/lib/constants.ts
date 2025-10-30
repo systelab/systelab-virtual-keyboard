@@ -7,30 +7,67 @@
  * strictly forbidden unless prior written permission is Instrumentation Laboratory Company.
  */
 
-export enum SystelabVirtualKeyboardButton {
-    Done = '{done}',
-    Enter = '{enter}',
-    Shift = '{shift}',
-    Lock = '{lock}',
-    Backspace = '{bksp}',
-    Language = '{language}',
-    Space = '{space}',
-    Tab = '{tab}',
-}
+export namespace SystelabVirtualKeyboardConstants {
 
-export enum SystelabVirtualKeyboardLayouts {
-    default = 'default',
-    shift = 'shift',
-    numeric = 'numeric',
-}
+    export enum Layouts {
+        default = 'default',
+        alphaNumeric = 'alpha-numeric',
+        alphaNumericUppercase = 'alpha-numeric-uppercase',
+        shift = 'shift',
+        numeric = 'numeric',
+    }
 
-export enum SystelabVirtualKeyboardInputMethods {
-    onlyMouseEvents = 'onlyMouseEvents',
-    onlyTouchEvents = 'onlyTouchEvents',
-}
+    export const LayoutDefinitions = {
+        [SystelabVirtualKeyboardConstants.Layouts.default]: [
+            '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
+            '{tab} q w e r t y u i o p [ ] \\',
+            "{lock} a s d f g h j k l ; ' {enter}",
+            '{shift} z x c v b n m , . / {shift}',
+            '{space}',
+        ],
+        [SystelabVirtualKeyboardConstants.Layouts.alphaNumeric]: [
+            '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
+            '{tab} q w e r t y u i o p [ ] \\',
+            "{lock} a s d f g h j k l ; ' {enter}",
+            '{shift} z x c v b n m , . / {shift}',
+            '{space}',
+        ],
+        [SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase]: [
+            '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
+            '{tab} Q W E R T Y U I O P { } |',
+            '{lock} A S D F G H J K L : " {enter}',
+            '{shift} Z X C V B N M &lt; &gt; ? {shift}',
+            '{space}',
+        ],
+        [SystelabVirtualKeyboardConstants.Layouts.shift]: [
+            '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
+            '{tab} Q W E R T Y U I O P { } |',
+            '{lock} A S D F G H J K L : " {enter}',
+            '{shift} Z X C V B N M &lt; &gt; ? {shift}',
+            '{space}',
+        ],
+        [SystelabVirtualKeyboardConstants.Layouts.numeric]: ['7 8 9', '4 5 6', '1 2 3', '0 {bksp}'],
+    };
 
-export enum SystelabVirtualKeyboardInputModes {
-    text = 'text',
-    numeric = 'numeric',
-    password = 'password',
+    export enum Button {
+        Done = '{done}',
+        Enter = '{enter}',
+        Shift = '{shift}',
+        Lock = '{lock}',
+        Backspace = '{bksp}',
+        Language = '{language}',
+        Space = '{space}',
+        Tab = '{tab}',
+    }
+
+    export enum InputMethods {
+        onlyMouseEvents = 'onlyMouseEvents',
+        onlyTouchEvents = 'onlyTouchEvents',
+    }
+
+    export enum InputModes {
+        text = 'text',
+        numeric = 'numeric',
+        password = 'password',
+    }
 }

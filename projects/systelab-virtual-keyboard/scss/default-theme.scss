@@ -1,0 +1,42 @@
+:host {
+    width: 100%;
+}
+
+.systelab-virtual-keyboard-theme {
+    font-family: var(--systelab-virtual-keyboard-font-family);
+    background-color: #B2B2B2;
+
+    .hg-row {
+        .hg-button {
+            box-sizing: border-box;
+            height: 65px;
+        }
+    }
+
+    &.hg-layout-shift,
+    &.hg-layout-alpha-numeric {
+        .hg-row {
+            &:first-child .hg-button {
+                height: 50px;
+            }
+        }
+    }
+
+    .virtual-keyboard-delete-button,
+    .virtual-keyboard-enter-button,
+    .virtual-keyboard-function-button {
+        background-color: #E5E5E5;
+        &:first-child {
+            justify-content: flex-start;
+            align-items: flex-end;
+            padding-left: 15px;
+            padding-bottom: 15px;
+        }
+        &:last-child {
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-right: 15px;
+            padding-bottom: 15px;
+        }
+    }
+}
