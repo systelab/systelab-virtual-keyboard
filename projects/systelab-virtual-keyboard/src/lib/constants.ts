@@ -12,9 +12,9 @@ export namespace SystelabVirtualKeyboardConstants {
     export enum Layouts {
         default = 'default',
         alphaNumeric = 'alpha-numeric',
+        alphaNumericShift = 'alpha-numeric-shift',
         alphaNumericUppercase = 'alpha-numeric-uppercase',
         alphaNumericUppercaseShift = 'alpha-numeric-uppercase-shift',
-        shift = 'shift',
         numeric = 'numeric',
         numericShift = 'numeric-shift',
     }
@@ -48,7 +48,7 @@ export namespace SystelabVirtualKeyboardConstants {
             '{shift} Z X C V B N M &lt; &gt; ? {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.shift]: [
+        [SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift]: [
             '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
             '{tab} Q W E R T Y U I O P { } |',
             '{lock} A S D F G H J K L : " {enter}',

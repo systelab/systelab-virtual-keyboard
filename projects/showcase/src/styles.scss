@@ -4,6 +4,10 @@
 @use '@angular/cdk/overlay-prebuilt.css' as *;
 @use '../../systelab-virtual-keyboard/scss/default-theme' as *;
 
+:root {
+    --systelab-virtual-keyboard-font-family: Lato, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+}
+
 .systelab-virtual-keyboard__backdrop {
     backdrop-filter: saturate(30%);
     transition: all .3s !important;

@@ -1,3 +1,8 @@
+@mixin forceWidth($width) {
+    min-width: #{$width} !important;
+    max-width: #{$width} !important;
+}
+
 :root {
     --systelab-virtual-keyboard-font-family: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace;
     --systelab-virtual-keyboard-background-color: #B2B2B2;
@@ -18,20 +23,43 @@
         .hg-button {
             box-sizing: border-box;
             height: 65px;
-            min-width: 93.75px;
-            max-width: none !important;
+            min-width: 75px;
+            max-width: 75px !important;
             border-radius: 10px;
+            &:not(:last-child) {
+                margin-right: 6.8px !important;
+            }
         }
     }
 
-    &.hg-layout-shift,
     &.hg-layout-alpha-numeric,
+    &.hg-layout-alpha-numeric-shift,
     &.hg-layout-alpha-numeric-uppercase,
     &.hg-layout-alpha-numeric-uppercase-shift {
         .hg-row {
             &:first-child .hg-button {
                 height: 50px;
             }
+        }
+        .hg-button-shift {
+            @include forceWidth(182px);
+        }
+
+        .hg-button-bksp {
+            @include forceWidth(125px);
+        }
+
+        .hg-button-tab {
+            @include forceWidth(126px);
+        }
+
+        .hg-button-enter,
+        .hg-button-lock {
+            @include forceWidth(141px);
+        }
+
+        .hg-button-space {
+            @include forceWidth(100%);
         }
     }
 
@@ -51,6 +79,13 @@
             padding-right: 15px;
             padding-bottom: 15px;
         }
+    }
+
+    .hg-button-tab {
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding-left: 15px;
+        padding-bottom: 15px;
     }
 
     .virtual-keyboard-lock-active,

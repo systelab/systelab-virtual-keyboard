@@ -60,6 +60,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     ngAfterViewInit() {
         const keyboardOptions: KeyboardOptions = this.prepareKeyboardConfig();
         this.keyboard = new SimpleKeyboard('.simple-keyboard', keyboardOptions);
+        this.setButtonClasses();
         this.setLayout(this.selectedLayout);
     }
 
@@ -97,21 +98,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             display: {
                 [SystelabVirtualKeyboardConstants.Button.Backspace]: 'back',
                 [SystelabVirtualKeyboardConstants.Button.Enter]: 'enter',
+                [SystelabVirtualKeyboardConstants.Button.Lock]: 'lock',
             },
-            buttonTheme: [
-                {
-                    class: 'virtual-keyboard-delete-button',
-                    buttons: `${SystelabVirtualKeyboardConstants.Button.Backspace}`,
-                },
-                {
-                    class: 'virtual-keyboard-enter-button',
-                    buttons: `${SystelabVirtualKeyboardConstants.Button.Enter}`,
-                },
-                {
-                    class: 'virtual-keyboard-function-button',
-                    buttons: `${SystelabVirtualKeyboardConstants.Button.Shift} ${SystelabVirtualKeyboardConstants.Button.Lock}`,
-                }
-            ],
+            buttonTheme: this.buildButtonThemes(),
             layout: SystelabVirtualKeyboardConstants.LayoutDefinitions,
         };
 
@@ -130,6 +119,27 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         }
 
         return keyboardOptions;
+    }
+
+    private buildButtonThemes(): { class: string; buttons: string }[] {
+        return [
+            {
+                class: 'virtual-keyboard-delete-button',
+                buttons: `${SystelabVirtualKeyboardConstants.Button.Backspace}`,
+            },
+            {
+                class: 'virtual-keyboard-enter-button',
+                buttons: `${SystelabVirtualKeyboardConstants.Button.Enter}`,
+            },
+            {
+                class: 'virtual-keyboard-function-button',
+                buttons: `${SystelabVirtualKeyboardConstants.Button.Shift} ${SystelabVirtualKeyboardConstants.Button.Lock}`,
+            }
+        ]
+    }
+
+    private setButtonClasses(): void {
+        this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-button');
     }
 
     private handleKeyPress(button: string, e?: Event): void {
@@ -249,7 +259,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         const eventInit: KeyboardEventInit = {
             bubbles: true,
             cancelable: true,
-            shiftKey: this.selectedLayout === SystelabVirtualKeyboardConstants.Layouts.shift,
+            shiftKey: this.selectedLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift,
             key: key,
             code: code,
             location: 0,
@@ -288,9 +298,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     private toggleShiftLayout(): void {
         const currentLayout = this.keyboard.options.layoutName;
 
-        if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.shift) {
+        if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift) {
             const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-                currentLayout ===SystelabVirtualKeyboardConstants.Layouts.alphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.shift : SystelabVirtualKeyboardConstants.Layouts.alphaNumeric;
+                currentLayout ===SystelabVirtualKeyboardConstants.Layouts.alphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift : SystelabVirtualKeyboardConstants.Layouts.alphaNumeric;
             this.setLayout(selectedLayout);
         } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase || currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift) {
             const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
