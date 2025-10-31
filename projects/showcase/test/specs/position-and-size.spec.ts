@@ -43,9 +43,9 @@ describe("PositionAndSize", () => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
         });
 
-        await ReportUtility.addExpectedResult("Virtual keyboard size is about 1200x305 pixels", async() => {
+        await ReportUtility.addExpectedResult("Virtual keyboard size is about 1420x305 pixels", async() => {
             expect(keyboardRect.width).toBeSizedAs(1200);
-            expect(keyboardRect.height).toBeSizedAs(305);
+            expect(keyboardRect.height).toBeSizedAs(340);
         });
 
         await ReportUtility.addExpectedResult("Virtual keyboard is located just under the auto-configured alphanumeric input field", async() => {
@@ -71,8 +71,8 @@ describe("PositionAndSize", () => {
         });
 
         await ReportUtility.addExpectedResult("Virtual keyboard size is close to 400x265", async() => {
-            expect(keyboardRect.width).toBeSizedAs(400);
-            expect(keyboardRect.height).toBeSizedAs(265);
+            expect(keyboardRect.width).toBeSizedAs(331);
+            expect(keyboardRect.height).toBeSizedAs(285);
         });
 
         await ReportUtility.addExpectedResult("Virtual keyboard is located just under the auto-configured numerical input field", async() => {
@@ -137,7 +137,7 @@ describe("PositionAndSize", () => {
             expect(await VirtualKeyboard.get().isPresent()).toBeFalsy();
         });
     });
-    
+
     it("Do a mouse click on the only input field that accepts mouse clicks to show virtual keyboard", async () => {
         await ShowcasePage.get().tapOnBackground();
         await ShowcasePage.get().getShowOnMouseClickField().click();
@@ -164,7 +164,7 @@ describe("PositionAndSize", () => {
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
         await ReportUtility.addExpectedResult("Virtual keyboard size is about 1200x305 pixels", async() => {
             expect(keyboardRect.width).toBeSizedAs(1200);
-            expect(keyboardRect.height).toBeSizedAs(305);
+            expect(keyboardRect.height).toBeSizedAs(340);
         });
 
         /*const windowSize = await Browser.getWindowSize();

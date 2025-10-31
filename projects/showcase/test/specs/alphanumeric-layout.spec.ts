@@ -20,7 +20,7 @@ describe("AlphanumericLayout", () => {
     it("Tap on auto-configured alphanumeric layout input field", async () => {
         await ShowcasePage.get().getAutoAlphanumericLayoutField().tap();
 
-        await LayoutExpectation.expectAlphanumericLowercaseLayout();
+        await LayoutExpectation.expectAlphanumericLayout();
     });
 
     it("Write 'abcdefghijklmnopqrstuvwxyz' by tapping on virtual keyboard keys", async () => {
@@ -51,17 +51,17 @@ describe("AlphanumericLayout", () => {
 
     it("Clear input content and write some symbols by tapping on virtual keyboard keys", async () => {
         await ShowcasePage.get().getAutoAlphanumericLayoutField().clear();
-        await VirtualKeyboard.get().tapOnKeys("`-=;,./");
+        await VirtualKeyboard.get().tapOnKeys('`-={}|:"<>?');
 
-        await ReportUtility.addExpectedResult("Alphanumeric input displays '`-=;,./'", async() => {
-            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual("`-=;,./");
+        await ReportUtility.addExpectedResult("Alphanumeric input displays '`-={}|:\"<>?'", async() => {
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('`-={}|:"<>?');
         });
     });
 
     it("Tap on 'Caps Lock' virtual keyboard key to change layout to uppercase", async () => {
         await VirtualKeyboard.get().tapOnCapsLock();
 
-        await LayoutExpectation.expectAlphanumericUppercaseLayout();
+        await LayoutExpectation.expectAlphanumericShiftLayout();
     });
 
     it("Clear input content and write 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' by tapping on virtual keyboard keys", async () => {
@@ -75,29 +75,29 @@ describe("AlphanumericLayout", () => {
 
     it("Clear again input content and write some other symbols by tapping on virtual keyboard keys", async () => {
         await ShowcasePage.get().getAutoAlphanumericLayoutField().clear();
-        await VirtualKeyboard.get().tapOnKeys('!@#$%#^*()_+?|{}:"');
+        await VirtualKeyboard.get().tapOnKeys('!@#$%^*()_+[];');
 
-        await ReportUtility.addExpectedResult("Alphanumeric input displays '!@#$%#^*()_+?|{}:\"'", async() => {
-            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('!@#$%#^*()_+?|{}:"');
+        await ReportUtility.addExpectedResult("Alphanumeric input displays '!@#$%^*()_+[];'", async() => {
+            expect(await ShowcasePage.get().getAutoAlphanumericLayoutField().getText()).toEqual('!@#$%^*()_+[];');
         });
     });
 
     it("Tap again on 'Caps Lock' to return to lowercase layout", async () => {
         await VirtualKeyboard.get().tapOnCapsLock();
 
-        await LayoutExpectation.expectAlphanumericLowercaseLayout();
+        await LayoutExpectation.expectAlphanumericLayout();
     });
 
     it("Tap on 'Shift' virtual keyboard key to change layout to uppercase for only once key", async () => {
         await VirtualKeyboard.get().tapOnShift();
 
-        await LayoutExpectation.expectAlphanumericUppercaseLayout();
+        await LayoutExpectation.expectAlphanumericShiftLayout();
     });
 
     it("Tap on 'S' virtual keyboard key and the lowercase layout is back", async() => {
         await VirtualKeyboard.get().tapOnKey('S');
 
-        await LayoutExpectation.expectAlphanumericLowercaseLayout();
+        await LayoutExpectation.expectAlphanumericLayout();
     })
 
     it("Clear again input content and write some text with a space and a tab by tapping on virtual keyboard keys", async () => {

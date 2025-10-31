@@ -25,6 +25,10 @@ export class ShowcasePage extends BasePage {
         return new InputField(this.byId('manual-numeric-layout-field'));
     }
 
+    public getManualAlphaNumericUppercaseLayoutField(): InputField {
+        return new InputField(this.byId('manual-alpha-numeric-uppercase-layout-field'));
+    }
+
     public getShowVirtualKeyboardIconField(): InputField {
         return new InputField(this.byId('show-virtual-keyboard-icon-field'));
     }
