@@ -1,10 +1,18 @@
+:root {
+    --systelab-virtual-keyboard-font-family: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace;
+    --systelab-virtual-keyboard-background-color: #B2B2B2;
+    --systelab-virtual-keyboard-button-color: #E5E5E5;
+    --systelab-virtual-keyboard-special-button-color: #4D4D4D;
+    --systelab-virtual-keyboard-special-button-font-color: #FFFFFF;
+}
+
 :host {
     width: 100%;
 }
 
 .systelab-virtual-keyboard-theme {
     font-family: var(--systelab-virtual-keyboard-font-family);
-    background-color: #B2B2B2;
+    background-color: var(--systelab-virtual-keyboard-background-color);
 
     .hg-row {
         .hg-button {
@@ -30,7 +38,7 @@
     .virtual-keyboard-delete-button,
     .virtual-keyboard-enter-button,
     .virtual-keyboard-function-button {
-        background-color: #E5E5E5;
+        background-color: var(--systelab-virtual-keyboard-button-color);
         &:first-child {
             justify-content: flex-start;
             align-items: flex-end;
@@ -47,7 +55,11 @@
 
     .virtual-keyboard-lock-active,
     .virtual-keyboard-shift-active {
-        background-color: #4D4D4D;
-        color: #FFFFFF;
+        background-color: var(--systelab-virtual-keyboard-special-button-color);
+        color: var(--systelab-virtual-keyboard-special-button-font-color);
+    }
+
+    .virtual-keyboard-uppercase {
+        text-transform: uppercase;
     }
 }
