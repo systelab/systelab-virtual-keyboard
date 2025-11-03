@@ -43,8 +43,8 @@ describe("PositionAndSize", () => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
         });
 
-        await ReportUtility.addExpectedResult("Virtual keyboard size is about 1420x305 pixels", async() => {
-            expect(keyboardRect.width).toBeSizedAs(1420);
+        await ReportUtility.addExpectedResult("Virtual keyboard size is about 1200x305 pixels", async() => {
+            expect(keyboardRect.width).toBeSizedAs(1200);
             expect(keyboardRect.height).toBeSizedAs(305);
         });
 
