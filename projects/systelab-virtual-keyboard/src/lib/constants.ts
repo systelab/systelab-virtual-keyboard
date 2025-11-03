@@ -10,53 +10,53 @@
 export namespace SystelabVirtualKeyboardConstants {
 
     export enum Layouts {
-        default = 'default',
-        alphaNumeric = 'alpha-numeric',
-        alphaNumericShift = 'alpha-numeric-shift',
-        alphaNumericUppercase = 'alpha-numeric-uppercase',
-        alphaNumericUppercaseShift = 'alpha-numeric-uppercase-shift',
-        numeric = 'numeric',
-        numericShift = 'numeric-shift',
+        Default = 'default',
+        AlphaNumeric = 'alpha-numeric',
+        AlphaNumericShift = 'alpha-numeric-shift',
+        AlphaNumericUppercase = 'alpha-numeric-uppercase',
+        AlphaNumericUppercaseShift = 'alpha-numeric-uppercase-shift',
+        Numeric = 'numeric',
+        NumericShift = 'numeric-shift',
     }
 
     export const LayoutDefinitions = {
-        [SystelabVirtualKeyboardConstants.Layouts.default]: [
+        [SystelabVirtualKeyboardConstants.Layouts.Default]: [
             '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
             '{tab} q w e r t y u i o p { } |',
             '{lock} a s d f g h j k l : " {enter}',
             '{shift} z x c v b n m < > ? {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.alphaNumeric]: [
+        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric]: [
             '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
             '{tab} q w e r t y u i o p { } |',
             '{lock} a s d f g h j k l : " {enter}',
             '{shift} z x c v b n m < > ? {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift]: [
+        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift]: [
             '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
             '{tab} Q W E R T Y U I O P [ ] \\',
             "{lock} A S D F G H J K L ; ' {enter}",
             '{shift} Z X C V B N M , . / {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase]: [
+        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase]: [
             '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
             '{tab} Q W E R T Y U I O P [ ] \\',
             "{lock} A S D F G H J K L ; ' {enter}",
             '{shift} Z X C V B N M , . / {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift]: [
+        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift]: [
             '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
             '{tab} Q W E R T Y U I O P [ ] \\',
             "{lock} A S D F G H J K L ; ' {enter}",
             '{shift} Z X C V B N M , . / {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.numeric]: ['7 8 9 {bksp}', '4 5 6 +', '1 2 3 -', '{shift} 0 . {enter}'],
-        [SystelabVirtualKeyboardConstants.Layouts.numericShift]: ['! @ # {bksp}', '$ % _ =', '& * ( -', '{shift} ) . {enter}'],
+        [SystelabVirtualKeyboardConstants.Layouts.Numeric]: ['7 8 9 {bksp}', '4 5 6 +', '1 2 3 -', '{shift} 0 . {enter}'],
+        [SystelabVirtualKeyboardConstants.Layouts.NumericShift]: ['! @ # {bksp}', '$ % _ =', '& * ( -', '{shift} ) . {enter}'],
     };
 
     export enum Button {

@@ -188,11 +188,11 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
             return this.config.layout;
         }
         if (this.isInputAlphabetic(activeInputElement)) {
-            return SystelabVirtualKeyboardConstants.Layouts.alphaNumeric;
+            return SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
         } else if (this.isInputNumeric(activeInputElement)) {
-            return SystelabVirtualKeyboardConstants.Layouts.numeric;
+            return SystelabVirtualKeyboardConstants.Layouts.Numeric;
         } else {
-            return SystelabVirtualKeyboardConstants.Layouts.alphaNumeric;
+            return SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
         }
     }
 

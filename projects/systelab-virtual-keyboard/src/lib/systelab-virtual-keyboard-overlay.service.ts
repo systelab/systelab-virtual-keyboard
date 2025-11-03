@@ -49,7 +49,7 @@ export class SystelabVirtualKeyboardOverlayService {
         inputOrigin: HTMLInputElement,
         showKeyboardButtonElement: HTMLElement,
         fixedBottom: boolean,
-        layout: SystelabVirtualKeyboardConstants.Layouts = SystelabVirtualKeyboardConstants.Layouts.default,
+        layout: SystelabVirtualKeyboardConstants.Layouts = SystelabVirtualKeyboardConstants.Layouts.Default,
     ): ComponentRef<SystelabVirtualKeyboardComponent> {
         this.inputOrigin = inputOrigin;
         this.fixedBottom = fixedBottom;
@@ -192,7 +192,7 @@ export class SystelabVirtualKeyboardOverlayService {
     }
 
     private getOverlaySize(): OverlaySizeConfig {
-        const overlayWidth = this.layout === SystelabVirtualKeyboardConstants.Layouts.numeric ? '331px' : '1200px';
+        const overlayWidth = this.layout === SystelabVirtualKeyboardConstants.Layouts.Numeric ? '331px' : '1200px';
 
         return {
             width: overlayWidth,

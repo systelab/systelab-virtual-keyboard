@@ -14,11 +14,11 @@ export class AppComponent implements OnInit {
     public vkEnabled: boolean = false;
 
     public vkConfigNumericLayout: SystelabVirtualKeyboardConfig = {
-        layout: SystelabVirtualKeyboardConstants.Layouts.numeric,
+        layout: SystelabVirtualKeyboardConstants.Layouts.Numeric,
     }
 
     public vkConfigAlphaNumericUppercaseLayout: SystelabVirtualKeyboardConfig = {
-        layout: SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase,
+        layout: SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase,
     }
 
     public vkConfigIcon: SystelabVirtualKeyboardConfig = {

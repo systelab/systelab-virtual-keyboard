@@ -42,7 +42,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     public debug = false;
-    private selectedLayout: SystelabVirtualKeyboardConstants.Layouts = SystelabVirtualKeyboardConstants.Layouts.default;
+    private selectedLayout: SystelabVirtualKeyboardConstants.Layouts = SystelabVirtualKeyboardConstants.Layouts.Default;
     private keyboard: SimpleKeyboard;
     private caretPosition: number | null = null;
     private caretPositionEnd: number | null = null;
@@ -259,7 +259,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         const eventInit: KeyboardEventInit = {
             bubbles: true,
             cancelable: true,
-            shiftKey: this.selectedLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift,
+            shiftKey: this.selectedLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift,
             key: key,
             code: code,
             location: 0,
@@ -298,17 +298,17 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     private toggleShiftLayout(): void {
         const currentLayout = this.keyboard.options.layoutName;
 
-        if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift) {
+        if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift) {
             const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-                currentLayout ===SystelabVirtualKeyboardConstants.Layouts.alphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.alphaNumericShift : SystelabVirtualKeyboardConstants.Layouts.alphaNumeric;
+                currentLayout ===SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
             this.setLayout(selectedLayout);
-        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase || currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift) {
+        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase || currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift) {
             const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-                currentLayout === SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase ? SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercaseShift : SystelabVirtualKeyboardConstants.Layouts.alphaNumericUppercase;
+                currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase;
             this.setLayout(selectedLayout);
-        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.numeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.numericShift) {
+        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.Numeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.NumericShift) {
             const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-                currentLayout === SystelabVirtualKeyboardConstants.Layouts.numeric ? SystelabVirtualKeyboardConstants.Layouts.numericShift : SystelabVirtualKeyboardConstants.Layouts.numeric;
+                currentLayout === SystelabVirtualKeyboardConstants.Layouts.Numeric ? SystelabVirtualKeyboardConstants.Layouts.NumericShift : SystelabVirtualKeyboardConstants.Layouts.Numeric;
             this.setLayout(selectedLayout);
         }
     }
