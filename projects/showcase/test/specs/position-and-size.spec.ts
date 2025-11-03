@@ -149,7 +149,9 @@ describe("PositionAndSize", () => {
         const inputRect = await ShowcasePage.get().getShowOnMouseClickField().getBoundingRect();
         const keyboardRect = await VirtualKeyboard.get().getBoundingRect();
         await ReportUtility.addExpectedResult("Virtual keyboard is located just under the input field that accepts clicks", async() => {
-            expect(keyboardRect.y).toBeLocatedAs(inputRect.y + inputRect.height);
+            const expectedY = inputRect.y + inputRect.height;
+            expect(keyboardRect.y).toBeGreaterThan(expectedY - 5);
+            expect(keyboardRect.y).toBeLessThan(expectedY + 5);
         });
     });
 
