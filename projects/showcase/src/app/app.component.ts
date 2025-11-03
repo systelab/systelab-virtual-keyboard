@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SystelabVirtualKeyboardConfig } from 'systelab-virtual-keyboard';
+import { SystelabVirtualKeyboardConfig, SystelabVirtualKeyboardConstants } from 'systelab-virtual-keyboard';
 import { environment } from '../environments/environment';
-import { SystelabVirtualKeyboardConstants } from '../../../systelab-virtual-keyboard/src/lib/constants';
 
 
 @Component({
