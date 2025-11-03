@@ -297,18 +297,27 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     private toggleShiftLayout(): void {
         const currentLayout = this.keyboard.options.layoutName;
+        let selectedLayout: SystelabVirtualKeyboardConstants.Layouts;
 
-        if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift) {
-            const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-                currentLayout ===SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
-            this.setLayout(selectedLayout);
-        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase || currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift) {
-            const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-                currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase;
-            this.setLayout(selectedLayout);
-        } else if (currentLayout === SystelabVirtualKeyboardConstants.Layouts.Numeric || currentLayout === SystelabVirtualKeyboardConstants.Layouts.NumericShift) {
-            const selectedLayout: SystelabVirtualKeyboardConstants.Layouts =
-                currentLayout === SystelabVirtualKeyboardConstants.Layouts.Numeric ? SystelabVirtualKeyboardConstants.Layouts.NumericShift : SystelabVirtualKeyboardConstants.Layouts.Numeric;
+        switch (currentLayout) {
+            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric:
+            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift:
+                selectedLayout = currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
+                break;
+
+            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase:
+            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift:
+                selectedLayout = currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase;
+                break;
+
+            case SystelabVirtualKeyboardConstants.Layouts.Numeric:
+            case SystelabVirtualKeyboardConstants.Layouts.NumericShift:
+                selectedLayout = currentLayout === SystelabVirtualKeyboardConstants.Layouts.Numeric ? SystelabVirtualKeyboardConstants.Layouts.NumericShift : SystelabVirtualKeyboardConstants.Layouts.Numeric;
+                break;
+            default:
+        }
+
+        if (selectedLayout) {
             this.setLayout(selectedLayout);
         }
     }
