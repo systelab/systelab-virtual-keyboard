@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SystelabVirtualKeyboardConfig, SystelabVirtualKeyboardLayouts } from 'systelab-virtual-keyboard';
+import { SystelabVirtualKeyboardConfig, SystelabVirtualKeyboardConstants } from 'systelab-virtual-keyboard';
 import { environment } from '../environments/environment';
 
 
@@ -11,9 +11,13 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent implements OnInit {
     public vkEnabled: boolean = false;
-    
-    public vkConfigLayout: SystelabVirtualKeyboardConfig = {
-        layout: SystelabVirtualKeyboardLayouts.numeric,
+
+    public vkConfigNumericLayout: SystelabVirtualKeyboardConfig = {
+        layout: SystelabVirtualKeyboardConstants.Layouts.Numeric,
+    }
+
+    public vkConfigAlphaNumericUppercaseLayout: SystelabVirtualKeyboardConfig = {
+        layout: SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase,
     }
 
     public vkConfigIcon: SystelabVirtualKeyboardConfig = {

@@ -32,11 +32,11 @@ exports.config = {
     connectionRetryCount: 3,
     services: [
         ['chromedriver'],
-    ], 
+    ],
     framework: 'jasmine',
     reporters: [
         TestCaseReporter.default
-    ],   
+    ],
     jasmineOpts: {
         defaultTimeoutInterval: 60000,
         expectationResultHandler: function(passed, assertion) {},

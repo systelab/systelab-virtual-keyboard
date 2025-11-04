@@ -43,3 +43,14 @@ The configuration params are describe into the interface [SystelabVirtualKeyboar
 | inputMethod | SystelabVirtualKeyboardInputMethods | | The method detected for the keyboard to click or touch the keys
 | showButton | boolean | false | Show or hide the button for showing the keyboard
 | showOnMouseClick | boolean | false | Shows virtual keyboard upon mouse click on input field
+
+### Styling variables
+
+| Name  | Default | Description                               |
+|-----------|:----:|-------------------------------------------|
+| --systelab-virtual-keyboard-font-family | 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace | Font family fonts to use                  
+| --systelab-virtual-keyboard-background-color | #B2B2B2 | Background of the keyboard                
+| --systelab-virtual-keyboard-button-color | #E5E5E5 | Normal button background color            
+| --systelab-virtual-keyboard-button-font-color | #000000 | Normal button font color                  
+| --systelab-virtual-keyboard-active-special-button-color | #4D4D4D | Special buttons activation background color
+| --systelab-virtual-keyboard-active-special-button-font-color | #FFFFFF | Special buttons activation font color     

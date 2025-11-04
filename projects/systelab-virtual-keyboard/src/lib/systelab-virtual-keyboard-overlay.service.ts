@@ -10,8 +10,8 @@
 import { Overlay, OverlayRef, OverlaySizeConfig, PositionStrategy } from '@angular/cdk/overlay';
 import { ComponentRef, Injectable } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { SystelabVirtualKeyboardLayouts } from './constants';
 import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.component';
+import { SystelabVirtualKeyboardConstants } from './constants';
 
 interface PositionStrategyOrigin {
   x: number;
@@ -29,7 +29,7 @@ export class SystelabVirtualKeyboardOverlayService {
     private fixedBottom: boolean;
     private showKeyboardButtonElement: HTMLElement;
     private open: boolean;
-    private layout: SystelabVirtualKeyboardLayouts;
+    private layout: SystelabVirtualKeyboardConstants.Layouts;
     private clickAlreadyHandled: boolean = false;
     private touchEndAlreadyHandled: boolean = false;
 
@@ -49,7 +49,7 @@ export class SystelabVirtualKeyboardOverlayService {
         inputOrigin: HTMLInputElement,
         showKeyboardButtonElement: HTMLElement,
         fixedBottom: boolean,
-        layout: SystelabVirtualKeyboardLayouts = SystelabVirtualKeyboardLayouts.default,
+        layout: SystelabVirtualKeyboardConstants.Layouts = SystelabVirtualKeyboardConstants.Layouts.Default,
     ): ComponentRef<SystelabVirtualKeyboardComponent> {
         this.inputOrigin = inputOrigin;
         this.fixedBottom = fixedBottom;
@@ -192,7 +192,7 @@ export class SystelabVirtualKeyboardOverlayService {
     }
 
     private getOverlaySize(): OverlaySizeConfig {
-        const overlayWidth = this.layout === SystelabVirtualKeyboardLayouts.numeric ? '400px' : '1200px';
+        const overlayWidth = this.layout === SystelabVirtualKeyboardConstants.Layouts.Numeric ? '331px' : '1200px';
 
         return {
             width: overlayWidth,

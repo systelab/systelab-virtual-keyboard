@@ -19,13 +19,13 @@ describe("NumericLayout", () => {
     it("Tap on auto-configured numeric input field", async () => {
         await ShowcasePage.get().getAutoNumericLayoutField().tap();
 
-        await ReportUtility.addExpectedResult("Virtual keyboard is shown with 4 rows of keys including all numbers and backspace", async() => {
+        await ReportUtility.addExpectedResult("Virtual keyboard is shown with 4 rows of keys including all numbers, shift, enter, backspace and plus/minus signs", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
             expect(await VirtualKeyboard.get().getRowCount()).toEqual(4);
-            expect(await VirtualKeyboard.get().getRowKeys(0)).toEqual(['7', '8', '9']);
-            expect(await VirtualKeyboard.get().getRowKeys(1)).toEqual(['4', '5', '6']);
-            expect(await VirtualKeyboard.get().getRowKeys(2)).toEqual(['1', '2', '3']);
-            expect(await VirtualKeyboard.get().getRowKeys(3)).toEqual(['0', '{bksp}']);
+            expect(await VirtualKeyboard.get().getRowKeys(0)).toEqual(['7', '8', '9', '{bksp}']);
+            expect(await VirtualKeyboard.get().getRowKeys(1)).toEqual(['4', '5', '6', '+']);
+            expect(await VirtualKeyboard.get().getRowKeys(2)).toEqual(['1', '2', '3', '-']);
+            expect(await VirtualKeyboard.get().getRowKeys(3)).toEqual(['{shift}', '0', '.', '{enter}']);
         });
     });
 

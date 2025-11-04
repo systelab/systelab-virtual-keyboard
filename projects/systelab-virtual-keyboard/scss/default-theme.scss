@@ -1,0 +1,102 @@
+@mixin forceWidth($width) {
+    min-width: #{$width} !important;
+    max-width: #{$width} !important;
+}
+
+:root {
+    --systelab-virtual-keyboard-font-family: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace;
+    --systelab-virtual-keyboard-background-color: #B2B2B2;
+    --systelab-virtual-keyboard-button-color: #E5E5E5;
+    --systelab-virtual-keyboard-button-font-color: #000000;
+    --systelab-virtual-keyboard-active-special-button-color: #4D4D4D;
+    --systelab-virtual-keyboard-active-special-button-font-color: #FFFFFF;
+}
+
+:host {
+    width: 100%;
+}
+
+.systelab-virtual-keyboard-theme {
+    font-family: var(--systelab-virtual-keyboard-font-family);
+    background-color: var(--systelab-virtual-keyboard-background-color);
+
+    .hg-row {
+        .hg-button {
+            box-sizing: border-box;
+            height: 65px;
+            min-width: 75px;
+            max-width: 75px !important;
+            border-radius: 10px;
+            &:not(:last-child) {
+                margin-right: 6.8px !important;
+            }
+        }
+    }
+
+    &.hg-layout-alpha-numeric,
+    &.hg-layout-alpha-numeric-shift,
+    &.hg-layout-alpha-numeric-uppercase,
+    &.hg-layout-alpha-numeric-uppercase-shift {
+        .hg-row {
+            &:first-child .hg-button {
+                height: 50px;
+            }
+        }
+        .hg-button-shift {
+            @include forceWidth(182px);
+        }
+
+        .hg-button-bksp {
+            @include forceWidth(125px);
+        }
+
+        .hg-button-tab {
+            @include forceWidth(126px);
+        }
+
+        .hg-button-enter,
+        .hg-button-lock {
+            @include forceWidth(141px);
+        }
+
+        .hg-button-space {
+            @include forceWidth(100%);
+        }
+    }
+
+    .virtual-keyboard-delete-button,
+    .virtual-keyboard-enter-button,
+    .virtual-keyboard-function-button {
+        background-color: var(--systelab-virtual-keyboard-button-color);
+        color: var(--systelab-virtual-keyboard-button-font-color);
+        &:first-child {
+            justify-content: flex-start;
+            align-items: flex-end;
+            padding-left: 15px;
+            padding-bottom: 15px;
+        }
+        &:last-child {
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-right: 15px;
+            padding-bottom: 15px;
+        }
+    }
+
+    .hg-button-tab {
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding-left: 15px;
+        padding-bottom: 15px;
+    }
+
+    .virtual-keyboard-lock-active,
+    .virtual-keyboard-shift-active {
+        background-color: var(--systelab-virtual-keyboard-active-special-button-color);
+        color: var(--systelab-virtual-keyboard-active-special-button-font-color);
+    }
+
+    .virtual-keyboard-uppercase {
+        text-transform: uppercase;
+    }
+}
