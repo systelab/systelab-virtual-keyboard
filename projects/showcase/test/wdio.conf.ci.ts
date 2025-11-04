@@ -1,5 +1,4 @@
-import { TestCaseReporter } from './testCaseReporter';
-
+const TestCaseReporter = require('systelab-components-wdio-test/src/reporters/test-case.reporter');
 const ScreenshotReporter = require('systelab-components-wdio-test/lib/reporters/screenshot.reporter.js');
 
 exports.config = {
