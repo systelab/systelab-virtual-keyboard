@@ -142,8 +142,6 @@ describe("PositionAndSize", () => {
         await ShowcasePage.get().tapOnBackground();
         await ShowcasePage.get().getShowOnMouseClickField().click();
 
-        await browser.pause(500);
-
         await ReportUtility.addExpectedResult("Virtual keyboard is shown again", async() => {
             expect(await VirtualKeyboard.get().isPresent()).toBeTruthy();
         });
