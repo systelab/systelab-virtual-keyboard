@@ -1,4 +1,5 @@
-const TestCaseReporter = require('systelab-components-wdio-test/src/reporters/test-case.reporter');
+import { TestCaseReporter } from './testCaseReporter';
+
 const ScreenshotReporter = require('systelab-components-wdio-test/lib/reporters/screenshot.reporter.js');
 
 exports.config = {
@@ -39,11 +40,11 @@ exports.config = {
     connectionRetryCount: 3,
     services: [
         ['chromedriver'],
-    ], 
+    ],
     framework: 'jasmine',
     reporters: [
         TestCaseReporter.default
-    ],   
+    ],
     jasmineOpts: {
         defaultTimeoutInterval: 60000,
         expectationResultHandler: function(passed, assertion) {},

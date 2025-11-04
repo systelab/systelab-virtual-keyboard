@@ -1,4 +1,4 @@
-const TestCaseReporter = require('systelab-components-wdio-test/src/reporters/test-case.reporter');
+import { TestCaseReporter } from './testCaseReporter';
 
 exports.config = {
     autoCompileOpts: {
