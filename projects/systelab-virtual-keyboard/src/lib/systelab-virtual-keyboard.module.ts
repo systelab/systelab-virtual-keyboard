@@ -2,8 +2,9 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SystelabVirtualKeyboardDirective } from './systelab-virtual-keyboard.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
 import { SystelabVirtualKeyboardOverlayService } from './systelab-virtual-keyboard-overlay.service';
+import { SystelabVirtualKeyboard } from '../public-api';
+import { SystelabVirtualKeyboardConstants } from './systelab-virtual-keyboard.constants';
 
 export const factory = () => {
     const systelabVirtualKeyboardModuleCreated = (factory as any)._systelabVirtualKeyboardModuleCreated || false;
@@ -19,13 +20,13 @@ export const factory = () => {
     exports: [SystelabVirtualKeyboardDirective],
 })
 export class SystelabVirtualKeyboardModule {
-    public static forRoot(conf?: SystelabVirtualKeyboardConfig): ModuleWithProviders<SystelabVirtualKeyboardModule> {
+    public static forRoot(conf?: SystelabVirtualKeyboard.Config): ModuleWithProviders<SystelabVirtualKeyboardModule> {
         return {
             ngModule: SystelabVirtualKeyboardModule,
             providers: [
                 SystelabVirtualKeyboardOverlayService,
                 {
-                    provide: VIRTUAL_KEYBOARD_CONFIG, useValue: conf
+                    provide: SystelabVirtualKeyboardConstants.VIRTUAL_KEYBOARD_CONFIG, useValue: conf
                 }
             ]
         };

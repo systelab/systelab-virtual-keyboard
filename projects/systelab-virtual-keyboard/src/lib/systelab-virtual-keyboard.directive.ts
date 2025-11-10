@@ -25,8 +25,8 @@ import {
 
 import { SystelabVirtualKeyboardComponent } from './systelab-virtual-keyboard.component';
 import { SystelabVirtualKeyboardOverlayService } from './systelab-virtual-keyboard-overlay.service';
-import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
-import { SystelabVirtualKeyboardConstants } from './constants';
+import { SystelabVirtualKeyboardConstants } from './systelab-virtual-keyboard.constants';
+import { SystelabVirtualKeyboard } from './systelab-virtual-keyboard.public';
 
 @Directive({
     selector: 'input[vkEnabled], textarea[vkEnabled]',
@@ -107,14 +107,14 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         this.debug = debug;
     }
 
-    private config: SystelabVirtualKeyboardConfig;
+    private config: SystelabVirtualKeyboard.Config;
 
     @Input()
-    get vkConfig(): SystelabVirtualKeyboardConfig {
+    get vkConfig(): SystelabVirtualKeyboard.Config {
         return this.config;
     }
 
-    set vkConfig(config: SystelabVirtualKeyboardConfig) {
+    set vkConfig(config: SystelabVirtualKeyboard.Config) {
         this.config = config;
     }
 
@@ -126,7 +126,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         private readonly overlayService: SystelabVirtualKeyboardOverlayService,
         private readonly renderer: Renderer2,
         @Inject(DOCUMENT) private readonly document: any,
-        @Optional() @Inject(VIRTUAL_KEYBOARD_CONFIG) private readonly virtualKeyboardConfig: SystelabVirtualKeyboardConfig,
+        @Optional() @Inject(SystelabVirtualKeyboardConstants.VIRTUAL_KEYBOARD_CONFIG) private readonly virtualKeyboardConfig: SystelabVirtualKeyboard.Config,
     ) {
         this.config = this.virtualKeyboardConfig;
     }
@@ -183,16 +183,16 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         this.panelRef.instance.closePanel.subscribe(() => this.closePanel());
     }
 
-    private getLayout(activeInputElement: HTMLInputElement | HTMLTextAreaElement): SystelabVirtualKeyboardConstants.Layouts {
+    private getLayout(activeInputElement: HTMLInputElement | HTMLTextAreaElement): SystelabVirtualKeyboard.Layouts {
         if (this.config?.hasOwnProperty('layout')) {
             return this.config.layout;
         }
         if (this.isInputAlphabetic(activeInputElement)) {
-            return SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
+            return SystelabVirtualKeyboard.Layouts.AlphaNumeric;
         } else if (this.isInputNumeric(activeInputElement)) {
-            return SystelabVirtualKeyboardConstants.Layouts.Numeric;
+            return SystelabVirtualKeyboard.Layouts.Numeric;
         } else {
-            return SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
+            return SystelabVirtualKeyboard.Layouts.AlphaNumeric;
         }
     }
 

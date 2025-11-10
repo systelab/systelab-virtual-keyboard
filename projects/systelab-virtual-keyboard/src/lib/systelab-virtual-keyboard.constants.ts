@@ -7,56 +7,51 @@
  * strictly forbidden unless prior written permission is Instrumentation Laboratory Company.
  */
 
+import { SystelabVirtualKeyboard } from './systelab-virtual-keyboard.public';
+import { InjectionToken } from '@angular/core';
+
 export namespace SystelabVirtualKeyboardConstants {
 
-    export enum Layouts {
-        Default = 'default',
-        AlphaNumeric = 'alpha-numeric',
-        AlphaNumericShift = 'alpha-numeric-shift',
-        AlphaNumericUppercase = 'alpha-numeric-uppercase',
-        AlphaNumericUppercaseShift = 'alpha-numeric-uppercase-shift',
-        Numeric = 'numeric',
-        NumericShift = 'numeric-shift',
-    }
+    export const VIRTUAL_KEYBOARD_CONFIG = new InjectionToken<SystelabVirtualKeyboard.Config>('VIRTUAL_KEYBOARD_CONFIG');
 
     export const LayoutDefinitions = {
-        [SystelabVirtualKeyboardConstants.Layouts.Default]: [
+        'default': [
             '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
             '{tab} q w e r t y u i o p { } |',
             '{lock} a s d f g h j k l : " {enter}',
             '{shift} z x c v b n m < > ? {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric]: [
+        [SystelabVirtualKeyboard.Layouts.AlphaNumeric]: [
             '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
             '{tab} q w e r t y u i o p { } |',
             '{lock} a s d f g h j k l : " {enter}',
             '{shift} z x c v b n m < > ? {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift]: [
+        [SystelabVirtualKeyboard.Layouts.AlphaNumericShift]: [
             '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
             '{tab} Q W E R T Y U I O P [ ] \\',
             "{lock} A S D F G H J K L ; ' {enter}",
             '{shift} Z X C V B N M , . / {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase]: [
+        [SystelabVirtualKeyboard.Layouts.AlphaNumericUppercase]: [
             '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
             '{tab} Q W E R T Y U I O P [ ] \\',
             "{lock} A S D F G H J K L ; ' {enter}",
             '{shift} Z X C V B N M , . / {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift]: [
+        [SystelabVirtualKeyboard.Layouts.AlphaNumericUppercaseShift]: [
             '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp}',
             '{tab} Q W E R T Y U I O P [ ] \\',
             "{lock} A S D F G H J K L ; ' {enter}",
             '{shift} Z X C V B N M , . / {shift}',
             '{space}',
         ],
-        [SystelabVirtualKeyboardConstants.Layouts.Numeric]: ['7 8 9 {bksp}', '4 5 6 +', '1 2 3 -', '{shift} 0 . {enter}'],
-        [SystelabVirtualKeyboardConstants.Layouts.NumericShift]: ['! @ # {bksp}', '$ % _ =', '& * ( -', '{shift} ) . {enter}'],
+        [SystelabVirtualKeyboard.Layouts.Numeric]: ['7 8 9 {bksp}', '4 5 6 +', '1 2 3 -', '{shift} 0 . {enter}'],
+        [SystelabVirtualKeyboard.Layouts.NumericShift]: ['! @ # {bksp}', '$ % _ =', '& * ( -', '{shift} ) . {enter}'],
     };
 
     export enum Button {
@@ -68,11 +63,6 @@ export namespace SystelabVirtualKeyboardConstants {
         Language = '{language}',
         Space = '{space}',
         Tab = '{tab}',
-    }
-
-    export enum InputMethods {
-        onlyMouseEvents = 'onlyMouseEvents',
-        onlyTouchEvents = 'onlyTouchEvents',
     }
 
     export enum InputModes {

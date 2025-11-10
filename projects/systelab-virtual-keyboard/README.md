@@ -15,7 +15,7 @@ NgModule({
 })
 ```
 
-Where config is an object with type *SystelabVirtualKeyboardConfig*. See [SystelabVirtualKeyboardConfig](src/lib/systelab-virtual-keyboard.config.ts) for details
+Where config is an object with type *SystelabVirtualKeyboard.Config*. See [Config](src/lib/systelab-virtual-keyboard.public.ts) for details
 
 Then the virtual keyboard can be enabled for inputs or textareas. To enable it the attribute *vkEnabled* can be used into the desire HTML element. It can be binding dynamically in the same way *[vkEnabled]="vkEnabledVariable"*
 
@@ -27,15 +27,15 @@ Then the virtual keyboard can be enabled for inputs or textareas. To enable it t
 
 The default behaviour can be changed through some attributes:
 
-| Name      | Type | Default | Description |
-|-----------|:----:|:-------:| ----------- |
-| vkEnabled | boolean | true | Enable the virtual keyboard for the element. If the property exists, the default value is true; if not, is false
-| vkFixedBottom | booles | true | Fix the virtual keyboard to the bottom of the page. If the property exists, the default value is true; if not, is false
-| vkConfig | SystelabVirtualKeyboardConfig | | Configuration object that overrides some default behaviours. See [SystelabVirtualKeyboardConfig](src/lib/systelab-virtual-keyboard.config.ts) for details
+| Name      |              Type              | Default | Description |
+|-----------|:------------------------------:|:-------:| ----------- |
+| vkEnabled |            boolean             | true | Enable the virtual keyboard for the element. If the property exists, the default value is true; if not, is false
+| vkFixedBottom |             booles             | true | Fix the virtual keyboard to the bottom of the page. If the property exists, the default value is true; if not, is false
+| vkConfig | SystelabVirtualKeyboard.Config | | Configuration object that overrides some default behaviours. See [Config](src/lib/systelab-virtual-keyboard.public.ts) for details
 
 ### Configuration object
 
-The configuration params are describe into the interface [SystelabVirtualKeyboardConfig](src/lib/systelab-virtual-keyboard.config.ts)
+The configuration params are describe into the interface [Config](src/lib/systelab-virtual-keyboard.public.ts)
 
 | Name      | Type | Default | Description |
 |-----------|:----:|:-------:| ----------- |
