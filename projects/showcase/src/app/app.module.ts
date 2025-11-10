@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SystelabVirtualKeyboardConfig, SystelabVirtualKeyboardModule } from 'systelab-virtual-keyboard';
+import { SystelabVirtualKeyboardModule } from 'systelab-virtual-keyboard';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { SystelabVirtualKeyboard } from '../../../systelab-virtual-keyboard/src/public-api';
 
 
-const virtualKeyboardConfig: SystelabVirtualKeyboardConfig = {}; // Use default configuration
+const virtualKeyboardConfig: SystelabVirtualKeyboard.Config = {}; // Use default configuration
 
 @NgModule({
     imports: [

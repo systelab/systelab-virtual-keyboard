@@ -9,9 +9,9 @@ import {
     Output
 } from '@angular/core';
 import { SimpleKeyboard } from 'simple-keyboard';
-import { SystelabVirtualKeyboardConstants } from './constants';
-import { SystelabVirtualKeyboardConfig, VIRTUAL_KEYBOARD_CONFIG } from './systelab-virtual-keyboard.config';
+import { SystelabVirtualKeyboardConstants } from './systelab-virtual-keyboard.constants';
 import { KeyboardOptions } from 'simple-keyboard/build/interfaces';
+import { SystelabVirtualKeyboard } from './systelab-virtual-keyboard.public';
 
 @Component({
     selector: 'systelab-virtual-keyboard.component',
@@ -42,20 +42,21 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     public debug = false;
-    private selectedLayout: SystelabVirtualKeyboardConstants.Layouts = SystelabVirtualKeyboardConstants.Layouts.Default;
+    private selectedLayout: SystelabVirtualKeyboard.Layouts | 'default' = 'default';
     private keyboard: SimpleKeyboard;
     private caretPosition: number | null = null;
     private caretPositionEnd: number | null = null;
     private activeInputElement!: HTMLInputElement | HTMLTextAreaElement | null;
 
-    private shiftPressed: boolean = false;
-    private capsLockOn: boolean = false;
+    private shiftPressed = false;
+    private specialKeysAlwaysUppercase = false;
+    private capsLockOn = false;
 
     @Output() closePanel = new EventEmitter<void>();
 
     constructor(
         private readonly elementRef: ElementRef<HTMLInputElement>,
-        @Optional() @Inject(VIRTUAL_KEYBOARD_CONFIG) private readonly virtualKeyboardConfig: SystelabVirtualKeyboardConfig) {}
+        @Optional() @Inject(SystelabVirtualKeyboardConstants.VIRTUAL_KEYBOARD_CONFIG) private readonly virtualKeyboardConfig: SystelabVirtualKeyboard.Config) {}
 
     ngAfterViewInit() {
         const keyboardOptions: KeyboardOptions = this.prepareKeyboardConfig();
@@ -81,12 +82,17 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         this.focusActiveInput();
     }
 
-    public setLayout(layout: SystelabVirtualKeyboardConstants.Layouts): void {
+    public setLayout(layout: SystelabVirtualKeyboard.Layouts | 'default'): void {
         this.selectedLayout = layout;
         if (this.keyboard) {
             this.keyboard.setOptions({
                 layoutName: layout,
             });
+
+            if (layout === SystelabVirtualKeyboard.Layouts.AlphaNumericUppercase || layout === SystelabVirtualKeyboard.Layouts.AlphaNumericUppercaseShift) {
+                this.specialKeysAlwaysUppercase = true;
+                this.addUppercaseClass();
+            }
         }
     }
 
@@ -105,12 +111,12 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         };
 
         if (this.virtualKeyboardConfig?.hasOwnProperty('inputMethod')) {
-            if (this.virtualKeyboardConfig.inputMethod === SystelabVirtualKeyboardConstants.InputMethods.onlyMouseEvents) {
+            if (this.virtualKeyboardConfig.inputMethod === SystelabVirtualKeyboard.InputMethods.onlyMouseEvents) {
                 keyboardOptions = {
                     ...keyboardOptions,
                     useMouseEvents: true,
                 }
-            } else if (this.virtualKeyboardConfig.inputMethod === SystelabVirtualKeyboardConstants.InputMethods.onlyTouchEvents) {
+            } else if (this.virtualKeyboardConfig.inputMethod === SystelabVirtualKeyboard.InputMethods.onlyTouchEvents) {
                 keyboardOptions = {
                     ...keyboardOptions,
                     useTouchEvents: true,
@@ -147,7 +153,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             console.log('Key press:', button);
         }
 
-        if (button[0] === '&' && button.length > 1) {
+        if (button.startsWith('&') && button.length > 1) {
             button = new DOMParser().parseFromString(button, 'text/html').body.textContent;
         }
 
@@ -209,6 +215,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     private removeUppercaseClass(): void {
+        if (this.specialKeysAlwaysUppercase) {
+            return;
+        }
         this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-uppercase');
         this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Lock, 'virtual-keyboard-uppercase');
         this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Tab, 'virtual-keyboard-uppercase');
@@ -259,7 +268,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         const eventInit: KeyboardEventInit = {
             bubbles: true,
             cancelable: true,
-            shiftKey: this.selectedLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift,
+            shiftKey: this.selectedLayout === SystelabVirtualKeyboard.Layouts.AlphaNumericShift,
             key: key,
             code: code,
             location: 0,
@@ -297,22 +306,22 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     private toggleShiftLayout(): void {
         const currentLayout = this.keyboard.options.layoutName;
-        let selectedLayout: SystelabVirtualKeyboardConstants.Layouts;
+        let selectedLayout: SystelabVirtualKeyboard.Layouts;
 
         switch (currentLayout) {
-            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric:
-            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift:
-                selectedLayout = currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumeric;
+            case SystelabVirtualKeyboard.Layouts.AlphaNumeric:
+            case SystelabVirtualKeyboard.Layouts.AlphaNumericShift:
+                selectedLayout = currentLayout === SystelabVirtualKeyboard.Layouts.AlphaNumeric ? SystelabVirtualKeyboard.Layouts.AlphaNumericShift : SystelabVirtualKeyboard.Layouts.AlphaNumeric;
                 break;
 
-            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase:
-            case SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift:
-                selectedLayout = currentLayout === SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase ? SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercaseShift : SystelabVirtualKeyboardConstants.Layouts.AlphaNumericUppercase;
+            case SystelabVirtualKeyboard.Layouts.AlphaNumericUppercase:
+            case SystelabVirtualKeyboard.Layouts.AlphaNumericUppercaseShift:
+                selectedLayout = currentLayout === SystelabVirtualKeyboard.Layouts.AlphaNumericUppercase ? SystelabVirtualKeyboard.Layouts.AlphaNumericUppercaseShift : SystelabVirtualKeyboard.Layouts.AlphaNumericUppercase;
                 break;
 
-            case SystelabVirtualKeyboardConstants.Layouts.Numeric:
-            case SystelabVirtualKeyboardConstants.Layouts.NumericShift:
-                selectedLayout = currentLayout === SystelabVirtualKeyboardConstants.Layouts.Numeric ? SystelabVirtualKeyboardConstants.Layouts.NumericShift : SystelabVirtualKeyboardConstants.Layouts.Numeric;
+            case SystelabVirtualKeyboard.Layouts.Numeric:
+            case SystelabVirtualKeyboard.Layouts.NumericShift:
+                selectedLayout = currentLayout === SystelabVirtualKeyboard.Layouts.Numeric ? SystelabVirtualKeyboard.Layouts.NumericShift : SystelabVirtualKeyboard.Layouts.Numeric;
                 break;
             default:
         }
@@ -323,7 +332,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     private isStandardButton(button: string) {
-        return button && !(button[0] === '{' && button[button.length - 1] === '}');
+        return button && !(button.startsWith('{') && button.endsWith('}'));
     }
 
     /*
@@ -401,7 +410,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             this.setCaretPosition(event.target.selectionStart, event.target.selectionEnd);
 
             if (this.debug) {
-                console.log('Caret at:', this.caretPosition, this.caretPositionEnd, event && event.target.tagName.toLowerCase(), event);
+                console.log('Caret at:', this.caretPosition, this.caretPositionEnd, event?.target.tagName.toLowerCase(), event);
             }
         } else if (event.type === 'pointerup' && this.activeInputElement === document.activeElement) {
             return;
