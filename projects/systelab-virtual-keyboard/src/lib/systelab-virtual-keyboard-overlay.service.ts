@@ -94,8 +94,8 @@ export class SystelabVirtualKeyboardOverlayService {
     }
 
     private initListener() {
-        document.addEventListener('click', this.handleClick.bind(this));
-        document.addEventListener('touchend', this.handleTouchEnd.bind(this));
+        document.addEventListener('click', this.handleClick.bind(this), true);
+        document.addEventListener('touchend', this.handleTouchEnd.bind(this), true);
     }
 
     private handleClick(event: MouseEvent) {
