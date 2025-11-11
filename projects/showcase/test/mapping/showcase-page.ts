@@ -1,5 +1,6 @@
 import { BasePage } from 'systelab-components-wdio-test';
 import { InputField } from './input-field';
+import { VirtualKeyboard } from './virtual-keyboard';
 
 
 export class ShowcasePage extends BasePage {
@@ -42,6 +43,11 @@ export class ShowcasePage extends BasePage {
     }
 
     public async tapOnBackground(): Promise<void> {
-        await this.byCSS('h1').tap();
+        await browser.execute('document.elementFromPoint(1, 1).click();');
+        try {
+            await VirtualKeyboard.get().getElementFinder().waitToBeDisplayed(3000);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
