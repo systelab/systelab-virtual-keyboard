@@ -6,7 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SystelabVirtualKeyboard } from '../../../systelab-virtual-keyboard/src/public-api';
 
 
-const virtualKeyboardConfig: SystelabVirtualKeyboard.Config = {}; // Use default configuration
+const virtualKeyboardConfig: SystelabVirtualKeyboard.Config = {
+    numericCloseOnEnter: true,
+}; // Use default configuration
 
 @NgModule({
     imports: [
