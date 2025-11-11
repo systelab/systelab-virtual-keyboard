@@ -14,6 +14,7 @@ export namespace SystelabVirtualKeyboard {
         inputMethod?: SystelabVirtualKeyboard.InputMethods;
         showIcon?: boolean;
         showOnMouseClick?: boolean;
+        numericCloseOnEnter?: boolean;
     }
 
     export enum InputMethods {
