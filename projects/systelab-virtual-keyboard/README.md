@@ -43,6 +43,7 @@ The configuration params are describe into the interface [Config](src/lib/systel
 | inputMethod | SystelabVirtualKeyboardInputMethods | | The method detected for the keyboard to click or touch the keys
 | showButton | boolean | false | Show or hide the button for showing the keyboard
 | showOnMouseClick | boolean | false | Shows virtual keyboard upon mouse click on input field
+| numericCloseOnEnter | boolean | false | Close virtual keyboard on numeric layouts upon a *enter* action
 
 ### Styling variables
 
