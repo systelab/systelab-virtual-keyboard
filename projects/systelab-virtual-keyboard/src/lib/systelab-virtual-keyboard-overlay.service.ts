@@ -33,9 +33,10 @@ export class SystelabVirtualKeyboardOverlayService {
     private clickAlreadyHandled: boolean = false;
     private touchEndAlreadyHandled: boolean = false;
 
-    constructor(private readonly overlay: Overlay) {
-        this.initListener();
-    }
+    private readonly boundHandleClick = this.handleClick.bind(this);
+    private readonly boundHandleTouchEnd = this.handleTouchEnd.bind(this);
+
+    constructor(private readonly overlay: Overlay) {}
 
     public isCreated(): boolean {
         return !!this.overlayRef;
@@ -70,6 +71,9 @@ export class SystelabVirtualKeyboardOverlayService {
         this.updateSize();
 
         this.open = true;
+
+        this.addListeners();
+
         return this.overlayRef.attach(new ComponentPortal(SystelabVirtualKeyboardComponent));
     }
 
@@ -86,6 +90,8 @@ export class SystelabVirtualKeyboardOverlayService {
     }
 
     public destroy(): void {
+        this.removeListeners();
+
         if (this.overlayRef) {
             this.overlayRef.dispose();
         }
@@ -93,9 +99,14 @@ export class SystelabVirtualKeyboardOverlayService {
         this.open = false;
     }
 
-    private initListener() {
-        document.addEventListener('click', this.handleClick.bind(this), true);
-        document.addEventListener('touchend', this.handleTouchEnd.bind(this), true);
+    private addListeners(): void {
+        document.addEventListener('click', this.boundHandleClick, true);
+        document.addEventListener('touchend', this.boundHandleTouchEnd, true);
+    }
+
+    private removeListeners(): void {
+        document.removeEventListener('click', this.boundHandleClick, true);
+        document.removeEventListener('touchend', this.boundHandleTouchEnd, true);
     }
 
     private handleClick(event: MouseEvent) {
