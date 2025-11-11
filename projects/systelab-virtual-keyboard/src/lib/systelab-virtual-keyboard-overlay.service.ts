@@ -104,8 +104,7 @@ export class SystelabVirtualKeyboardOverlayService {
             return;
         }
 
-        event.stopPropagation();
-        this.handleEventTarget(event.target);
+        this.handleEventTarget(event.target, event);
     }
 
     private handleTouchEnd(event: TouchEvent) {
@@ -114,11 +113,10 @@ export class SystelabVirtualKeyboardOverlayService {
             return;
         }
 
-        event.stopPropagation();
-        this.handleEventTarget(event.target);
+        this.handleEventTarget(event.target, event);
     }
 
-    private handleEventTarget(target: EventTarget) {
+    private handleEventTarget(target: EventTarget, event?: Event) {
         const showKeyboardButtonTarget: boolean = (target as HTMLElement)?.classList.contains('virtual-keyboard-show-button');
         const virtualKeyboardTarget: boolean = document.querySelector('.simple-keyboard')?.contains(target as Node);
         const inputElementTarget: boolean = this.inputOrigin?.contains(target as Node);
@@ -129,6 +127,7 @@ export class SystelabVirtualKeyboardOverlayService {
             !containsShowButton &&
             !showKeyboardButtonTarget) {
             if (this.isCreated()) {
+                event?.stopPropagation();
                 this.destroy();
             }
         }

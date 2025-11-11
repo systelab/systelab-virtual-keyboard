@@ -179,12 +179,16 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             }
         } else if (button === SystelabVirtualKeyboardConstants.Button.Done) {
             this.closePanel.emit();
+            e?.stopPropagation();
+            e?.preventDefault();
             return;
         } else if (
             this.virtualKeyboardConfig.numericCloseOnEnter &&
             button === SystelabVirtualKeyboardConstants.Button.Enter &&
             (this.selectedLayout === SystelabVirtualKeyboard.Layouts.Numeric || this.selectedLayout === SystelabVirtualKeyboard.Layouts.NumericShift)) {
             this.closePanel.emit();
+            e?.stopPropagation();
+            e?.preventDefault();
             return;
         }
 
