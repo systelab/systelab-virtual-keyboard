@@ -54,17 +54,6 @@ export namespace SystelabVirtualKeyboardConstants {
         [SystelabVirtualKeyboard.Layouts.NumericShift]: ['! @ # {bksp}', '$ % _ =', '& * ( -', '{shift} ) . {enter}'],
     };
 
-    export enum Button {
-        Done = '{done}',
-        Enter = '{enter}',
-        Shift = '{shift}',
-        Lock = '{lock}',
-        Backspace = '{bksp}',
-        Language = '{language}',
-        Space = '{space}',
-        Tab = '{tab}',
-    }
-
     export enum InputModes {
         text = 'text',
         numeric = 'numeric',

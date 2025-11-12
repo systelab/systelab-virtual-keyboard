@@ -37,13 +37,14 @@ The default behaviour can be changed through some attributes:
 
 The configuration params are describe into the interface [Config](src/lib/systelab-virtual-keyboard.public.ts)
 
-| Name      | Type | Default | Description |
-|-----------|:----:|:-------:| ----------- |
-| layout |  SystelabVirtualKeyboardLayouts | | Usually the virtual keyboard select the layout between *default* or *numeric* depending on the input type. But with the config object you can override this behaviour and force the desired layout. The available layouts are described in the enum *SystelabVirtualKeyboardLayouts*
-| inputMethod | SystelabVirtualKeyboardInputMethods | | The method detected for the keyboard to click or touch the keys
-| showButton | boolean | false | Show or hide the button for showing the keyboard
-| showOnMouseClick | boolean | false | Shows virtual keyboard upon mouse click on input field
-| numericCloseOnEnter | boolean | false | Close virtual keyboard on numeric layouts upon a *enter* action
+| Name      |                Type                 | Default | Description |
+|-----------|:-----------------------------------:|:-------:| ----------- |
+| layout |   SystelabVirtualKeyboardLayouts    |         | Usually the virtual keyboard select the layout between *default* or *numeric* depending on the input type. But with the config object you can override this behaviour and force the desired layout. The available layouts are described in the enum *SystelabVirtualKeyboardLayouts*
+| inputMethod | SystelabVirtualKeyboardInputMethods |         | The method detected for the keyboard to click or touch the keys
+| showButton |               boolean               |  false  | Show or hide the button for showing the keyboard
+| showOnMouseClick |               boolean               |  false  | Shows virtual keyboard upon mouse click on input field
+| numericCloseOnEnter |               boolean               |  false  | Close virtual keyboard on numeric layouts upon a *enter* action
+| actionText |               string                |  null   | Set the text for the action button ( enter one )
 
 ### Styling variables
 
@@ -53,5 +54,7 @@ The configuration params are describe into the interface [Config](src/lib/systel
 | --systelab-virtual-keyboard-background-color | #B2B2B2 | Background of the keyboard                
 | --systelab-virtual-keyboard-button-color | #E5E5E5 | Normal button background color            
 | --systelab-virtual-keyboard-button-font-color | #000000 | Normal button font color                  
+| --systelab-virtual-keyboard-action-button-color | #06038D | Action button background color            
+| --systelab-virtual-keyboard-action-button-font-color | #FFFFFF | Action button font color                  
 | --systelab-virtual-keyboard-active-special-button-color | #4D4D4D | Special buttons activation background color
 | --systelab-virtual-keyboard-active-special-button-font-color | #FFFFFF | Special buttons activation font color     

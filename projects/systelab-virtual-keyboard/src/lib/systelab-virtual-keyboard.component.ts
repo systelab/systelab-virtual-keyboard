@@ -42,6 +42,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     }
 
     public debug = false;
+    public config: SystelabVirtualKeyboard.Config;
     private selectedLayout: SystelabVirtualKeyboard.Layouts | 'default' = 'default';
     private keyboard: SimpleKeyboard;
     private caretPosition: number | null = null;
@@ -53,6 +54,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
     private capsLockOn = false;
 
     @Output() closePanel = new EventEmitter<void>();
+    @Output() keyPressed = new EventEmitter<string>();
 
     constructor(
         private readonly elementRef: ElementRef<HTMLInputElement>,
@@ -102,9 +104,9 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             mergeDisplay: true,
             theme: 'hg-theme-default hg-layout-default systelab-virtual-keyboard-theme',
             display: {
-                [SystelabVirtualKeyboardConstants.Button.Backspace]: 'back',
-                [SystelabVirtualKeyboardConstants.Button.Enter]: 'enter',
-                [SystelabVirtualKeyboardConstants.Button.Lock]: 'lock',
+                [SystelabVirtualKeyboard.Buttons.Backspace]: 'back',
+                [SystelabVirtualKeyboard.Buttons.Enter]: this.config?.actionText ?? 'enter',
+                [SystelabVirtualKeyboard.Buttons.Lock]: 'lock',
             },
             buttonTheme: this.buildButtonThemes(),
             layout: SystelabVirtualKeyboardConstants.LayoutDefinitions,
@@ -131,21 +133,21 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
         return [
             {
                 class: 'virtual-keyboard-delete-button',
-                buttons: `${SystelabVirtualKeyboardConstants.Button.Backspace}`,
+                buttons: `${SystelabVirtualKeyboard.Buttons.Backspace}`,
             },
             {
-                class: 'virtual-keyboard-enter-button',
-                buttons: `${SystelabVirtualKeyboardConstants.Button.Enter}`,
+                class: this.config?.actionText ? 'virtual-keyboard-enter-button virtual-keyboard-enter-button--action' : 'virtual-keyboard-enter-button',
+                buttons: `${SystelabVirtualKeyboard.Buttons.Enter}`,
             },
             {
                 class: 'virtual-keyboard-function-button',
-                buttons: `${SystelabVirtualKeyboardConstants.Button.Shift} ${SystelabVirtualKeyboardConstants.Button.Lock}`,
+                buttons: `${SystelabVirtualKeyboard.Buttons.Shift} ${SystelabVirtualKeyboard.Buttons.Lock}`,
             }
         ]
     }
 
     private setButtonClasses(): void {
-        this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-button');
+        this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Shift, 'virtual-keyboard-shift-button');
     }
 
     private handleKeyPress(button: string, e?: Event): void {
@@ -157,35 +159,29 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             button = new DOMParser().parseFromString(button, 'text/html').body.textContent;
         }
 
-        if (button === SystelabVirtualKeyboardConstants.Button.Shift ) {
+        this.keyPressed.emit(button);
+
+        if (button === SystelabVirtualKeyboard.Buttons.Shift ) {
             this.shiftPressed = !this.shiftPressed;
             this.toggleShiftLayout();
             if (this.shiftPressed) {
-                this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
+                this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Shift, 'virtual-keyboard-shift-active');
                 this.addUppercaseClass();
             } else {
-                this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
+                this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Shift, 'virtual-keyboard-shift-active');
                 this.removeUppercaseClass();
             }
-        } else if (button === SystelabVirtualKeyboardConstants.Button.Lock) {
+        } else if (button === SystelabVirtualKeyboard.Buttons.Lock) {
             this.capsLockOn = !this.capsLockOn;
             this.toggleShiftLayout();
             if (this.capsLockOn) {
-                this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Lock, 'virtual-keyboard-lock-active');
+                this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Lock, 'virtual-keyboard-lock-active');
                 this.addUppercaseClass();
             } else {
-                this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Lock, 'virtual-keyboard-lock-active');
+                this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Lock, 'virtual-keyboard-lock-active');
                 this.removeUppercaseClass();
             }
-        } else if (button === SystelabVirtualKeyboardConstants.Button.Done) {
-            this.closePanel.emit();
-            e?.stopPropagation();
-            e?.preventDefault();
-            return;
-        } else if (
-            this.virtualKeyboardConfig.numericCloseOnEnter &&
-            button === SystelabVirtualKeyboardConstants.Button.Enter &&
-            (this.selectedLayout === SystelabVirtualKeyboard.Layouts.Numeric || this.selectedLayout === SystelabVirtualKeyboard.Layouts.NumericShift)) {
+        } else if (button === SystelabVirtualKeyboard.Buttons.Done) {
             this.closePanel.emit();
             e?.stopPropagation();
             e?.preventDefault();
@@ -213,39 +209,39 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             this.removeUppercaseClass();
         }
         this.shiftPressed = false;
-        this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-shift-active');
+        this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Shift, 'virtual-keyboard-shift-active');
     }
 
     private addUppercaseClass(): void {
-        this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-uppercase');
-        this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Lock, 'virtual-keyboard-uppercase');
-        this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Tab, 'virtual-keyboard-uppercase');
-        this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Backspace, 'virtual-keyboard-uppercase');
-        this.keyboard.addButtonTheme(SystelabVirtualKeyboardConstants.Button.Enter, 'virtual-keyboard-uppercase');
+        this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Shift, 'virtual-keyboard-uppercase');
+        this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Lock, 'virtual-keyboard-uppercase');
+        this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Tab, 'virtual-keyboard-uppercase');
+        this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Backspace, 'virtual-keyboard-uppercase');
+        this.keyboard.addButtonTheme(SystelabVirtualKeyboard.Buttons.Enter, 'virtual-keyboard-uppercase');
     }
 
     private removeUppercaseClass(): void {
         if (this.specialKeysAlwaysUppercase) {
             return;
         }
-        this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Shift, 'virtual-keyboard-uppercase');
-        this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Lock, 'virtual-keyboard-uppercase');
-        this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Tab, 'virtual-keyboard-uppercase');
-        this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Backspace, 'virtual-keyboard-uppercase');
-        this.keyboard.removeButtonTheme(SystelabVirtualKeyboardConstants.Button.Enter, 'virtual-keyboard-uppercase');
+        this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Shift, 'virtual-keyboard-uppercase');
+        this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Lock, 'virtual-keyboard-uppercase');
+        this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Tab, 'virtual-keyboard-uppercase');
+        this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Backspace, 'virtual-keyboard-uppercase');
+        this.keyboard.removeButtonTheme(SystelabVirtualKeyboard.Buttons.Enter, 'virtual-keyboard-uppercase');
     }
 
     private handleButtonOutput(button: string): string {
         const commonParams: [number, number, boolean] = this.getCommonParams();
         let output = this.activeInputElement?.value || '';
         if (!this.isStandardButton(button)) {
-            if (button === SystelabVirtualKeyboardConstants.Button.Backspace) {
+            if (button === SystelabVirtualKeyboard.Buttons.Backspace) {
                 output = this.removeAt(output, ...commonParams);
-            } else if (button === SystelabVirtualKeyboardConstants.Button.Space) {
+            } else if (button === SystelabVirtualKeyboard.Buttons.Space) {
                 output = this.addStringAt(output, ' ', ...commonParams);
-            } else if (button === SystelabVirtualKeyboardConstants.Button.Tab) {
+            } else if (button === SystelabVirtualKeyboard.Buttons.Tab) {
                 // Do nothing for tab
-            } else if (button === SystelabVirtualKeyboardConstants.Button.Enter) {
+            } else if (button === SystelabVirtualKeyboard.Buttons.Enter) {
                 if (this.isTextarea) {
                     output = this.addStringAt(output, '\n', ...commonParams);
                 }
@@ -265,10 +261,10 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     private isAcceptedNonStandardButton(button: string): boolean {
         return [
-            SystelabVirtualKeyboardConstants.Button.Backspace.toString(),
-            SystelabVirtualKeyboardConstants.Button.Space.toString(),
-            SystelabVirtualKeyboardConstants.Button.Tab.toString(),
-            SystelabVirtualKeyboardConstants.Button.Enter.toString(),
+            SystelabVirtualKeyboard.Buttons.Backspace.toString(),
+            SystelabVirtualKeyboard.Buttons.Space.toString(),
+            SystelabVirtualKeyboard.Buttons.Tab.toString(),
+            SystelabVirtualKeyboard.Buttons.Enter.toString(),
         ].includes(button);
     }
 
@@ -303,7 +299,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             code = key;
 
             // Fix to standard key code
-            if (code.toLowerCase() === SystelabVirtualKeyboardConstants.Button.Backspace.slice(1, SystelabVirtualKeyboardConstants.Button.Backspace.length - 1).toLowerCase()) {
+            if (code.toLowerCase() === SystelabVirtualKeyboard.Buttons.Backspace.slice(1, SystelabVirtualKeyboard.Buttons.Backspace.length - 1).toLowerCase()) {
                 code = 'Backspace';
             }
         } else {
