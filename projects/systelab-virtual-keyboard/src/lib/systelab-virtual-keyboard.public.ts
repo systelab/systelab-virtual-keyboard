@@ -15,6 +15,7 @@ export namespace SystelabVirtualKeyboard {
         showIcon?: boolean;
         showOnMouseClick?: boolean;
         numericCloseOnEnter?: boolean;
+        actionText?: string;
     }
 
     export enum InputMethods {
@@ -29,5 +30,16 @@ export namespace SystelabVirtualKeyboard {
         AlphaNumericUppercaseShift = 'alpha-numeric-uppercase-shift',
         Numeric = 'numeric',
         NumericShift = 'numeric-shift',
+    }
+
+    export enum Buttons {
+        Done = '{done}',
+        Enter = '{enter}',
+        Shift = '{shift}',
+        Lock = '{lock}',
+        Backspace = '{bksp}',
+        Language = '{language}',
+        Space = '{space}',
+        Tab = '{tab}',
     }
 }

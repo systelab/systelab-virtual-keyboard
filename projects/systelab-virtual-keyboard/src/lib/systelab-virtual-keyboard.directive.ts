@@ -13,12 +13,14 @@ import {
     Directive,
     DOCUMENT,
     ElementRef,
+    EventEmitter,
     HostListener,
     Inject,
     Input,
     OnDestroy,
     OnInit,
     Optional,
+    Output,
     Renderer2
 } from '@angular/core';
 
@@ -121,6 +123,8 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     private panelRef!: ComponentRef<SystelabVirtualKeyboardComponent>;
     private showKeyboardButtonElement: HTMLElement;
 
+    @Output() vkOnKeyPress = new EventEmitter<string>();
+
     constructor(
         private readonly elementRef: ElementRef<HTMLInputElement>,
         private readonly overlayService: SystelabVirtualKeyboardOverlayService,
@@ -152,6 +156,10 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         this.overlayService.destroy();
     }
 
+    public close(): void {
+        this.closePanel();
+    }
+
     private togglePanel(): void {
         if (!this.vkEnabled) {
             return;
@@ -180,7 +188,10 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         this.panelRef.instance.debug = this.vkDebug;
         this.panelRef.instance.setActiveInput(this.elementRef.nativeElement);
         this.panelRef.instance.setLayout(currentLayout);
+        this.panelRef.instance.config = this.config;
         this.panelRef.instance.closePanel.subscribe(() => this.closePanel());
+
+        this.panelRef.instance.keyPressed.subscribe((key: string) => this.vkOnKeyPress.emit(key));
     }
 
     private getLayout(activeInputElement: HTMLInputElement | HTMLTextAreaElement): SystelabVirtualKeyboard.Layouts {

@@ -1,7 +1,5 @@
 import { BasePage, ElementArrayFinder, ElementFinder } from 'systelab-components-wdio-test';
-import {
-    SystelabVirtualKeyboardConstants
-} from '../../../systelab-virtual-keyboard/src/lib/systelab-virtual-keyboard.constants';
+import { SystelabVirtualKeyboard } from '../../../systelab-virtual-keyboard/src/lib/systelab-virtual-keyboard.public';
 
 
 export class VirtualKeyboard extends BasePage {
@@ -46,27 +44,27 @@ export class VirtualKeyboard extends BasePage {
     }
 
     public async tapOnBackspace(): Promise<void> {
-        await this.tapOnKey(SystelabVirtualKeyboardConstants.Button.Backspace);
+        await this.tapOnKey(SystelabVirtualKeyboard.Buttons.Backspace);
     }
 
     public async tapOnTab(): Promise<void> {
-        await this.tapOnKey(SystelabVirtualKeyboardConstants.Button.Tab);
+        await this.tapOnKey(SystelabVirtualKeyboard.Buttons.Tab);
     }
 
     public async tapOnCapsLock(): Promise<void> {
-        await this.tapOnKey(SystelabVirtualKeyboardConstants.Button.Lock);
+        await this.tapOnKey(SystelabVirtualKeyboard.Buttons.Lock);
     }
 
     public async tapOnShift(): Promise<void> {
-        await this.tapOnKey(SystelabVirtualKeyboardConstants.Button.Shift);
+        await this.tapOnKey(SystelabVirtualKeyboard.Buttons.Shift);
     }
 
     public async tapOnEnter(): Promise<void> {
-        await this.tapOnKey(SystelabVirtualKeyboardConstants.Button.Enter);
+        await this.tapOnKey(SystelabVirtualKeyboard.Buttons.Enter);
     }
 
     public async tapOnSpace(): Promise<void> {
-        await this.tapOnKey(SystelabVirtualKeyboardConstants.Button.Space);
+        await this.tapOnKey(SystelabVirtualKeyboard.Buttons.Space);
     }
 
     public async tapOnKey(keyValue: string): Promise<void> {
