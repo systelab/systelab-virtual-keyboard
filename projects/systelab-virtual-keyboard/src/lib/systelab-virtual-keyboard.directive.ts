@@ -157,7 +157,9 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
     }
 
     public close(): void {
-        this.closePanel();
+        setTimeout(() => {
+            this.closePanel();
+        }, 200);
     }
 
     private togglePanel(): void {
@@ -189,6 +191,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         this.panelRef.instance.setActiveInput(this.elementRef.nativeElement);
         this.panelRef.instance.setLayout(currentLayout);
         this.panelRef.instance.config = this.config;
+        this.panelRef.instance.fixedBottom = this.vkFixedBottom;
         this.panelRef.instance.closePanel.subscribe(() => this.closePanel());
 
         this.panelRef.instance.keyPressed.subscribe((key: string) => this.vkOnKeyPress.emit(key));

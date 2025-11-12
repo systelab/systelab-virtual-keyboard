@@ -1,4 +1,4 @@
-<section class="main-container">
+<section class="main-container" (click)="backgroundClicked()">
     <h1>Virtual Keyboard Showcase</h1>
 
     <div id="no-keyboard-directive" class="input-container">
@@ -23,8 +23,8 @@
     </div>
 
     <div id="manual-numeric-layout-field-with-action-text" class="input-container">
-        <input class="input" type="text" placeholder="Manually configured numeric layout with action text" vkEnabled
-               [vkConfig]="vkConfigNumericLayoutWithActionText">
+        <input #inputElement class="input" type="text" placeholder="Manually configured numeric layout with action text" vkEnabled
+               [vkConfig]="vkConfigNumericLayoutWithActionText" (vkOnKeyPress)="keyPressed($event)">
     </div>
 
     <div id="show-virtual-keyboard-icon-field" class="input-container">

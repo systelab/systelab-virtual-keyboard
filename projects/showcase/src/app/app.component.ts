@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { SystelabVirtualKeyboard } from 'systelab-virtual-keyboard';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SystelabVirtualKeyboard, SystelabVirtualKeyboardDirective } from 'systelab-virtual-keyboard';
 import { environment } from '../environments/environment';
 
 
@@ -10,6 +10,8 @@ import { environment } from '../environments/environment';
     standalone: false,
 })
 export class AppComponent implements OnInit {
+    @ViewChild('inputElement', { read: SystelabVirtualKeyboardDirective }) vkDirective!: SystelabVirtualKeyboardDirective;
+
     public vkEnabled: boolean = false;
 
     public vkConfigNumericLayout: SystelabVirtualKeyboard.Config = {
@@ -31,6 +33,17 @@ export class AppComponent implements OnInit {
 
     public vkConfigMouseClick: SystelabVirtualKeyboard.Config = {
         showOnMouseClick: true,
+    }
+
+    public backgroundClicked(): void {
+        console.log('Background clicked!');
+    }
+
+    public keyPressed(key: string): void {
+        if (key === SystelabVirtualKeyboard.Buttons.Enter) {
+            console.log('Enter pressed');
+            this.vkDirective.close();
+        }
     }
 
     ngOnInit() {

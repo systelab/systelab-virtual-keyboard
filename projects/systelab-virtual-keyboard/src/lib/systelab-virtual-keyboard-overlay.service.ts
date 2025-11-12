@@ -139,6 +139,7 @@ export class SystelabVirtualKeyboardOverlayService {
             !showKeyboardButtonTarget) {
             if (this.isCreated()) {
                 event?.stopPropagation();
+                event?.preventDefault();
                 this.destroy();
             }
         }

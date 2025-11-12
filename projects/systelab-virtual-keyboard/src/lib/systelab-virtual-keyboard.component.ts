@@ -43,6 +43,8 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     public debug = false;
     public config: SystelabVirtualKeyboard.Config;
+    public fixedBottom: boolean;
+
     private selectedLayout: SystelabVirtualKeyboard.Layouts | 'default' = 'default';
     private keyboard: SimpleKeyboard;
     private caretPosition: number | null = null;
@@ -100,7 +102,7 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
 
     private prepareKeyboardConfig(): KeyboardOptions {
         let keyboardOptions: KeyboardOptions = {
-            onKeyPress: (button) => this.handleKeyPress(button),
+            onKeyPress: (button, e) => this.handleKeyPress(button, e),
             mergeDisplay: true,
             theme: 'hg-theme-default hg-layout-default systelab-virtual-keyboard-theme',
             display: {
@@ -183,8 +185,6 @@ export class SystelabVirtualKeyboardComponent implements AfterViewInit {
             }
         } else if (button === SystelabVirtualKeyboard.Buttons.Done) {
             this.closePanel.emit();
-            e?.stopPropagation();
-            e?.preventDefault();
             return;
         }
 
