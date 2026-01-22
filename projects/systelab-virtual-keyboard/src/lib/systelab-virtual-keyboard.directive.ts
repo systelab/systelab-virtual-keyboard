@@ -35,10 +35,10 @@ import { SystelabVirtualKeyboard } from './systelab-virtual-keyboard.public';
     standalone: false,
 })
 export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, OnDestroy {
-    @HostListener('window:touchmove', ['$event'])
-    @HostListener('window:touchend', ['$event'])
-    @HostListener('window:wheel', ['$event'])
-    @HostListener('document:scroll', ['$event'])
+    @HostListener('window:touchmove')
+    @HostListener('window:touchend')
+    @HostListener('window:wheel')
+    @HostListener('document:scroll')
     onDocumentScroll() {
         if (!this.vkEnabled) {
             return;
@@ -46,7 +46,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         this.overlayService.updatePosition();
     }
 
-    @HostListener('click', ['$event'])
+    @HostListener('click')
     onClick(): void {
         if (!this.vkEnabled || !this.config.showOnMouseClick) {
             return;
@@ -57,7 +57,7 @@ export class SystelabVirtualKeyboardDirective implements OnInit, AfterViewInit, 
         this.openPanel();
     }
 
-    @HostListener('touchend', ['$event'])
+    @HostListener('touchend')
     onTouchEnd(): void {
         if (!this.vkEnabled) {
             return;
