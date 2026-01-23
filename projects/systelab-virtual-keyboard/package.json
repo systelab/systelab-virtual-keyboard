@@ -5,8 +5,8 @@
         "@angular/common": "^21.0.0",
         "@angular/core": "^21.0.0",
         "@angular/cdk": "^21.0.0",
-        "simple-keyboard": "~3.8.71",
-        "simple-keyboard-layouts": "~3.4.114"
+        "simple-keyboard": "~3.8.93",
+        "simple-keyboard-layouts": "~3.4.147"
     },
     "dependencies": {
         "tslib": "^2.3.0"
