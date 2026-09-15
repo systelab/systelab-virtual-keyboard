@@ -11,5 +11,10 @@
     "dependencies": {
         "tslib": "^2.3.0"
     },
+    "repository": "https://github.com/systelab/systelab-virtual-keyboard",
+    "homepage": "https://github.com/systelab/systelab-virtual-keyboard",
+    "bugs": {
+        "url": "https://github.com/systelab/systelab-virtual-keyboard/issues"
+    },
     "sideEffects": false
 }
